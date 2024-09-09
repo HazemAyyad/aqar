@@ -23,11 +23,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class PropertyController extends Controller
 {
+    protected function generateArabicSlug($title)
+    {
+        // Replace spaces with hyphens, keeping Arabic characters intact
+        $slug = preg_replace('/\s+/u', '-', trim($title));
 
+        // Optionally, remove any characters that aren't letters, numbers, or hyphens
+        $slug = preg_replace('/[^\p{L}\p{N}\-]+/u', '', $slug);
+
+        return $slug;
+    }
+
+    public function generateUniqueSlug($title, $column = 'slug', $lang = 'ar')
+    {
+        if ($lang == 'ar') {
+            $slug = $this->generateArabicSlug($title);
+        } else {
+            $slug = Str::slug($title);
+        }
+
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Property::where($column, $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
+
+    public function generateSlug(Request $request)
+    {
+        $lang = $request->get('lang', 'en'); // Default to 'en' if no language is provided
+        $slug = $this->generateUniqueSlug($request->name, 'slug', $lang);
+        return response()->json(['slug' => $slug]);
+    }
     public function index(){
         $properties=Property::query()
             ->with([
@@ -40,6 +76,43 @@ class PropertyController extends Controller
                 'user' // Include the related user
             ])->paginate(10);
                 return view('user_dashboard.properties.index',compact('properties'));
+
+    }
+    public function reviews(){
+        $user = Auth::user(); // Get the authenticated user
+
+        // Fetch all properties owned by the authenticated user
+        $properties = $user->properties()->pluck('id'); // Get all property IDs owned by the user
+
+        // Fetch all reviews for the user's properties
+        $reviews = PropertyReviews::whereIn('property_id', $properties) // Match reviews by property_id
+        ->with('property','user') // Eager load the property relationship
+        ->paginate(10);
+
+        return view('user_dashboard.reviews.index',compact('reviews'));
+
+
+    }
+    public function update_status_review(Request $request, $review)
+    {
+        $validated = $request->validate([
+            'status' => 'required|integer|in:0,1,2',
+        ]);
+        $review=PropertyReviews::query()->findOrFail($review);
+        $review->status = $validated['status'];
+        $review->save();
+
+        return response()->json(['status' => true, 'msg' => "operation accomplished successfully"]);
+    }
+    public function delete_review($id)
+    {
+        $review =PropertyReviews::query()->where(['id' => $id])->first();
+        $review->delete();
+        $arr = array('msg' => 'There are some errors, try again', 'status' => false);
+        if($review){
+            $arr = array('msg' => "operation accomplished successfully", 'status' => true);
+        }
+        return Response()->json($arr);
 
     }
 
@@ -366,7 +439,8 @@ class PropertyController extends Controller
                     }
                 }
                 if (count($request->images) != 0) {
-                    PropertyImage::query()->where('property_id',$id)->delete();
+                    // Delete old images first
+                    PropertyImage::query()->where('property_id', $id)->delete();
                     foreach ($request->images as $image) {
                         PropertyImage::query()->create([
                             'property_id' => $property->id,

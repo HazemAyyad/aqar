@@ -253,7 +253,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="currency">{{__('Currency')}}:</label>
-                                                            <select id="currency" name="currency" class="select2 form-select">
+                                                            <select id="currency" name="currency" class="select2 form-control">
                                                                 @foreach($uniqueCurrencies as $currency)
 
                                                                     <option value="{{ $currency}}">{{$currency}}</option>
@@ -527,7 +527,7 @@
                                             <h6 class="title">{{__('Categories')}}</h6>
                                             <div class="card-body">
                                                 <div class="form-group mb-3">
-                                                    <select name="category_id" id="category_id" class="form-select select2">
+                                                    <select name="category_id" id="category_id" class="form-control select2">
 
                                                         @foreach($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -583,7 +583,13 @@
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script >
+        $(document).ready(function() {
+            $('.form-select').niceSelect(); // If you're using niceSelect for styling
 
+
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const nameInput = document.querySelector('input[name="name"]');
@@ -598,7 +604,7 @@
                     // Show the loading spinner
                     loadingSpinner.classList.remove('d-none');
 
-                    fetch('{{ route('admin.properties.generate.slug') }}', {
+                    fetch('{{ route('user.properties.generate.slug') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

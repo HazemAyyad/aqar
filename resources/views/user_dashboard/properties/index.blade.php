@@ -27,12 +27,16 @@
                             <td>
                                 <div class="listing-box">
                                     <div class="images">
-                                        <img src="{{$property->images[0]->img}}" alt="images">
+                                        @php
+                                            $imagePath = asset($property->images[0]->img);
+                                            $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
+                                        @endphp
+                                        <img src="{{$correctedImagePath}}" alt="images">
                                     </div>
                                     <div class="content">
                                         <div class="title">
                                             <a href="{{config('app.url')}}/properties/property/{{$property->slug}}" class="link">
-                                                {{$property->name}}
+                                                {{$property->title}}
                                             </a>
                                         </div>
                                         <div class="text-date">

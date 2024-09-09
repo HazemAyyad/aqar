@@ -56,22 +56,24 @@ Route::middleware('auth:web')->prefix('user')->name('user.')->group(function () 
 
     Route::as('properties.')->group(function () {
         Route::get('properties', [PropertyController::class, 'index'])->name('index');
-        Route::get('get_properties', [PropertyController::class, 'get_properties'])->name('get_properties');
-        Route::get('/property/edit/{id}', [PropertyController::class, 'edit'])->name('edit');
+         Route::get('/property/edit/{id}', [PropertyController::class, 'edit'])->name('edit');
         Route::post('/property/update/{id}', [PropertyController::class, 'update'])->name('update');
         Route::get('/property/create', [PropertyController::class, 'create'])->name('create');
         Route::post('/property/store', [PropertyController::class, 'store'])->name('store');
         Route::delete('/property/delete/{id}', [PropertyController::class, 'delete'])->name('delete');
         Route::get('/property/sold/{id}', [PropertyController::class, 'sold'])->name('sold');
+        Route::post('/property/generate-slug', [PropertyController::class, 'generateSlug'])->name('generate.slug');
 
     });
 
     Route::as('favorites.')->group(function () {
         Route::get('favorites', [FavoriteController::class, 'index'])->name('index');
-        Route::get('get_favorites', [FavoriteController::class, 'get_properties'])->name('get_properties');
-        Route::delete('/favorite/delete/{id}', [FavoriteController::class, 'delete'])->name('delete');
+         Route::delete('/favorite/delete/{id}', [FavoriteController::class, 'delete'])->name('delete');
 
     });
+    Route::get('/reviews', [PropertyController::class, 'reviews'])->name('reviews.index');
+    Route::put('reviews/update-status/{review}', [PropertyController::class, 'update_status_review'])->name('reviews.update_status');
+         Route::delete('/reviews/delete/{id}', [PropertyController::class, 'delete_review'])->name('reviews.delete');
 });
 
 

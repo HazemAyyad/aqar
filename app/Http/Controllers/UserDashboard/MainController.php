@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
+use Ramsey\Uuid\Uuid;
 
 class MainController extends Controller
 {
@@ -88,7 +89,7 @@ class MainController extends Controller
     function upload($file)
     {
 
-        $image_name = '/public/upload/properties/' . time() . '.' . $file->getClientOriginalExtension();
+        $image_name = '/public/upload/properties/' . Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
         $file->move(env('PATH_FILE_URL').'/upload/properties/', $image_name);
         return $image_name;
 

@@ -777,23 +777,29 @@
             },
             url: "{{ route('admin.images.store') }}", // Set the url
             success: function(file, response) {
-                $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">')
-                uploadedDocumentMap[file.name] = response.name
+                $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
             },
             removedfile: function(file) {
-                file.previewElement.remove()
-                var name = ''
+                console.log(file.file_name)
+                console.log(file.name)
+                file.previewElement.remove(); // Remove the file preview from the UI
+
+                var name = '';
                 if (typeof file.file_name !== 'undefined') {
-                    name = file.file_name
+                    name = file.file_name; // Use file name if it's already defined
                 } else {
-                    name = uploadedDocumentMap[file.name]
+                    name = uploadedDocumentMap[file.name]; // Otherwise, get it from the map
                 }
-                $('form').find('input[name="images[]"][value="' + name + '"]').remove()
+
+                // Remove the corresponding hidden input
+                $('form').find('input[type="hidden"][value="' + name + '"]').remove();
+                delete uploadedDocumentMap[file.name]; // Also remove from the map
             },
+
             // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
 
             init: function() {
-                // Pre-existing images
                 var existingImages = {!! json_encode($property->images) !!};
                 for (var i in existingImages) {
                     var file = existingImages[i];
@@ -804,6 +810,7 @@
                     $('form').append('<input type="hidden" name="images[]" value="' + file.img + '">');
                 }
             }
+
         }
 
         $.validator.addMethod('filesize', function(value, element, param) {

@@ -12,7 +12,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable,HasRoles;
     protected $guard = 'web';
-
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'user_id');
+    }
     public function favorites()
     {
         return $this->hasMany(Favorite::class);

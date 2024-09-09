@@ -111,7 +111,7 @@
                                             <a class="dropdown-item" href="{{route('user.properties.index')}}">My Properties</a>
                                             <a class="dropdown-item" href="my-invoices.html">My Invoices</a>
                                             <a class="dropdown-item" href="{{route('user.favorites.index')}}">My Favorites</a>
-                                            <a class="dropdown-item" href="reviews.html">Reviews</a>
+                                            <a class="dropdown-item" href="{{route('user.reviews.index')}}">Reviews</a>
                                             <a class="dropdown-item" href="{{route('user.profile.index')}}">My Profile</a>
                                             <a class="dropdown-item" href="{{route('user.properties.create')}}">Add Property</a>
 
@@ -176,7 +176,7 @@
                     <li class="nav-menu-item"><a class="nav-menu-link" href="{{route('user.properties.index')}}"><span class="icon icon-list-dashes"></span>My Properties</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link" href="my-invoices.html"><span class="icon icon-file-text"></span> My Invoices</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link" href="{{route('user.favorites.index')}}"><span class="icon icon-heart"></span>My Favorites</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link" href="reviews.html"><span class="icon icon-review"></span> Reviews</a></li>
+                    <li class="nav-menu-item"><a class="nav-menu-link" href="{{route('user.reviews.index')}}"><span class="icon icon-review"></span> Reviews</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link" href="{{route('user.profile.index')}}"><span class="icon icon-profile"></span> My Profile</a></li>
                     <li class="nav-menu-item"><a class="nav-menu-link" href="{{route('user.properties.create')}}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
