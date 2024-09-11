@@ -14,10 +14,10 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{route('dashboard')}}">{{__('Home')}}</a>
+                    <a href="{{route('admin.dashboard')}}">{{__('Home')}}</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{route('staff.index')}}">{{__('Staff')}}</a>
+                    <a href="{{route('admin.staff.index')}}">{{__('Staff')}}</a>
                 </li>
                 <li class="breadcrumb-item active">{{__('Create Staff')}}</li>
                 <!-- Basic table -->
@@ -40,17 +40,14 @@
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{__('Name')}}" />
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="username">{{__('User Name')}}</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="{{__('User Name')}}" />
+                                <label class="form-label" for="email">{{__('Email')}}</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" />
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="mobile">{{__('Mobile')}}</label>
                                 <input type="number" class="form-control" id="mobile" name="mobile" placeholder="{{__('Mobile')}}" />
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" for="email">{{__('Email')}}</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="{{__('Email')}}" />
-                            </div>
+
                             <div class="form-group">
                                 <label class="form-label" for="password">{{__('Password')}}</label>
 
@@ -95,7 +92,7 @@
 
     <script>
 
-        var data_url='{{ route('staff.store')}}'
+        var data_url='{{ route('admin.staff.store')}}'
 
         $(document).ready(function() {
             function myHandel(obj, id) {

@@ -56,28 +56,33 @@ class RoleController extends Controller
 //        return $permissions;
         return view('dashboard.roles.add', compact('permissions'));
     }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:roles,name',
+            'permission' => 'required|array',
+            'permission.*' => 'exists:permissions,id', // Use id to validate
         ]);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
-
             $input = $request->all();
 
             return response(
                 ["responseJSON" => $errors,
                     "input" => $input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
         }
+
         DB::beginTransaction();
         try {
             $role = Role::create([
                 'name' => $request->name,
-                'guard_name' => 'web',
+                'guard_name' => 'admin',
             ]);
-            $role->syncPermissions($request->permission);
+
+            // Synchronize permissions
+            $role->permissions()->sync($request->permission);
+
             DB::commit();
             return response()->json(['success' => "The process has successfully"]);
         } catch (Throwable $e) {
@@ -85,7 +90,8 @@ class RoleController extends Controller
             throw $e;
         }
     }
-    public function show($id)
+
+     public function show($id)
     {
         $role = Role::query()->find($id);
         $rolePermissions = Permission::query()->join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")

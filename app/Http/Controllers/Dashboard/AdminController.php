@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dashboard\Admin;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
 
 
-        return DataTables::of(User::query() )
+        return DataTables::of(Admin::query() )
             ->addIndexColumn()
             ->addColumn('action', function($row) use ($request){
 
@@ -103,7 +103,7 @@ class AdminController extends Controller
     }
     public function edit($id)
     {
-        $admin = User::query()->findOrFail($id);
+        $admin = Admin::query()->findOrFail($id);
         $roles = Role::pluck('name', 'name')->all();
         //        return $roles;
         $userRole = $admin->roles->pluck('name', 'name')->all();
@@ -142,7 +142,7 @@ class AdminController extends Controller
 
         if ($validator->passes()) {
 
-            $user = User::query()->create($data);
+            $user = Admin::query()->create($data);
             $user->assignRole($request->input('type'));
 
             return response()->json(['success' => "The process has successfully"]);
@@ -150,7 +150,7 @@ class AdminController extends Controller
     }
     public function status(Request $request, $id)
     {
-        $admin =  User::find($id);
+        $admin =  Admin::find($id);
         $validator = Validator::make($request->all(), [
             'status' => 'required',
         ]);
@@ -161,7 +161,7 @@ class AdminController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
-        $admin =  User::query()->where('id', $id)
+        $admin =  Admin::query()->where('id', $id)
             ->update($data);
 
         if ($validator->passes()) {
@@ -170,12 +170,12 @@ class AdminController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $admin = User::find($id);
+        $admin = Admin::find($id);
         $validator = Validator::make($request->all(), [
             'type' => 'required',
             'name' => 'required',
-            'mobile' => 'required|unique:users,mobile,' . $id,
-            'email' => 'required|unique:users,email,' . $id,
+            'mobile' => 'required|unique:admins,mobile,' . $id,
+            'email' => 'required|unique:admins,email,' . $id,
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -191,7 +191,7 @@ class AdminController extends Controller
         if ($validator->passes()) {
 
 
-            User::query()->where('id', $id)->update($data);
+            Admin::query()->where('id', $id)->update($data);
             DB::table('model_has_roles')->where('model_id', $id)->delete();
             $admin->assignRole($request->input('type'));
             return response()->json(['success' => "The process has successfully"]);

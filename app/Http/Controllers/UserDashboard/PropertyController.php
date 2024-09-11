@@ -66,6 +66,7 @@ class PropertyController extends Controller
     }
     public function index(){
         $properties=Property::query()
+            ->where('user_id',Auth::id())
             ->with([
                 'images' => function ($query) {
                     $query->take(1); // Limit to the first image

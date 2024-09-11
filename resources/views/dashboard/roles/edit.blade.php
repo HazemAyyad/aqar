@@ -66,41 +66,28 @@
     </style>
 @endsection
 @section('content')
-    <!-- BEGIN: Content-->
-    <div class="app-content content ">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">{{__('Edit Role')}}</h2>
-                            <div class="breadcrumb-wrapper">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Home')}}</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="{{route('admin.roles.index')}}">{{__('Roles')}}</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">{{__('Edit Role')}}
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content-body">
-                <!-- Validation -->
-                <section class="bs-validation">
-                    <div class="row">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{route('admin.roles.index')}}">{{__('Roles')}}</a>
+                </li>
+                <li class="breadcrumb-item active">{{__('Edit Role')}}</li>
+                <!-- Basic table -->
 
-                        <!-- jQuery Validation -->
-                        <div class="col-md-12 col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">{{__('Edit Role')}}</h4>
-                                </div>
+
+                <!--/ Basic table -->
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{__('Edit Property')}}</h5>
+                    </div>
                                 <div class="card-body">
                                     <form id="mainAdd" method="post" action="javascript:void(0)">
                                         @csrf
@@ -177,13 +164,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- /jQuery Validation -->
-                    </div>
-                </section>
-                <!-- /Validation -->
-
+                </div>
             </div>
         </div>
     </div>

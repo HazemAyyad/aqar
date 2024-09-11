@@ -55,6 +55,84 @@
         color: #FFFFFF !important;
     }
 </style>
+    <style>
+        .menu-language {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-language .menu-trigger {
+            font-family: "Josefin Sans", sans-serif;
+            display: inline-block;
+            text-align: center;
+            line-height: 26px;
+            font-weight: 600;
+            padding: 15px 20px;
+            color: #161e2d;
+            font-size: 16px;
+            text-transform: capitalize;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            transition: all 300ms ease;
+            text-decoration: none; /* Make sure it looks like a link */
+        }
+
+        .menu-language .menu-trigger::before {
+            content: "";
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            background: #ED2027;
+            transition: width 0.3s ease;
+        }
+
+        .menu-language .menu-trigger:hover::before {
+            width: 100%;
+        }
+
+        .menu-language .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff;
+            border: 1px solid #e4e4e4;
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-language:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: scaleY(1);
+        }
+
+        .menu-language .dropdown-item {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #5c6368;
+            text-transform: capitalize;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-language .dropdown-item:hover {
+            background-color: #f1f1f1;
+            color: #000;
+        }
+
+
+
+    </style>
 </head>
 
 <body class="body counter-scroll">
@@ -126,6 +204,32 @@
                                 <!-- Main Menu End-->
                             </div>
                             <div class="header-account">
+
+
+
+
+                                                                <div class="language-dropdown">
+                                    <a class="lang-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            @if (LaravelLocalization::getCurrentLocale() !== $localeCode)
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                        {{ $properties['native'] }}
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+
+
+
+
+
+
                                 <div class="register">
                                     <ul class="d-flex">
                                         <li><a href="#modalLogin" data-bs-toggle="modal">Login</a></li>
@@ -153,6 +257,7 @@
                 <nav class="menu-box">
                     <div class="nav-logo"><a href="{{route('site.index')}}"><img src="{{asset('/site/images/logo/logo@2x.png')}}" alt="nav-logo" width="174" height="44"></a></div>
                     <div class="bottom-canvas">
+
                         <div class="login-box flex align-items-center">
                             <a href="#modalLogin" data-bs-toggle="modal">Login</a>
                             <span>/</span>

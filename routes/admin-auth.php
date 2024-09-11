@@ -65,7 +65,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::post('/staff/status/{id}', [AdminController::class, 'status'])->name('status');
         Route::post('/staff/update_password/{id}', [AdminController::class, 'update_password'])->name('update_password');
         Route::post('/staff/update/{id}', [AdminController::class, 'update'])->name('update');
-        Route::delete('/staff/delete/{id}', [AdminController::class, 'destroy'])->name('delete');
+        Route::delete('/staff/delete/{id}', [AdminController::class, 'delete'])->name('delete');
 
 
     });
