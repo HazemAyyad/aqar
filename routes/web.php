@@ -7,6 +7,7 @@ use App\Http\Controllers\UserDashboard\UserController;
 use App\Http\Controllers\UserDashboard\SocialAuthController;
 
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Site\NewsletterController;
 use App\Http\Controllers\Site\FavoriteController;
 use App\Models\Dashboard\Property;
 use Illuminate\Support\Facades\Route;
@@ -15,12 +16,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
      Route::as('site.')->group(function () {
          ;
+         Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+
          Route::get('auth/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('auth.social');
          Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback']);
 
         Route::get('/', [SiteController::class, 'main_page'])->name('index');
         Route::get('/privacy-policy', [SiteController::class, 'privacy_policy'])->name('privacy-policy');
         Route::post('/contact-seller/{seller_id?}', [SiteController::class, 'send_email_to_seller'])->name('contact-seller');
+        Route::post('/contact-site', [SiteController::class, 'send_email_to_site'])->name('contact-site');
          Route::get('social-share', [SiteController::class, 'share']);
          Route::get('/update-links', function () {
              DB::statement("
@@ -30,6 +34,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         ");
 
              return 'Links updated successfully!';
+         });
+         Route::get('/insert-setting', function () {
+             DB::insert("INSERT INTO `settings` (id, `key`, `value`, `value_ar`, `name`, `name_ar`, `page`, `created_at`, `updated_at`)
+        VALUES (NULL, 'main_logo', NULL, NULL, 'main_logo', 'main_logo', NULL, NULL, NULL)");
+             DB::insert("INSERT INTO `settings` (id, `key`, `value`, `value_ar`, `name`, `name_ar`, `page`, `created_at`, `updated_at`)
+        VALUES (NULL, 'secondary_logo', NULL, NULL, 'secondary_logo', 'secondary_logo', NULL, NULL, NULL)");
+             DB::insert("INSERT INTO `settings` (`id`, `key`, `value`, `value_ar`, `name`, `name_ar`, `page`, `created_at`, `updated_at`) VALUES (NULL, 'address', NULL, NULL, 'address_en', 'address_ar', NULL, NULL, NULL);");
+             return "Setting inserted successfully!";
          });
              Route::get('properties', [SiteController::class, 'properties'])->name('properties');
              Route::get('properties/city/{slug_city}', [SiteController::class, 'properties_city'])->name('properties.city');

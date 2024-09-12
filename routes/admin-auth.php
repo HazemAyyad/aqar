@@ -205,7 +205,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
         Route::get('settings', [SettingController::class, 'index'])->name('index');
         Route::get('settings/{page_name}', [SettingController::class, 'page'])->name('page');
-        Route::post('settings/update_about_us/{page_name}', [SettingController::class, 'update_about_us'])->name('page.update_about_us');
+        Route::post('settings/update_about_us/{page_name}', [SettingController::class, 'update_settings'])->name('page.update_about_us');
+        Route::post('settings/update_settings/{page_name}', [SettingController::class, 'update_settings'])->name('page.update_settings');
         Route::post('settings/update/{page_name}', [SettingController::class, 'page_update'])->name('page.update');
         Route::post('setting/update', [SettingController::class, 'update'])->name('update');
 

@@ -167,9 +167,14 @@
                             <div data-i18n="{{__('Countries')}}">{{__('Countries')}}</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="{{route('admin.settings.index')}}" class="menu-link">
+{{--                    <li class="menu-item">--}}
+{{--                        <a href="{{route('admin.settings.index')}}" class="menu-link">--}}
 
+{{--                            <div data-i18n="{{__('Settings')}}">{{__('Settings')}}</div>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                    <li class="menu-item">
+                        <a href="{{route('admin.settings.page','settings')}}" class="menu-link">
                             <div data-i18n="{{__('Settings')}}">{{__('Settings')}}</div>
                         </a>
                     </li>

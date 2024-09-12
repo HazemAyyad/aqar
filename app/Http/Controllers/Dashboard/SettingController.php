@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class SettingController extends Controller
 {
@@ -22,6 +23,8 @@ class SettingController extends Controller
         $setting['slogan_ar'] = Setting::query()->where('key','slogan_ar')->first()->value;
         $setting['contact_us'] = Setting::query()->where('key','contact_us')->first()->value;
         $setting['contact_us_ar'] = Setting::query()->where('key','contact_us_ar')->first()->value;
+        $setting['main_logo'] = Setting::query()->where('key','main_logo')->first()->value;
+        $setting['secondary_logo'] = Setting::query()->where('key','secondary_logo')->first()->value;
 
         return view('dashboard.settings.index',compact('setting'));
 
@@ -77,21 +80,127 @@ class SettingController extends Controller
 
         return response()->json(['success' => __('Settings updated successfully!')]);
     }
+    public function update_settings(Request $request, $page_name)
+    {
+        // Fetch the settings based on the page identifier (e.g., page name)
+        $settings = Setting::where('page', $page_name)->get();
 
-    public function update(Request $request){
+        // Loop through each setting and update it based on the key
+        foreach ($settings as $setting) {
+            switch ($setting->key) {
+                case 'description':
+                    $setting->value = $request->input('description_en');
+                    $setting->value_ar = $request->input('description_ar');
+                    break;
 
-        $name_input=[];
-        foreach($request->all() as $name => $value)
-        {
-            $name_input[]= $name; //it will give you "name"
-            Setting::query()->where('key', $name)->update([
-                'value' => $value,
-            ]);
+                case 'img-video':
+                    if ($request->hasFile('img-video')) {
+                        $image_url = $request->file('img-video');
+                        $image_name = '/uploads/img-videos/' . time() . '.' . $image_url->getClientOriginalExtension();
+                        $image_url->move(public_path('uploads/img-videos'), $image_name);
+                        $setting->value = $image_name; // Save the file path in the database
+                    }
+                    break;
+
+                case 'video':
+                    $setting->value = $request->input('video');
+                    break;
+
+                case 'why_choose_us':
+                    $setting->value = $request->input('why_choose_us');
+                    $setting->value_ar = $request->input('why_choose_us_ar');
+                    break;
+
+                case 'whatsapp':
+                    $setting->value = $request->input('whatsapp');
+                    break;
+
+                case 'youtube':
+                    $setting->value = $request->input('youtube');
+                    break;
+
+                case 'twitter':
+                    $setting->value = $request->input('twitter');
+                    break;
+
+                case 'facebook':
+                    $setting->value = $request->input('facebook');
+                    break;
+
+                case 'instagram':
+                    $setting->value = $request->input('instagram');
+                    break;
+
+                case 'linkedin':
+                    $setting->value = $request->input('linkedin');
+                    break;
+
+                case 'slogan':
+                    $setting->value = $request->input('slogan');
+                    $setting->value_ar = $request->input('slogan_ar');
+                    break;
+
+                case 'contact_us':
+                    $setting->value = $request->input('contact_us');
+                    $setting->value_ar = $request->input('contact_us_ar');
+                    break;
+
+                case 'address':
+                    $setting->value = $request->input('address');
+                    $setting->value_ar = $request->input('address_ar');
+                    break;
+
+                case 'main_logo':
+                    if ($request->hasFile('main_logo')) {
+                        $image_url = $request->file('main_logo');
+                        $image_name = '/uploads/logos/' . time() . '.' . $image_url->getClientOriginalExtension();
+                        $image_url->move(public_path('uploads/logos'), $image_name);
+                        $setting->value = $image_name; // Save the file path in the database
+                    }
+                    break;
+
+                case 'secondary_logo':
+                    if ($request->hasFile('secondary_logo')) {
+                        $image_url = $request->file('secondary_logo');
+                        $image_name = '/uploads/logos/' . time() . '.' . $image_url->getClientOriginalExtension();
+                        $image_url->move(public_path('uploads/logos'), $image_name);
+                        $setting->value = $image_name; // Save the file path in the database
+                    }
+                    break;
+            }
+
+            $setting->save(); // Save the updated setting
         }
 
-            return response()->json(['success'=>"The process has successfully"]);
-
+        return response()->json(['success' => __('Settings updated successfully!')]);
     }
+
+
+    public function update(Request $request)
+    {
+        // Loop through all request inputs
+        foreach ($request->all() as $name => $value) {
+            // Check if the input is a file and handle file uploads
+            if ($request->hasFile($name)) {
+                $file = $request->file($name);
+                $file_name = '/uploads/settings/' . Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/settings/'), $file_name);
+
+                // Update the setting in the database with the file path
+                Setting::query()->where('key', $name)->update([
+                    'value' => $file_name,
+                ]);
+            } else {
+                // Update other settings
+                Setting::query()->where('key', $name)->update([
+                    'value' => $value,
+                ]);
+            }
+        }
+
+        return response()->json(['success' => "The process has been successfully completed."]);
+    }
+
     public function page_update(Request $request){
         // return $request;
         $name_input=[];
