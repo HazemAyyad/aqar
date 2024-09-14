@@ -175,10 +175,7 @@
                     </div>
                     <div class="text-variant-1 auth-line">or sign up with</div>
                     <div class="login-social">
-{{--                        <a href="{{ route('site.auth.social','facebook') }}" class="btn-login-social">--}}
-{{--                            <img src="{{asset('/site/images/logo/fb.jpg')}}" alt="img">--}}
-{{--                            Continue with Facebook--}}
-{{--                        </a>--}}
+
                         <a href="{{ route('site.auth.social','google') }}" class="btn-login-social">
                             <img src="{{asset('/site/images/logo/google.jpg')}}" alt="img">
                             Continue with Google
@@ -195,6 +192,7 @@
         </div>
     </div>
 </div>
+
 <!-- popup register -->
 <div class="modal fade" id="modalRegister">
     <div class="modal-dialog modal-dialog-centered">
