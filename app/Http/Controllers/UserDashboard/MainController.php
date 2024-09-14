@@ -48,7 +48,7 @@ class MainController extends Controller
             ->whereIn('property_id', $propertyIds)
             ->with('user')
             ->get()
-            ->groupBy('property_id');
+            ->groupBy('property_id'); 
 
 
         return view('user_dashboard.index',compact('properties','reviews'));

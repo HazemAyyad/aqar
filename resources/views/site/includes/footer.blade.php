@@ -7,7 +7,7 @@
                     <img src="images/logo/logo-footer@2x.png" alt="logo-footer" width="174" height="44">
                 </div>
                 <div class="wd-social">
-                    <span>Follow Us:</span>
+                    <span>{{__('Follow Us')}}:</span>
                     <ul class="list-social d-flex align-items-center">
                         <li><a href="#" class="box-icon w-40 social"><i class="icon icon-facebook"></i></a></li>
                         <li><a href="#" class="box-icon w-40 social"><i class="icon icon-linkedin"></i></a></li>
@@ -37,7 +37,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-cl-1">
 
-                        <p class="text-variant-2">Specializes in providing high-class tours for those in need. Contact Us</p>
+                        <p class="text-variant-2">{{__('Specializes in providing high-class tours for those in need. Contact Us')}}</p>
                         <ul class="mt-12">
                             <li class="mt-12 d-flex align-items-center gap-8">
                                 <i class="icon icon-mapPinLine fs-20 text-variant-2"></i>
@@ -57,41 +57,41 @@
                 </div>
                 <div class="col-lg-2 col-md-6 col-6">
                     <div class="footer-cl-2">
-                        <div class="fw-7 text-white">Categories</div>
+                        <div class="fw-7 text-white">{{__('Categories')}}</div>
                         <ul class="mt-10 navigation-menu-footer">
-{{--                            <li> <a href="pricing.html" class="caption-1 text-variant-2">Pricing Plans</a> </li>--}}
+{{--                            <li> <a href="pricing.html" class="caption-1 text-variant-2">{{__('Pricing Plans')}}</a> </li>--}}
 
-                            <li> <a href="{{route('site.services')}}" class="caption-1 text-variant-2">Our Services</a> </li>
+                            <li> <a href="{{route('site.services')}}" class="caption-1 text-variant-2">{{__('Our Services')}}</a> </li>
 
-                            <li> <a href="{{route('site.about-us')}}" class="caption-1 text-variant-2">About Us</a> </li>
+                            <li> <a href="{{route('site.about-us')}}" class="caption-1 text-variant-2">{{__('About Us')}}</a> </li>
 
-                            <li> <a href="{{route('site.contact')}}" class="caption-1 text-variant-2">Contact Us</a> </li>
+                            <li> <a href="{{route('site.contact')}}" class="caption-1 text-variant-2">{{__('Contact Us')}}</a> </li>
 
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <div class="footer-cl-3">
-                        <div class="fw-7 text-white">Our Company</div>
+                        <div class="fw-7 text-white">{{__('Our Company')}}</div>
                         <ul class="mt-10 navigation-menu-footer">
-                            <li> <a href="{{ route('site.properties', ['tab' => 'sale']) }}" class="caption-1 text-variant-2">Property For Sale</a> </li>
+                            <li> <a href="{{ route('site.properties', ['tab' => 'sale']) }}" class="caption-1 text-variant-2">{{__('Property For Sale')}}</a> </li>
 
-                            <li> <a href="{{ route('site.properties', ['tab' => 'rent']) }}" class="caption-1 text-variant-2">Property For Rent</a> </li>
+                            <li> <a href="{{ route('site.properties', ['tab' => 'rent']) }}" class="caption-1 text-variant-2">{{__('Property For Rent')}}</a> </li>
 
-                            <li> <a href="{{route('site.index')}}#agents" class="caption-1 text-variant-2">Our Agents</a> </li>
+                            <li> <a href="{{route('site.index')}}#agents" class="caption-1 text-variant-2">{{__('Our Agents')}}</a> </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-cl-4">
                         <div class="fw-7 text-white">
-                            Newsletter
+                            {{__('News letter')}}
                         </div>
-                        <p class="mt-12 text-variant-2">Your Weekly/Monthly Dose of Knowledge and Inspiration</p>
+                        <p class="mt-12 text-variant-2">{{__('Your Weekly/Monthly Dose of Knowledge and Inspiration')}}</p>
                         <form class="mt-12" id="subscribe-form" action="#" method="post" accept-charset="utf-8" data-mailchimp="true">
                             <div id="subscribe-content">
                                 <span class="icon-left icon-mail"></span>
-                                <input type="email" name="email-form" id="subscribe-email" placeholder="Your email address"/>
+                                <input type="email" name="email-form" id="subscribe-email" placeholder="{{__('Your email address')}}"/>
                                 <button type="button" id="subscribe-button" class="button-subscribe"><i class="icon icon-send"></i></button>
                             </div>
                             <div id="subscribe-msg"></div>
@@ -105,13 +105,13 @@
     <div class="bottom-footer">
         <div class="container">
             <div class="content-footer-bottom">
-                <div class="copyright">©2024 {{config('app.name')}}. All Rights Reserved.</div>
+                <div class="copyright">©2024 {{config('app.name')}}. {{__('All Rights Reserved')}}.</div>
 
                 <ul class="menu-bottom">
-                    <li><a href="{{route('site.services')}}">Terms Of Services</a> </li>
+                    <li><a href="{{route('site.services')}}">{{__('Terms Of Services')}}</a> </li>
 
-                    <li><a href="{{route('site.privacy-policy')}}">Privacy Policy</a> </li>
-{{--                    <li><a href="contact.html">Cookie Policy</a> </li>--}}
+                    <li><a href="{{route('site.privacy-policy')}}">{{__('Privacy Policy')}}</a> </li>
+{{--                    <li><a href="contact.html">{{__('Cookie Policy')}}</a> </li>--}}
 
                 </ul>
             </div>

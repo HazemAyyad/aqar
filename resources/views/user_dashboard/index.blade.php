@@ -37,7 +37,7 @@
             <div class="content-box">
                 <div class="title-count">Favorite</div>
                 <div class="d-flex align-items-end">
-                    <h6 class="number" data-speed="2000" data-to="1" data-inviewport="yes">1</h6>
+                    <h6 class="number" data-speed="2000" data-to="1" data-inviewport="yes">0</h6>
                 </div>
 
             </div>

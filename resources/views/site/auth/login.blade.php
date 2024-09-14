@@ -107,18 +107,18 @@
                     </div>
                     <!-- /Logo -->
                     <h4 class="mb-1 pt-2">Welcome to {{config('app.name')}}! 👋</h4>
-                    <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                    <p class="mb-4">{{__('Please sign-in to your account and start the adventure')}}</p>
 
                     <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email or Username</label>
+                            <label for="email" class="form-label">{{__('Email or Username')}}</label>
                             <input
                                 type="text"
                                 class="form-control @error('email') is-invalid @enderror"
                                 id="email"
                                 name="email"
-                                placeholder="Enter your email or username"
+                                placeholder="{{__('Enter your email or username')}}"
                                 autofocus
                             />
                             @error('email')

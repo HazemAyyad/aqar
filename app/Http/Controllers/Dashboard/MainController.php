@@ -59,7 +59,7 @@ class MainController extends Controller
         $file->move(env('PATH_FILE_URL').'/uploads/photos/', $image_name);
         return $image_name;
 
-}
+} 
     public function saveProjectImages(Request $request)
     {
 

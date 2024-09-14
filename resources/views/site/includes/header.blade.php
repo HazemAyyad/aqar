@@ -20,8 +20,11 @@
     <link rel="stylesheet" href="{{asset('/site/css/apexcharts.css')}}">
     <link rel="stylesheet"type="text/css" href="{{asset('/site/css/jqueryui.min.css')}}"/>
     @yield('style')
+    @if (App::isLocale('en'))
     <link rel="stylesheet"type="text/css" href="{{asset('/site/css/styles.css')}}"/>
-
+    @else
+    <link rel="stylesheet"type="text/css" href="{{asset('/site/css-rtl/styles.css')}}"/>
+    @endif
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="{{asset('/site/images/logo/favicon.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('/site/images/logo/favicon.png')}}">
@@ -29,6 +32,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+          @font-face {
+            font-family: 'Bahij TheSansArabic';
+            src: url({{asset('site/font/BahijTheSansArabic-Plain.eot')}}');
+            src: url({{asset('site/font/BahijTheSansArabic-Plain.eot?#iefix')}}) format('embedded-opentype'),
+                url({{asset('site/font/BahijTheSansArabic-Plain.woff2')}}) format('woff2'),
+                url({{asset('site/font/BahijTheSansArabic-Plain.woff')}}) format('woff'),
+                url({{asset('site/font/BahijTheSansArabic-Plain.ttf')}}) format('truetype'),
+                url({{asset('site/font/BahijTheSansArabic-Plain.svg#BahijTheSansArabic-Plain')}}) format('svg');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bahij Bold';
+            src: url({{asset('site/font/BahijTheSansArabic-Bold.eot')}}');
+            src: url({{asset('site/font/BahijTheSansArabic-Bold.eot?#iefix')}}) format('embedded-opentype'),
+                url({{asset('site/font/BahijTheSansArabic-Bold.woff2')}}) format('woff2'),
+                url({{asset('site/font/BahijTheSansArabic-Bold.woff')}}) format('woff'),
+                url({{asset('site/font/BahijTheSansArabic-Bold.ttf')}}) format('truetype'),
+                url({{asset('site/font/BahijTheSansArabic-Bold.svg#BahijTheSansArabic-Bold')}}) format('svg');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        * {
+            font-family: 'Bahij TheSansArabic';
+            font-style: normal;
+
+        }
+
         .error {
             color: #ed2027 !important;
         }
@@ -175,26 +208,26 @@
                                 <nav class="main-menu show navbar-expand-md">
                                     <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                         <ul class="navigation clearfix">
-                                            <li class=" home current"><a href="{{route('site.index')}}#">Home</a>
+                                            <li class=" home current"><a href="{{route('site.index')}}#">{{__('Home')}}</a>
 {{--                                                <ul>--}}
-{{--                                                    <li class="current"><a href="{{route('site.index')}}">Home</a></li>--}}
+{{--                                                    <li class="current"><a href="{{route('site.index')}}">{{__('Home')}}</a></li>--}}
 
 
 {{--                                                </ul>--}}
                                             </li>
-                                            <li class=" "><a href="{{route('site.properties')}}">Properties</a>
+                                            <li class=" "><a href="{{route('site.properties')}}">{{__('Properties')}}</a>
 
                                             </li>
 
 
-                                            <li class=" "><a href="{{route('site.blogs')}}">Blogs</a>
+                                            <li class=" "><a href="{{route('site.blogs')}}">{{__('Blogs')}}</a>
 
                                             </li>
 
-                                            <li class="dropdown2"><a href="#">More</a>
+                                            <li class="dropdown2"><a href="#">{{__('More')}}</a>
                                                 <ul>
-                                                    <li><a href="{{route('site.faqs')}}">FAQs</a></li>
-                                                    <li><a href="{{route('site.about-us')}}">About Us</a></li>
+                                                    <li><a href="{{route('site.faqs')}}">{{__('FAQs')}}</a></li>
+                                                    <li><a href="{{route('site.about-us')}}">{{__('About Us')}}</a></li>
 
                                                 </ul>
                                             </li>
@@ -232,13 +265,13 @@
 
                                 <div class="register">
                                     <ul class="d-flex">
-                                        <li><a href="#modalLogin" data-bs-toggle="modal">Login</a></li>
+                                        <li><a href="#modalLogin" data-bs-toggle="modal">{{__('Login')}}</a></li>
                                         <li>/</li>
-                                        <li><a href="#modalRegister" data-bs-toggle="modal">Register</a></li>
+                                        <li><a href="#modalRegister" data-bs-toggle="modal">{{__('Register')}}</a></li>
                                     </ul>
                                 </div>
                                 <div class="flat-bt-top">
-                                    <a class="tf-btn primary" href="{{route('user.properties.create')}}">Submit Property</a>
+                                    <a class="tf-btn primary" href="{{route('user.properties.create')}}">{{__('Submit Property')}}</a>
                                 </div>
                             </div>
 
@@ -259,13 +292,13 @@
                     <div class="bottom-canvas">
 
                         <div class="login-box flex align-items-center">
-                            <a href="#modalLogin" data-bs-toggle="modal">Login</a>
+                            <a href="#modalLogin" data-bs-toggle="modal">{{__('Login')}}</a>
                             <span>/</span>
-                            <a href="#modalRegister" data-bs-toggle="modal">Register</a>
+                            <a href="#modalRegister" data-bs-toggle="modal">{{__('Register')}}</a>
                         </div>
                         <div class="menu-outer"></div>
                         <div class="button-mobi-sell">
-                            <a class="tf-btn primary" href="{{route('user.properties.create')}}">Submit Property</a>
+                            <a class="tf-btn primary" href="{{route('user.properties.create')}}">{{__('Submit Property')}}</a>
                         </div>
                         <div class="mobi-icon-box">
                             <div class="box d-flex align-items-center">
