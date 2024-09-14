@@ -10,14 +10,14 @@
                         <div class="slider-content">
                             <div class="heading text-center">
                                 <h1 class="text-white animationtext slide">
-                                    Find Your
+                                    {{__('Find Your')}}
                                     <span class="tf-text s1 cd-words-wrapper">
-                                                <span class="item-text is-visible">Dream Home</span>
-                                                <span class="item-text is-hidden">Perfect Home</span>
-                                                <span class="item-text is-hidden">Real Estate</span>
+                                                <span class="item-text is-visible">{{__('Dream Home')}}</span>
+                                                <span class="item-text is-hidden">{{__('Perfect Home')}}</span>
+                                                <span class="item-text is-hidden">{{__('Real Estate')}}</span>
                                             </span>
                                 </h1>
-                                <p class="subtitle text-white body-1 wow fadeIn" data-wow-delay=".8s" data-wow-duration="2000ms">We are a real estate agency that will help you find the best residence you dream of, let’s discuss for your dream house?</p>
+                                <p class="subtitle text-white body-1 wow fadeIn" data-wow-delay=".8s" data-wow-duration="2000ms">{{__('We are a real estate agency that will help you find the best residence you dream of, let’s discuss for your dream house?')}}</p>
                             </div>
                             @include('site.includes.filter_search_master') <!-- Extract the search form into a partial -->
 
@@ -35,13 +35,13 @@
         <section class="flat-section flat-recommended">
             <div class="container">
                 <div class="text-center wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    <div class="text-subtitle text-primary">Featured Properties</div>
-                    <h4 class="mt-4">Recommended For You</h4>
+                    <div class="text-subtitle text-primary">{{__('Featured Properties')}}</div>
+                    <h4 class="mt-4">{{__('Recommended For You')}}</h4>
                 </div>
                 <div class="flat-tab-recommended wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
                     <ul class="nav-tab-recommended justify-content-center" role="tablist">
                         <li class="nav-tab-item" role="presentation">
-                            <a href="#viewAll" class="nav-link-item"  data-bs-toggle="tab">View All</a>
+                            <a href="#viewAll" class="nav-link-item"  data-bs-toggle="tab">{{__('View All')}}</a>
                         </li>
                         @foreach($categories as $category)
                              <li class="nav-tab-item" role="presentation">
@@ -171,7 +171,7 @@
 
                                 </div>
                                 <div class="text-center">
-                                    <a href="{{route('site.properties')}}" target="_blank" class="tf-btn primary size-1">View All Properties</a>
+                                    <a href="{{route('site.properties')}}" target="_blank" class="tf-btn primary size-1">{{__('View All Properties')}}</a>
                                 </div>
                             </div>
 
@@ -293,7 +293,7 @@
 
                                 </div>
                                 <div class="text-center">
-                                    <a href="{{config('app.url')}}/property-category/{{$category->slug}}" target="_blank" class="tf-btn primary size-1">View All Properties</a>
+                                    <a href="{{config('app.url')}}/property-category/{{$category->slug}}" target="_blank" class="tf-btn primary size-1">{{__('View All Properties')}}</a>
                                 </div>
                             </div>
                         @endforeach
@@ -306,12 +306,13 @@
 
         </section>
         <!-- End Recommended -->
+
         <!-- Location -->
         <section class="flat-section-v3 flat-location bg-surface">
             <div class="container-full">
                 <div class="box-title text-center wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    <div class="text-subtitle text-primary">Explore Cities</div>
-                    <h4 class="mt-4">Our Location For You</h4>
+                    <div class="text-subtitle text-primary">{{__('Explore Cities')}}</div>
+                    <h4 class="mt-4">{{__('Our Location For You')}}</h4>
                 </div>
                 <div class="wow fadeInUpSmall" data-wow-delay=".4s" data-wow-duration="2000ms">
                     <div class="swiper tf-sw-location overlay" data-preview-lg="4.1" data-preview-md="3" data-preview-sm="2" data-space="30" data-centered="true" data-loop="true">
@@ -351,10 +352,10 @@
             <div class="container">
                 <div class="box-title style-1 wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
                     <div class="box-left">
-                        <div class="text-subtitle text-primary">Our Services</div>
-                        <h4 class="mt-4">What We Do?</h4>
+                        <div class="text-subtitle text-primary">{{__('Our Services')}}</div>
+                        <h4 class="mt-4">{{__('What We Do?')}}</h4>
                     </div>
-                    <a href="{{route('site.services')}}" class="btn-view"><span class="text">View All Services</span> <span class="icon icon-arrow-right2"></span> </a>
+                    <a href="{{route('site.services')}}" class="btn-view"><span class="text">{{__('View All Services')}}</span> <span class="icon icon-arrow-right2"></span> </a>
                 </div>
                 <div class="flat-service wrap-service wow fadeInUpSmall" data-wow-delay=".4s" data-wow-duration="2000ms">
                     @foreach($services as $service)
@@ -369,7 +370,7 @@
                             <div class="content">
                                 <h6 class="title">{{$service->title}}</h6>
                                 <p class="description">{{$service->description}}</p>
-                                <a href="#" class="btn-view style-1"><span class="text">Learn More</span> <span class="icon icon-arrow-right2"></span> </a>
+                                <a href="#" class="btn-view style-1"><span class="text">{{__('Learn More')}}</span> <span class="icon icon-arrow-right2"></span> </a>
                             </div>
                         </div>
                     @endforeach
@@ -381,25 +382,25 @@
                         <div class="count-number">
                             <div class="number" data-speed="2000" data-to="85" data-inviewport="yes">85</div>
                         </div>
-                        <div class="title-count">Satisfied Clients</div>
+                        <div class="title-count">{{__('Satisfied Clients')}}</div>
                     </div>
                     <div class="counter-box">
                         <div class="count-number">
                             <div class="number" data-speed="2000" data-to="112" data-inviewport="yes">112</div>
                         </div>
-                        <div class="title-count">Awards Received</div>
+                        <div class="title-count">{{__('Awards Received')}}</div>
                     </div>
                     <div class="counter-box">
                         <div class="count-number">
                             <div class="number" data-speed="2000" data-to="32" data-inviewport="yes">32</div>
                         </div>
-                        <div class="title-count">Successful Transactions</div>
+                        <div class="title-count">{{__('Successful Transactions')}}</div>
                     </div>
                     <div class="counter-box">
                         <div class="count-number">
                             <div class="number" data-speed="2000" data-to="66" data-inviewport="yes">66</div>
                         </div>
-                        <div class="title-count">Monthly Traffic</div>
+                        <div class="title-count">{{__('Monthly Traffic')}}</div>
                     </div>
                 </div>
             </div>
@@ -409,8 +410,8 @@
         <section class="flat-section flat-benefit bg-surface">
             <div class="container">
                 <div class="box-title text-center wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    <div class="text-subtitle text-primary">Our Benefits</div>
-                    <h4 class="mt-4">Why Choose {{config('app.name')}}</h4>
+                    <div class="text-subtitle text-primary">{{__('Our Benefits')}}</div>
+                    <h4 class="mt-4">{{__('Why Choose')}} {{config('app.name')}}</h4>
                 </div>
                 <div class="wrap-benefit wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
                     @foreach($benefits as $benefit)
@@ -439,10 +440,10 @@
             <div class="container">
                 <div class="box-title style-1 wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
                     <div class="box-left">
-                        <div class="text-subtitle text-primary">Top Properties</div>
-                        <h4 class="mt-4">Best Property Value</h4>
+                        <div class="text-subtitle text-primary">{{__('Top Properties')}}</div>
+                        <h4 class="mt-4">{{__('Best Property Value')}}</h4>
                     </div>
-                    <a href="{{route('site.properties')}}" class="tf-btn primary size-1">View All</a>
+                    <a href="{{route('site.properties')}}" class="tf-btn primary size-1">{{__('View All')}}</a>
                 </div>
                 <div class="wrap-property">
                     <!-- resources/views/top-properties.blade.php -->
@@ -561,7 +562,7 @@
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <h6>{{ $property->price->price }}</h6>
-                                            <span class="text-variant-1">/month</span>
+                                            <span class="text-variant-1">/{{__('month')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -699,10 +700,10 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3">
                         <div class="box-title">
-                            <div class="text-subtitle text-primary">Top Properties</div>
-                            <h4 class="mt-4">What’s people say’s</h4>
+                            <div class="text-subtitle text-primary">{{__('Top Properties')}}</div>
+                            <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
                         </div>
-                        <p class="text-variant-1 p-16">Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</p>
+                        <p class="text-variant-1 p-16">{{__('Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.')}}</p>
                         <div class="box-navigation">
                             <div class="navigation swiper-nav-next nav-next-testimonial"><span class="icon icon-arr-l"></span></div>
                             <div class="navigation swiper-nav-prev nav-prev-testimonial"><span class="icon icon-arr-r"></span></div>
@@ -757,8 +758,8 @@
         <section class="flat-section flat-agents" id="agents">
             <div class="container">
                 <div class="box-title text-center wow fadeIn" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    <div class="text-subtitle text-primary">Our Teams</div>
-                    <h4 class="mt-4">Meet Our Agents</h4>
+                    <div class="text-subtitle text-primary">{{__('Our Teams')}}</div>
+                    <h4 class="mt-4">{{__('Meet Our Agents')}}</h4>
                 </div>
                 <div class="row">
                     @foreach($agents as $agent)
@@ -813,8 +814,8 @@
         <section class="flat-section-v3 flat-latest-new bg-surface">
             <div class="container">
                 <div class="box-title text-center wow fadeIn" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    <div class="text-subtitle text-primary">Latest New</div>
-                    <h4 class="mt-4">Helpful {{config('app.name')}} Guides</h4>
+                    <div class="text-subtitle text-primary">{{__('Latest New')}}</div>
+                    <h4 class="mt-4">{{__('Helpful')}} {{config('app.name')}} {{__('Guides')}}</h4>
                 </div>
                 <div class="row">
                     @foreach($blogs as $blog)

@@ -18,8 +18,8 @@
                                         <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
                                     </svg>                                </div>
                                 <div>
-                                    <h3 class="fs-4 mb-1">Login to your account</h3>
-                                    <p class="text-muted">Your personal data will be used to support your experience throughout this website, to manage access to your account.</p>
+                                    <h3 class="fs-4 mb-1">{{__('Login to your account')}}</h3>
+                                    <p class="text-muted">{{__('Your personal data will be used to support your experience throughout this website, to manage access to your account.')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
 
                                 <div class="mb-3 position-relative">
 
-                                    <label for="email" class="form-label">Email</label>
+                                    <label for="email" class="form-label">{{__('Email')}}</label>
 
                                     <div class="position-relative"><span class="auth-input-icon input-group-text"><svg class="icon  svg-icon-ti-ti-mail" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -54,7 +54,7 @@
 
                                 <div class="mb-3 position-relative">
 
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">{{__('Password')}}</label>
 
                                     <div class="position-relative"><span class="auth-input-icon input-group-text"><svg class="icon  svg-icon-ti-ti-lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -91,7 +91,7 @@
                                             <input type="checkbox" id="remember_dc3c99bb4e249a95567a2bf7d5f327ed" name="remember" class="form-check-input" value="1">
 
                                             <span class="form-check-label">
-            Remember me
+            {{__('Remember me')}}
         </span>
 
                                         </label>
@@ -134,7 +134,7 @@
 
 
 
-                                    <button class="btn btn-primary btn-auth-submit" type="submit">Login <svg class="icon  svg-icon-ti-ti-arrow-narrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <button class="btn btn-primary btn-auth-submit" type="submit">{{__('Login')}} <svg class="icon  svg-icon-ti-ti-arrow-narrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M5 12l14 0"></path>
                                             <path d="M15 16l4 -4"></path>

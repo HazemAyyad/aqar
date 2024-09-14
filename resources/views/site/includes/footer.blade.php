@@ -138,12 +138,12 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="flat-account bg-surface">
-                <h3 class="title text-center">Log In</h3>
+                <h3 class="title text-center">{{__('Log In')}}</h3>
                 <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <fieldset class="box-fieldset">
-                        <label for="name">Your Email<span>*</span>:</label>
+                        <label for="name">{{__('Your Email')}}<span>*</span>:</label>
                         <input type="text" class="form-contact style-1 @error('email') is-invalid @enderror" name="email" value="user@user.com">
                         @error('email')
                         <div class="fv-plugins-message-container invalid-feedback">
@@ -152,7 +152,7 @@
                         @enderror
                     </fieldset>
                     <fieldset class="box-fieldset">
-                        <label for="pass">Password<span>*</span>:</label>
+                        <label for="pass">{{__('Password')}}<span>*</span>:</label>
                         <div class="box-password">
                             <input type="password" name="password" class="form-contact style-1 password-field @error('password') is-invalid @enderror" placeholder="Password">
                             <span class="show-pass">
@@ -169,24 +169,24 @@
                     <div class="d-flex justify-content-between flex-wrap gap-12">
                         <fieldset class="d-flex align-items-center gap-6">
                             <input type="checkbox" class="tf-checkbox style-2" id="cb1" {{ old('remember') ? 'checked' : '' }}>
-                            <label for="cb1" class="caption-1 text-variant-1">Remember me</label>
+                            <label for="cb1" class="caption-1 text-variant-1">{{__('Remember me')}}</label>
                         </fieldset>
-                        <a href="#" class="caption-1 text-primary">Forgot password?</a>
+                        <a href="#" class="caption-1 text-primary">{{__('Forgot password?')}}</a>
                     </div>
-                    <div class="text-variant-1 auth-line">or sign up with</div>
+                    <div class="text-variant-1 auth-line">{{__('or sign up with')}}</div>
                     <div class="login-social">
 
                         <a href="{{ route('site.auth.social','google') }}" class="btn-login-social">
                             <img src="{{asset('/site/images/logo/google.jpg')}}" alt="img">
-                            Continue with Google
+                            {{__('Continue with Google')}}
                         </a>
                         <a href="{{ route('site.auth.social','twitter') }}" class="btn-login-social">
                             <img src="{{asset('/site/images/logo/tw.jpg')}}" alt="img">
-                            Continue with Twitter
+                            {{__('Continue with Twitter')}}
                         </a>
                     </div>
-                    <button type="submit" class="tf-btn primary w-100">Login</button>
-                    <div class="mt-12 text-variant-1 text-center noti">Not registered yet?<a href="#modalRegister" data-bs-toggle="modal" class="text-black fw-5">Sign Up</a> </div>
+                    <button type="submit" class="tf-btn primary w-100">{{__('Login')}}</button>
+                    <div class="mt-12 text-variant-1 text-center noti">{{__('Not registered yet?')}}<a href="#modalRegister" data-bs-toggle="modal" class="text-black fw-5">{{__('Sign Up')}}</a> </div>
                 </form>
             </div>
         </div>
@@ -198,26 +198,26 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="flat-account bg-surface">
-                <h3 class="title text-center">Register</h3>
+                <h3 class="title text-center">{{__('Register')}}</h3>
                 <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
                 <form   name="register" id="register" method="POST" action="javascript:void(0)">
                     @csrf
                     <fieldset class="box-fieldset">
-                        <label for="name">Name<span>*</span>:</label>
+                        <label for="name">{{__('Name')}}<span>*</span>:</label>
                         <input type="text" name="name" required class="form-contact style-1 @error('name') has-error @enderror"  >
                         @error('name')
                         <label id="name-error" class="error" for="name">{{ $message }}</label>
                         @enderror
                     </fieldset>
                     <fieldset class="box-fieldset">
-                        <label for="name">Email address<span>*</span>:</label>
+                        <label for="name">{{__('Email address')}}<span>*</span>:</label>
                         <input type="text" name="email" required class="form-contact style-1 @error('email') has-error @enderror"  >
                         @error('email')
                         <label id="email-error" class="error" for="email">{{ $message }}</label>
                         @enderror
                     </fieldset>
                     <fieldset class="box-fieldset">
-                        <label for="password">Password<span>*</span>:</label>
+                        <label for="password">{{__('Password')}}<span>*</span>:</label>
                         <div class="box-password">
                             <input type="password" name="password" id="password" required class="form-contact style-1 password-field @error('password') has-error @enderror" placeholder="Password">
                             <span class="show-pass">
@@ -230,7 +230,7 @@
                         @enderror
                     </fieldset>
                     <fieldset class="box-fieldset">
-                        <label for="password_confirmation">Confirm Password<span>*</span>:</label>
+                        <label for="password_confirmation">{{__('Confirm Password')}}<span>*</span>:</label>
                         <div class="box-password">
                             <input type="password" id="password_confirmation" name="password_confirmation"  class="form-contact style-1 password-field2" placeholder="Password">
                             <span class="show-pass2">
@@ -241,11 +241,11 @@
                     </fieldset>
                     <fieldset class="d-flex align-items-center gap-6">
                         <input type="checkbox"  name="term_conditions" required class="tf-checkbox style-2" id="cb1">
-                        <label for="cb1" class="caption-1 text-variant-1">I agree to the <a href="{{ route('site.privacy-policy') }}" class="fw-5 text-black">Terms of User</a></label>
+                        <label for="cb1" class="caption-1 text-variant-1">{{__('I agree to the')}} <a href="{{ route('site.privacy-policy') }}" class="fw-5 text-black">{{__('Terms of User')}}</a></label>
                     </fieldset>
 
-                    <button type="submit" class="tf-btn primary w-100"  id="btn-register">Register</button>
-                    <div class="mt-12 text-variant-1 text-center noti">Already have an account?<a href="#modalLogin" data-bs-toggle="modal" class="text-black fw-5">Login Here</a> </div>
+                    <button type="submit" class="tf-btn primary w-100"  id="btn-register">{{__('Register')}}</button>
+                    <div class="mt-12 text-variant-1 text-center noti">{{__('Already have an account?')}}<a href="#modalLogin" data-bs-toggle="modal" class="text-black fw-5">{{__('Login Here')}}</a> </div>
                 </form>
             </div>
         </div>

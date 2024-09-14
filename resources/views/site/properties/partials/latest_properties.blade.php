@@ -1,5 +1,5 @@
 <div class="widget-box bg-surface box-latest-property">
-    <div class="h7 fw-7 title">Latest Properties</div>
+    <div class="h7 fw-7 title">{{__('Latest Properties')}}</div>
     <ul>
         @foreach($latestProperties as $property)
             <li class="latest-property-item">

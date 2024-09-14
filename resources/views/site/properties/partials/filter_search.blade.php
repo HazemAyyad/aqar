@@ -1,11 +1,11 @@
 <div class="flat-tab flat-tab-form widget-filter-search widget-box bg-surface">
-    <div class="h7 title fw-7">Search</div>
+    <div class="h7 title fw-7">{{__('Search')}}</div>
     <ul class="nav-tab-form" role="tablist">
         <li class="nav-tab-item" role="presentation">
-            <a href="#rent" class="nav-link-item {{ request('tab', 'rent') == 'rent' ? 'active' : '' }}" data-bs-toggle="tab">For Rent</a>
+            <a href="#rent" class="nav-link-item {{ request('tab', 'rent') == 'rent' ? 'active' : '' }}" data-bs-toggle="tab">{{__('For Rent')}}</a>
         </li>
         <li class="nav-tab-item" role="presentation">
-            <a href="#sale" class="nav-link-item {{ request('tab', 'rent') == 'sale' ? 'active' : '' }}" data-bs-toggle="tab">For Sale</a>
+            <a href="#sale" class="nav-link-item {{ request('tab', 'rent') == 'sale' ? 'active' : '' }}" data-bs-toggle="tab">{{__('For Sale')}}</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -16,13 +16,13 @@
                     <div class="wd-filter-select">
                         <div class="inner-group inner-filter">
                             <div class="form-style">
-                                <label class="title-select">Keyword</label>
-                                <input type="text" class="form-control" placeholder="Search Keyword" value="{{ request('keyword') }}" name="keyword" title="Search for">
+                                <label class="title-select">{{__('Keyword')}}</label>
+                                <input type="text" class="form-control" placeholder="{{__('Search Keyword')}}" value="{{ request('keyword') }}" name="keyword" title="Search for">
                             </div>
                             <div class="form-style">
-                                <label class="title-select">Location</label>
+                                <label class="title-select">{{__('Location')}}</label>
                                 <div class="group-ip ip-icon">
-                                    <input type="text" class="form-control" placeholder="Search Location" value="{{ request('location') }}" name="location" title="Search for">
+                                    <input type="text" class="form-control" placeholder="{{__('Search Location')}}" value="{{ request('location') }}" name="location" title="Search for">
                                     <a href="#" class="icon-right icon-location"></a>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                                 <label class="title-select">Type</label>
                                 <div class="group-select">
                                     <select name="category_id" class="form-control">
-                                        <option value="" data-display="select">Nothing</option>
+                                        <option value="" data-display="{{__('select')}}">{{__('Nothing')}}</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                         @endforeach
@@ -38,27 +38,27 @@
                                 </div>
                             </div>
                             <div class="form-style box-select">
-                                <label class="title-select">Rooms</label>
+                                <label class="title-select">{{__('Rooms')}}</label>
                                 <select name="rooms" class="form-control">
-                                    <option value="" data-display="select">Nothing</option>
+                                    <option value="" data-display="{{__('select')}}">{{__('Nothing')}}</option>
                                     @for ($i = 1; $i <= 10; $i++)
                                         <option value="{{ $i }}" {{ request('rooms') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
                             <div class="form-style box-select">
-                                <label class="title-select">Bathrooms</label>
+                                <label class="title-select">{{__('Bathrooms')}}</label>
                                 <select name="bathrooms" class="form-control">
-                                    <option value="" data-display="select">Nothing</option>
+                                    <option value="" data-display="{{__('select')}}">{{__('Nothing')}}</option>
                                     @for ($i = 1; $i <= 10; $i++)
                                         <option value="{{ $i }}" {{ request('bathrooms') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
                             <div class="form-style box-select">
-                                <label class="title-select">Bedrooms</label>
+                                <label class="title-select">{{__('Bedrooms')}}</label>
                                 <select name="bedrooms" class="form-control">
-                                    <option value="" data-display="select">Nothing</option>
+                                    <option value="" data-display="{{__('select')}}">{{__('Nothing')}}</option>
                                     @for ($i = 1; $i <= 10; $i++)
                                         <option value="{{ $i }}" {{ request('bedrooms') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
@@ -66,11 +66,11 @@
                             </div>
                             <div class="form-style widget-price">
                                 <div class="box-title-price">
-                                    <span class="title-price">Price Range</span>
+                                    <span class="title-price">{{__('Price Range')}}</span>
                                     <div class="caption-price">
-                                        <span>from</span>
+                                        <span>{{__('from')}}</span>
                                         <span id="slider-range-value1" class="fw-7">{{ request('min-value', '0') }}</span>
-                                        <span>to</span>
+                                        <span>{{__('to')}}</span>
                                         <span id="slider-range-value2" class="fw-7">{{ request('max-value', '1000000') }}</span>
                                     </div>
                                 </div>
@@ -82,11 +82,11 @@
                             </div>
                             <div class="form-style widget-price wd-price-2">
                                 <div class="box-title-price">
-                                    <span class="title-price">Size Range</span>
+                                    <span class="title-price">{{__('Size Range')}}</span>
                                     <div class="caption-price">
-                                        <span>from</span>
+                                        <span>{{__('from')}}</span>
                                         <span id="slider-range-value01" class="fw-7">{{ request('min-value2', '0') }}</span>
-                                        <span>to</span>
+                                        <span>{{__('to')}}</span>
                                         <span id="slider-range-value02" class="fw-7">{{ request('max-value2', '10000') }}</span>
                                     </div>
                                 </div>
@@ -99,12 +99,12 @@
                             <div class="form-style btn-show-advanced">
                                 <a class="filter-advanced pull-right">
                                     <span class="icon icon-faders"></span>
-                                    <span class="text-advanced">Show Advanced</span>
+                                    <span class="text-advanced">{{__('Show Advanced')}}</span>
                                 </a>
                             </div>
                             <div class="form-style wd-amenities">
                                 <div class="group-checkbox">
-                                    <div class="text-1">Amenities:</div>
+                                    <div class="text-1">{{__('Amenities:')}}</div>
                                     <div class="group-amenities">
                                         @foreach($features as $feature)
                                             <fieldset class="amenities-item">
@@ -118,11 +118,11 @@
                             <div class="form-style btn-hide-advanced">
                                 <a class="filter-advanced pull-right">
                                     <span class="icon icon-faders"></span>
-                                    <span class="text-advanced">Hide Advanced</span>
+                                    <span class="text-advanced">{{__('Hide Advanced')}}</span>
                                 </a>
                             </div>
                             <div class="form-style">
-                                <button type="submit" class="tf-btn primary">Find Properties</button>
+                                <button type="submit" class="tf-btn primary">{{__('Find Properties')}}</button>
                             </div>
                         </div>
                     </div>

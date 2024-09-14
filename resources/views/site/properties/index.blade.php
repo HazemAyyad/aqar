@@ -8,7 +8,7 @@
     <section class="flat-section-v6 flat-recommended flat-sidebar">
         <div class="container">
             <div class="box-title-listing">
-                <h5>Property Listing</h5>
+                <h5>{{__('Property Listing')}}</h5>
                 <div class="box-filter-tab">
                     <!-- Filter Tab -->
                     <ul class="nav-tab-filter" role="tablist">
@@ -24,14 +24,14 @@
                         <div class="d-flex gap-3 align-items-center">
                             <select name="per_page" class="list-page" id="per_page">
                                 @foreach([10, 11, 12] as $perPage)
-                                    <option value="{{ $perPage }}" {{ request()->get('per_page') == $perPage ? 'selected' : '' }}>{{ $perPage }} Per Page</option>
+                                    <option value="{{ $perPage }}" {{ request()->get('per_page') == $perPage ? 'selected' : '' }}>{{ $perPage }} {{__('Per Page')}}</option>
                                 @endforeach
                             </select>
 
                             <select name="sort_by" class="list-sort" id="sort_by">
-                                <option value="" data-display="Sort by (Default)">Sort by (Default)</option>
-                                <option value="desc" {{ request()->get('sort_by') == 'desc' ? 'selected' : '' }}>Newest</option>
-                                <option value="asc" {{ request()->get('sort_by') == 'asc' ? 'selected' : '' }}>Oldest</option>
+                                <option value="" data-display="{{__('Sort by (Default)')}}">{{__('Sort by (Default)')}}</option>
+                                <option value="desc" {{ request()->get('sort_by') == 'desc' ? 'selected' : '' }}>{{__('Newest')}}</option>
+                                <option value="asc" {{ request()->get('sort_by') == 'asc' ? 'selected' : '' }}>{{__('Oldest')}}</option>
                             </select>
                         </div>
                     </form>
