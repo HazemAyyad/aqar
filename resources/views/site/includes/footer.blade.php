@@ -4,14 +4,14 @@
         <div class="container">
             <div class="content-footer-top">
                 <div class="footer-logo">
-                    <img src="images/logo/logo-footer@2x.png" alt="logo-footer" width="174" height="44">
+                    <img src="{{asset($data_settings['secondary_logo'])}}" alt="logo-footer" width="174" height="44">
                 </div>
                 <div class="wd-social">
                     <span>{{__('Follow Us')}}:</span>
                     <ul class="list-social d-flex align-items-center">
-                        <li><a href="#" class="box-icon w-40 social"><i class="icon icon-facebook"></i></a></li>
-                        <li><a href="#" class="box-icon w-40 social"><i class="icon icon-linkedin"></i></a></li>
-                        <li><a href="#" class="box-icon w-40 social">
+                        <li><a href="{{$data_settings['facebook']}}" class="box-icon w-40 social"><i class="icon icon-facebook"></i></a></li>
+                        <li><a href="{{$data_settings['linkedin']}}" class="box-icon w-40 social"><i class="icon icon-linkedin"></i></a></li>
+                        <li><a href="{{$data_settings['twitter']}}" class="box-icon w-40 social">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_748_6323)">
                                         <path d="M9.4893 6.77491L15.3176 0H13.9365L8.87577 5.88256L4.8338 0H0.171875L6.28412 8.89547L0.171875 16H1.55307L6.8973 9.78782L11.1659 16H15.8278L9.48896 6.77491H9.4893ZM7.59756 8.97384L6.97826 8.08805L2.05073 1.03974H4.17217L8.14874 6.72795L8.76804 7.61374L13.9371 15.0075H11.8157L7.59756 8.97418V8.97384Z" fill="white"/>
@@ -23,9 +23,9 @@
                                     </defs>
                                 </svg>
                             </a></li>
-                        <li><a href="#" class="box-icon w-40 social"><i class="icon icon-pinterest"></i></a></li>
-                        <li><a href="#" class="box-icon w-40 social"><i class="icon icon-instagram"></i></a></li>
-                        <li><a href="#" class="box-icon w-40 social"><i class="icon icon-youtube"></i></a></li>
+
+                        <li><a href="{{$data_settings['instagram']}}" class="box-icon w-40 social"><i class="icon icon-instagram"></i></a></li>
+                        <li><a href="{{$data_settings['youtube']}}" class="box-icon w-40 social"><i class="icon icon-youtube"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -41,15 +41,15 @@
                         <ul class="mt-12">
                             <li class="mt-12 d-flex align-items-center gap-8">
                                 <i class="icon icon-mapPinLine fs-20 text-variant-2"></i>
-                                <p class="text-white">101 E 129th St, East Chicago, IN 46312, US</p>
+                                <p class="text-white">{{$data_settings['address']}}</p>
                             </li>
                             <li class="mt-12 d-flex align-items-center gap-8">
                                 <i class="icon icon-phone2 fs-20 text-variant-2"></i>
-                                <a href="tel:1-333-345-6868" class="text-white caption-1">1-333-345-6868</a>
+                                <a href="tel:{{$data_settings['phone']}}" class="text-white caption-1">{{$data_settings['phone']}}</a>
                             </li>
                             <li class="mt-12 d-flex align-items-center gap-8">
                                 <i class="icon icon-mail fs-20 text-variant-2"></i>
-                                <p class="text-white">themesflat@gmail.com</p>
+                                <p class="text-white">{{$data_settings['email']}}</p>
                             </li>
                         </ul>
 
@@ -88,10 +88,10 @@
                             {{__('News letter')}}
                         </div>
                         <p class="mt-12 text-variant-2">{{__('Your Weekly/Monthly Dose of Knowledge and Inspiration')}}</p>
-                        <form class="mt-12" id="subscribe-form" action="#" method="post" accept-charset="utf-8" data-mailchimp="true">
-                            <div id="subscribe-content">
+                        <form class="mt-12" id="subscribe-form" method="post" action="javascript:void(0)" accept-charset="utf-8" data-mailchimp="true">
+                            <div id="subscribe-content" class="form-group">
                                 <span class="icon-left icon-mail"></span>
-                                <input type="email" name="email-form" id="subscribe-email" placeholder="{{__('Your email address')}}"/>
+                                <input type="email" name="email" id="subscribe-email" placeholder="Your email address"/>
                                 <button type="button" id="subscribe-button" class="button-subscribe"><i class="icon icon-send"></i></button>
                             </div>
                             <div id="subscribe-msg"></div>
@@ -547,6 +547,86 @@
             }
         });
     }
+</script>
+
+<script>
+    var data_url_subscribe='http://properties.test/newsletter/subscribe'
+
+    $(document).ready(function() {
+        function myHandel(obj, id) {
+            if ('responseJSON' in obj)
+                obj.messages = obj.responseJSON;
+
+            $('input,select,textarea').each(function () {
+                var parent = $(this).closest('.form-group, .input-group');
+                var name = $(this).attr("name");
+                if (obj.messages && obj.messages[name] && ($(this).attr('type') !== 'hidden')) {
+                    var error_message = '<div class="col-md-8 offset-md-3 custom-error"><p style="color: red">' + obj.messages[name][0] + '</p></div>';
+                    parent.append(error_message);
+                }
+            });
+        }
+
+        $(document).on("click", "#subscribe-button", function() {
+            var form = $('#subscribe-form');
+
+            // Check if form is valid
+            if (!form.valid()) {
+                return false;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var postData = new FormData(form[0]);
+
+            $('#subscribe-button').html('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
+                '<span class="ml-25 align-middle"></span>');
+
+            $.ajax({
+                url: data_url_subscribe,
+                type: "POST",
+                data: postData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#subscribe-button').html('<button type="button" id="subscribe-button" class="button-subscribe"><i class="icon icon-send"></i></button>');
+                    setTimeout(function () {
+                        toastr['success'](response.success, {
+                            closeButton: true,
+                            tapToDismiss: false
+                        });
+                    }, 200);
+                    form[0].reset();
+                    $('.custom-error').remove();
+                },
+                error: function (data) {
+                    $('.custom-error').remove();
+                    $('#subscribe-button').html('<button type="button" id="subscribe-button" class="button-subscribe"><i class="icon icon-send"></i></button>');
+                    var response = data.responseJSON;
+                    if (data.status == 422) {
+                        if (typeof (response.responseJSON) != "undefined") {
+                            myHandel(response);
+                            setTimeout(function () {
+                                toastr['error'](response.message, {
+                                    closeButton: true,
+                                    tapToDismiss: false
+                                });
+                            }, 200);
+                        }
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+                }
+            });
+        });
+    });
 </script>
 
   @yield('scripts')

@@ -14,12 +14,14 @@ class GeneralEmail extends Mailable
     public $phone;
     public $email;
     public $subject;
-    public function __construct($name,$phone,$email,$subject)
+    public $text;
+    public function __construct($name,$phone,$email,$subject, $text = null)
     {
         $this->name=$name;
         $this->phone=$phone;
         $this->email=$email;
         $this->subject=$subject;
+        $this->text=$text;
     }
 
     /**

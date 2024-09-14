@@ -77,6 +77,70 @@
                                 <label class="form-label" for="desc_contact_us">{{__('Description Contact Us Ar')}}</label>
                                 <textarea   class="form-control" id="desc_contact_us" required name="contact_us_ar"  rows="5">{{$setting['contact_us_ar']}}</textarea>
                             </div>
+                            <div class="row">
+                                @foreach ($settings as $setting)
+
+                                    @if($setting->key == 'address')
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="address">{{ __('Address (EN)') }}</label>
+                                            <textarea id="why_choose_us" name="address" class="form-control" rows="5">{{ $setting->value }}</textarea>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="address_ar">{{ __('Address (AR)') }}</label>
+                                            <textarea id="why_choose_us_ar" name="address_ar" class="form-control" rows="5">{{ $setting->value_ar }}</textarea>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+
+
+
+                            </div>
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <!-- Main Logo Section -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="main_logo">{{__('Main Logo')}}</label>
+
+                                        <!-- Display the current logo -->
+                                        @if(isset($setting['main_logo']) && !empty($setting['main_logo']))
+                                            <div class="mb-3">
+                                                <img id="main_logo_preview" src="{{ asset($setting['main_logo']) }}" alt="Main Logo" style="max-width: 150px;">
+                                            </div>
+                                        @else
+                                            <div class="mb-3">
+                                                <img id="main_logo_preview" src="#" alt="Main Logo" style="max-width: 150px; display: none;">
+                                            </div>
+                                        @endif
+
+                                        <!-- Input for uploading a new logo -->
+                                        <input type="file" class="form-control" id="main_logo" name="main_logo" onchange="previewImage('main_logo', 'main_logo_preview')" />
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Secondary Logo Section -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="secondary_logo">{{__('Secondary Logo')}}</label>
+
+                                        <!-- Display the current logo -->
+                                        @if(isset($setting['secondary_logo']) && !empty($setting['secondary_logo']))
+                                            <div class="mb-3">
+                                                <img id="secondary_logo_preview" src="{{ asset($setting['secondary_logo']) }}" alt="Secondary Logo" style="max-width: 150px;">
+                                            </div>
+                                        @else
+                                            <div class="mb-3">
+                                                <img id="secondary_logo_preview" src="#" alt="Secondary Logo" style="max-width: 150px; display: none;">
+                                            </div>
+                                        @endif
+
+                                        <!-- Input for uploading a new logo -->
+                                        <input type="file" class="form-control" id="secondary_logo" name="secondary_logo" onchange="previewImage('secondary_logo', 'secondary_logo_preview')" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mt-3">
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary " id="add_form" name="submit" value="Submit" >
@@ -101,6 +165,26 @@
     <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
     <!-- END: Page JS-->
 
+    <script>
+        // Function to preview the image before uploading
+        function previewImage(inputId, imgId) {
+            var input = document.getElementById(inputId);
+            var imgPreview = document.getElementById(imgId);
+
+            // Check if a file is selected
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Show the image and set the src attribute to the selected file
+                    imgPreview.style.display = "block";
+                    imgPreview.src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]); // Convert the file to a data URL
+            }
+        }
+    </script>
 
     <script>
 

@@ -201,7 +201,7 @@
                         <div class="inner-container d-flex justify-content-between align-items-center">
                             <!-- Logo Box -->
                             <div class="logo-box">
-                                <div class="logo"><a href="{{route('site.index')}}"><img src="{{asset('/site/images/logo/logo@2x.png')}}" alt="logo" width="174" height="44"></a></div>
+                                <div class="logo"><a href="{{route('site.index')}}"><img src="{{asset($data_settings['main_logo'])}}" alt="logo" width="174" height="44"></a></div>
                             </div>
                             <div class="nav-outer">
                                 <!-- Main Menu -->

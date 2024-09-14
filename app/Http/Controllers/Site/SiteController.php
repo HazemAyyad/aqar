@@ -470,8 +470,37 @@ class SiteController extends Controller
         return view('site.about_us.index', compact('services','features','agents','people_says'
         ,'benefits','partners','aboutUs'));
     }
+    public function contact_us(Request $request)
+    {
+
+        $features = Feature::all();
+        $agents = Agent::all();
+        $people_says = PeopleSay::all();
+        $benefits = Benefit::all();
+        $services = Service::all();
+        $partners=Partner::all();
+//        $description=Setting::query()->where(['page'=>'about_us','key'=>'description'])->first();
+       $aboutUs=Setting::query()->where('page','about_us')->get();
+        return view('site.contact_us.index', compact('services','features','agents','people_says'
+        ,'benefits','partners','aboutUs'));
+    }
+
+    public function send_email_to_site(Request $request)
+    {
+        $name=$request->name;
+        $phone=$request->phone;
+        $email=$request->email;
+        $subject=$request->subject;
+        $text=$request->message;
+
+            Mail::to('hazem1fadil@gmail.com')->send(new GeneralEmail($name,$phone,$email,$subject,$text));
 
 
+
+        return response()->json(['success'=>"The process has successfully"]);
+
+
+    }
     public function blogs(Request $request)
     {
         $blogs=Blog::query()->with(['user','category'])->paginate(10);

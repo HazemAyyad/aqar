@@ -28,6 +28,9 @@ class MainData
                 'slogan',
                 'slogan_ar',
                 'linkedin',
+                'main_logo',
+                'secondary_logo',
+                'address',
 
 
             ])->get();
