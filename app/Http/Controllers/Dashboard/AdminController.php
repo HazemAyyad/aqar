@@ -171,32 +171,40 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $admin = Admin::find($id);
+
         $validator = Validator::make($request->all(), [
             'type' => 'required',
             'name' => 'required',
             'mobile' => 'required|unique:admins,mobile,' . $id,
             'email' => 'required|unique:admins,email,' . $id,
         ]);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
             $input = $request->all();
             return response(["responseJSON" => $errors, "input" => $input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
         }
 
-        unset($data['_token']);
-         if ($request->password){
-             $password = $request->password;
-             return$data['password'] = Hash::make($password);
-         }
         if ($validator->passes()) {
+            $data = $request->except('_token'); // Remove the _token field from the request
 
+            // Only hash and update the password if it is provided
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
+            } else {
+                unset($data['password']); // Ensure password key is removed if not updating it
+            }
 
             Admin::query()->where('id', $id)->update($data);
+
+            // Update roles
             DB::table('model_has_roles')->where('model_id', $id)->delete();
             $admin->assignRole($request->input('type'));
+
             return response()->json(['success' => "The process has successfully"]);
         }
     }
+
     public function update_password(Request $request, $id)
     {
         $messages = [

@@ -167,6 +167,20 @@ class SettingController extends Controller
                         $setting->value = $image_name; // Save the file path in the database
                     }
                     break;
+
+                // Handle sections visibility checkboxes
+                case 'gallary_properties':
+                case 'cities':
+                case 'services':
+                case 'statistics':
+                case 'benefits':
+                case '4_top':
+                case 'people_says':
+                case 'agents':
+                case 'blogs':
+                case 'partners':
+                    $setting->value = $request->input($setting->key, 0); // Set to 0 if unchecked
+                    break;
             }
 
             $setting->save(); // Save the updated setting

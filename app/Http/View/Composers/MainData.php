@@ -31,6 +31,16 @@ class MainData
                 'main_logo',
                 'secondary_logo',
                 'address',
+                'gallary_properties',
+                'cities',
+                'services',
+                'statistics',
+                'benefits',
+                '4_top',
+                'people_says',
+                'agents',
+                'blogs',
+                'partners',
 
 
             ])->get();

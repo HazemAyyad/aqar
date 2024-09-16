@@ -31,6 +31,7 @@
             <div class="overlay"></div>
         </section>
         <!-- End Slider -->
+        @if(isset($data_settings['gallery_properties']) && $data_settings['gallery_properties'] == 1)
         <!-- Recommended -->
         <section class="flat-section flat-recommended">
             <div class="container">
@@ -306,8 +307,10 @@
 
         </section>
         <!-- End Recommended -->
+        @endif
+        @if(isset($data_settings['cities']) && $data_settings['cities'] == 1)
 
-        <!-- Location -->
+            <!-- Location -->
         <section class="flat-section-v3 flat-location bg-surface">
             <div class="container-full">
                 <div class="box-title text-center wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
@@ -347,7 +350,10 @@
             </div>
         </section>
         <!-- End Location -->
-        <!-- Service & Counter  -->
+        @endif
+        @if(isset($data_settings['services']) && $data_settings['services'] == 1)
+
+            <!-- Service & Counter  -->
         <section class="flat-section">
             <div class="container">
                 <div class="box-title style-1 wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
@@ -406,7 +412,10 @@
             </div>
         </section>
         <!-- End Service & Counter -->
-        <!-- Benefit -->
+        @endif
+        @if(isset($data_settings['benefits']) && $data_settings['benefits'] == 1)
+
+            <!-- Benefit -->
         <section class="flat-section flat-benefit bg-surface">
             <div class="container">
                 <div class="box-title text-center wow fadeInUpSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
@@ -435,6 +444,8 @@
             </div>
         </section>
         <!-- End Benefit -->
+        @endif
+        @if(isset($data_settings['4_top']) && $data_settings['4_top'] == 1)
         <!-- Property  -->
         <section class="flat-section flat-property">
             <div class="container">
@@ -694,6 +705,8 @@
             </div>
         </section>
         <!-- End Property  -->
+        @endif
+        @if(isset($data_settings['people_says']) && $data_settings['people_says'] == 1)
         <!-- Testimonial -->
         <section class="flat-section-v3 bg-surface flat-testimonial">
             <div class="cus-layout-1">
@@ -754,6 +767,8 @@
             </div>
         </section>
         <!-- End Testimonial -->
+        @endif
+        @if(isset($data_settings['agents']) && $data_settings['agents'] == 1)
         <!-- Agents -->
         <section class="flat-section flat-agents" id="agents">
             <div class="container">
@@ -810,6 +825,8 @@
             </div>
         </section>
         <!-- End Agents -->
+        @endif
+        @if(isset($data_settings['blogs']) && $data_settings['blogs'] == 1)
         <!-- Latest New -->
         <section class="flat-section-v3 flat-latest-new bg-surface">
             <div class="container">
@@ -847,6 +864,8 @@
             </div>
         </section>
         <!-- End Latest New -->
+        @endif
+        @if(isset($data_settings['partners']) && $data_settings['partners'] == 1)
         <!-- partner -->
         <section class="flat-section-v4 flat-partner">
             <div class="container">
@@ -870,6 +889,7 @@
             </div>
         </section>
         <!-- End partner -->
+        @endif
 
 @endsection
 @section('scripts')
