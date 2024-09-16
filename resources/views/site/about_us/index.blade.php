@@ -19,11 +19,11 @@
     <section class="flat-title-page style-2">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{route('site.index')}}">Home</a></li>
-                <li>/ Pages</li>
-                <li>/ About Us</li>
+                <li><a href="{{route('site.index')}}">{{__('Home')}}</a></li>
+                <li>/ {{__('Pages')}}</li>
+                <li>/ {{__('About Us')}}</li>
             </ul>
-            <h2 class="text-center">About The {{config('app.name')}}</h2>
+            <h2 class="text-center">{{__('About The')}} {{config('app.name')}}</h2>
         </div>
     </section>
     <!-- End Page Title -->
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <h3>Welcome To The <br> {{config('app.name')}}</h3>
+                    <h3>{{__('Welcome To The')}} <br> {{config('app.name')}}</h3>
                 </div>
                 <div class="col-md-7 hover-btn-view">
                     <P class="body-2 text-variant-1">
@@ -42,7 +42,7 @@
                         @endphp
                         {{ $description['value'] ?? 'Default description text' }}
                     </P>
-                    <a href="#" class="btn-view style-1"><span class="text">Learn More</span> <span class="icon icon-arrow-right2"></span> </a>
+                    <a href="#" class="btn-view style-1"><span class="text">{{__('Learn More')}}</span> <span class="icon icon-arrow-right2"></span> </a>
 
                 </div>
 
@@ -66,8 +66,8 @@
                 <div class="col-lg-6">
                     <div class="box-left">
                         <div class="box-title">
-                            <div class="text-subtitle text-primary">Why Choose Us</div>
-                            <h4 class="mt-4">Discover What Sets Our Real Estate Expertise Apart</h4>
+                            <div class="text-subtitle text-primary">{{__('Why Choose Us')}}</div>
+                            <h4 class="mt-4">{{__('Discover What Sets Our Real Estate Expertise Apart')}}</h4>
                         </div>
                         @php
                             $why_choose_us = collect($aboutUs)->firstWhere('key', 'why_choose_us');
@@ -88,7 +88,7 @@
                             @endforeach
 
                         </ul>
-                        <a href="{{route('site.contact')}}" class="btn-view"><span class="text">Contact Us</span> <span class="icon icon-arrow-right2"></span> </a>
+                        <a href="{{route('site.contact')}}" class="btn-view"><span class="text">{{__('Contact Us')}}</span> <span class="icon icon-arrow-right2"></span> </a>
                     </div>
 
                 </div>
@@ -107,7 +107,7 @@
                                 <h6 class="title">{{$service->title}}</h6>
                                 <p class="description">
                                     {{ substr($service->description, 0, 55) }}</p>
-                                <a href="{{route('site.services')}}" class="btn-view style-1"><span class="text">Learn More</span> <span class="icon icon-arrow-right2"></span> </a>
+                                <a href="{{route('site.services')}}" class="btn-view style-1"><span class="text">{{__('Learn More')}}</span> <span class="icon icon-arrow-right2"></span> </a>
                             </div>
                         </div>
                         @endforeach
@@ -121,8 +121,8 @@
     <section class="flat-section flat-testimonial-v4">
         <div class="container">
             <div class="box-title text-center">
-                <div class="text-subtitle text-primary">Our Testimonials</div>
-                <h4 class="mt-4">What’s people say’s</h4>
+                <div class="text-subtitle text-primary">{{__('Our Testimonials')}}</div>
+                <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
             </div>
             <div class="swiper tf-sw-testimonial" data-preview-lg="2" data-preview-md="2" data-preview-sm="2" data-space="30">
                 <div class="swiper-wrapper">
@@ -186,29 +186,29 @@
                 <div class="col-lg-7">
                     <div class="content-left">
                         <div class="box-title">
-                            <div class="text-subtitle text-white">Contact Us</div>
-                            <h4 class="mt-4 fw-6 text-white">We're always eager to hear from you!</h4>
+                            <div class="text-subtitle text-white">{{__('Contact Us')}}</div>
+                            <h4 class="mt-4 fw-6 text-white">{{__("We're always eager to hear from you!")}}</h4>
                         </div>
-                        <p class="body-2 text-white">Sed ullamcorper nulla egestas at. Aenean eget tortor nec elit sagittis molestie. Pellentesque tempus massa in.r nulla egestas at. Aenean eget tortor nec elit sagittis mole</p>
+                        <p class="body-2 text-white">{{__('Sed ullamcorper nulla egestas at. Aenean eget tortor nec elit sagittis molestie. Pellentesque tempus massa in.r nulla egestas at. Aenean eget tortor nec elit sagittis mole')}}</p>
                     </div>
 
                 </div>
                 <div class="col-lg-5">
                     <form action="#" class="box-contact-v2">
                         <div class="box">
-                            <label for="name" class="label">Name:</label>
+                            <label for="name" class="label">{{__('Name')}}:</label>
                             <input type="text" class="form-control" value="Tony Nguyen |">
                         </div>
                         <div class="box">
-                            <label for="email" class="label">Email:</label>
+                            <label for="email" class="label">{{__('Email')}}:</label>
                             <input type="text" class="form-control" value="hi.themesflat@mail.com">
                         </div>
                         <div class="box">
-                            <label for="message" class="label">Message:</label>
-                            <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Write comment"></textarea>
+                            <label for="message" class="label">{{__('Message')}}:</label>
+                            <textarea name="message" class="form-control" cols="30" rows="10" placeholder="{{__('Write comment')}}"></textarea>
                         </div>
                         <div class="box">
-                            <button class="tf-btn primary">Contact US</button>
+                            <button class="tf-btn primary">{{__('Contact Us')}}</button>
                         </div>
                     </form>
                 </div>
@@ -223,8 +223,8 @@
     <section class="flat-section flat-agents">
         <div class="container">
             <div class="box-title text-center">
-                <div class="text-subtitle text-primary">Our Teams</div>
-                <h4 class="mt-4">Meet Our Agents</h4>
+                <div class="text-subtitle text-primary">{{__('Our Teams')}}</div>
+                <h4 class="mt-4">{{__('Meet Our Agents')}}</h4>
             </div>
             <div class="row">
                 @foreach($agents as $agent)
@@ -281,10 +281,10 @@
             <div class="wrap-banner bg-surface">
                 <div class="box-left">
                     <div class="box-title">
-                        <div class="text-subtitle text-primary">Become Partners</div>
-                        <h4 class="mt-4">List your Properties on {{config('app.name')}}, join Us Now!</h4>
+                        <div class="text-subtitle text-primary">{{__('Become Partners')}}</div>
+                        <h4 class="mt-4">{{__('List your Properties on')}} {{config('app.name')}}, {{__('join Us Now!')}}</h4>
                     </div>
-                    <a href="#" class="tf-btn primary size-1">Become A Hosting</a>
+                    <a href="#" class="tf-btn primary size-1">{{__('Become A Hosting')}}</a>
                 </div>
                 <div class="box-right">
                     <img src="{{asset('site/images/banner/banner.png')}}" alt="image">

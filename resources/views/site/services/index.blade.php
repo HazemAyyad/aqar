@@ -9,11 +9,11 @@
     <section class="flat-title-page style-2">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li>/ Pages</li>
-                <li>/ Our Services</li>
+                <li><a href="index.html">{{__('Home')}}</a></li>
+                <li>/ {{__('Pages')}}</li>
+                <li>/ {{__('Our Services')}}</li>
             </ul>
-            <h2 class="text-center">Our Services</h2>
+            <h2 class="text-center">{{__('Our Services')}}</h2>
         </div>
     </section>
     <!-- End Page Title -->
@@ -22,8 +22,8 @@
     <section class="flat-section flat-service-v3">
         <div class="container">
             <div class="box-title text-center">
-                <div class="text-subtitle text-primary">Our Services</div>
-                <h4 class="mt-4">What We Do?</h4>
+                <div class="text-subtitle text-primary">{{__('Our Services')}}</div>
+                <h4 class="mt-4">{{__('What We Do?')}}</h4>
             </div>
             <div class="row">
                 @foreach($services as $service)
@@ -39,7 +39,7 @@
                             <div class="content">
                                 <h6 class="title">{{$service->title}}</h6>
                                 <p class="description">{{$service->description}}</p>
-                                <a href="{{route('site.properties')}}" class="tf-btn size-1">Find A Home</a>
+                                <a href="{{route('site.properties')}}" class="tf-btn size-1">{{__('Find A Home')}}</a>
                             </div>
                         </div>
                     </div>
@@ -56,10 +56,10 @@
             <div class="row align-items-center">
                 <div class="col-lg-3">
                     <div class="box-title">
-                        <div class="text-subtitle text-primary">Top Properties</div>
-                        <h4 class="mt-4">What’s people say’s</h4>
+                        <div class="text-subtitle text-primary">{{__('Top Properties')}}</div>
+                        <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
                     </div>
-                    <p class="text-variant-1 p-16">Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</p>
+                    <p class="text-variant-1 p-16">{{__('Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results')}}.</p>
                     <div class="box-navigation">
                         <div class="navigation swiper-nav-next nav-next-testimonial"><span class="icon icon-arr-l"></span></div>
                         <div class="navigation swiper-nav-prev nav-prev-testimonial"><span class="icon icon-arr-r"></span></div>
@@ -114,8 +114,8 @@
     <section class="flat-section">
         <div class="container">
             <div class="box-title text-center">
-                <div class="text-subtitle text-primary">Faqs</div>
-                <h4 class="mt-4">Quick answers to questions</h4>
+                <div class="text-subtitle text-primary">{{__('FAQs')}}</div>
+                <h4 class="mt-4">{{__('Quick answers to questions')}}</h4>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -152,10 +152,10 @@
             <div class="wrap-banner bg-surface">
                 <div class="box-left">
                     <div class="box-title">
-                        <div class="text-subtitle text-primary">Become Partners</div>
-                        <h4 class="mt-4">List your Properties on {{config('app.name')}}, join Us Now!</h4>
+                        <div class="text-subtitle text-primary">{{__('Become Partners')}}</div>
+                        <h4 class="mt-4">{{__('List your Properties on')}} {{config('app.name')}}, {{__('join Us Now!')}}</h4>
                     </div>
-                    <a href="{{route('site.index')}}" class="tf-btn primary size-1">Become A Hosting</a>
+                    <a href="{{route('site.index')}}" class="tf-btn primary size-1">{{__('Become A Hosting')}}</a>
                 </div>
                 <div class="box-right">
                     <img src="{{asset('site/images/banner/banner.png')}}" alt="image">

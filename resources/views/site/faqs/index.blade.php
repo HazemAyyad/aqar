@@ -9,11 +9,11 @@
     <section class="flat-title-page style-2">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{ url('/') }}">Home</a></li>
-                <li>/ Pages</li>
-                <li>/ Frequently Asked Questions</li>
+                <li><a href="{{ url('/') }}">{{__('Home') }}</a></li>
+                <li>/ {{__('Pages') }}</li>
+                <li>/ {{__('Frequently Asked Questions') }}</li>
             </ul>
-            <h2 class="text-center">FAQs</h2>
+            <h2 class="text-center">{{__('FAQs') }}</h2>
         </div>
     </section>
     <!-- End Page Title -->
@@ -25,10 +25,10 @@
 
                     @php
                         $categories = [
-                            0 => 'Overview',
-                            1 => 'Costs and Payments',
-                            2 => 'Safety and Security',
-                            3 => 'Other'
+                            0 => __('Overview'),
+                            1 => __('Costs and Payments'),
+                            2 => __('Safety and Security'),
+                            3 => __('Other')
                         ];
                     @endphp
 

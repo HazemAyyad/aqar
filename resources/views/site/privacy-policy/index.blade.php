@@ -9,11 +9,11 @@
     <section class="flat-title-page style-2">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{ url('/') }}">Home</a></li>
-                <li>/ Pages</li>
-                <li>/ Privacy Policy</li>
+                <li><a href="{{ url('/') }}">{{__('Home')}}</a></li>
+                <li>/ {{__('Pages')}}</li>
+                <li>/ {{__('Privacy Policy')}}</li>
             </ul>
-            <h2 class="text-center">Privacy Policy</h2>
+            <h2 class="text-center">{{__('Privacy Policy')}}</h2>
         </div>
     </section>
     <!-- End Page Title -->
