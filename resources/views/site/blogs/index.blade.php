@@ -8,10 +8,10 @@
     <!-- Page Title -->
     <section class="flat-title-page">
         <div class="container">
-            <h2 class="text-center">Latest News</h2>
+            <h2 class="text-center">{{__('Latest News')}}</h2>
             <ul class="breadcrumb">
-                <li><a href="{{route('site.index')}}">Home</a></li>
-                <li>/ Blog</li>
+                <li><a href="{{route('site.index')}}">{{__('Home')}}</a></li>
+                <li>/ {{__('Blog')}}</li>
             </ul>
 
 

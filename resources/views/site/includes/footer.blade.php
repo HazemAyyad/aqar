@@ -91,7 +91,7 @@
                         <form class="mt-12" id="subscribe-form" method="post" action="javascript:void(0)" accept-charset="utf-8" data-mailchimp="true">
                             <div id="subscribe-content" class="form-group">
                                 <span class="icon-left icon-mail"></span>
-                                <input type="email" name="email" id="subscribe-email" placeholder="Your email address"/>
+                                <input type="email" name="email" id="subscribe-email" placeholder="{{__('Your email address')}}"/>
                                 <button type="button" id="subscribe-button" class="button-subscribe"><i class="icon icon-send"></i></button>
                             </div>
                             <div id="subscribe-msg"></div>
@@ -154,7 +154,7 @@
                     <fieldset class="box-fieldset">
                         <label for="pass">{{__('Password')}}<span>*</span>:</label>
                         <div class="box-password">
-                            <input type="password" name="password" class="form-contact style-1 password-field @error('password') is-invalid @enderror" placeholder="Password">
+                            <input type="password" name="password" class="form-contact style-1 password-field @error('password') is-invalid @enderror" placeholder="{{__('Password')}}">
                             <span class="show-pass">
                                     <i class="icon-pass icon-eye"></i>
                                     <i class="icon-pass icon-eye-off"></i>
@@ -219,7 +219,7 @@
                     <fieldset class="box-fieldset">
                         <label for="password">{{__('Password')}}<span>*</span>:</label>
                         <div class="box-password">
-                            <input type="password" name="password" id="password" required class="form-contact style-1 password-field @error('password') has-error @enderror" placeholder="Password">
+                            <input type="password" name="password" id="password" required class="form-contact style-1 password-field @error('password') has-error @enderror" placeholder="{{__('Password')}}">
                             <span class="show-pass">
                                     <i class="icon-pass icon-eye"></i>
                                     <i class="icon-pass icon-eye-off"></i>
@@ -232,7 +232,7 @@
                     <fieldset class="box-fieldset">
                         <label for="password_confirmation">{{__('Confirm Password')}}<span>*</span>:</label>
                         <div class="box-password">
-                            <input type="password" id="password_confirmation" name="password_confirmation"  class="form-contact style-1 password-field2" placeholder="Password">
+                            <input type="password" id="password_confirmation" name="password_confirmation"  class="form-contact style-1 password-field2" placeholder="{{__('Password')}}">
                             <span class="show-pass2">
                                     <i class="icon-pass icon-eye"></i>
                                     <i class="icon-pass icon-eye-off"></i>

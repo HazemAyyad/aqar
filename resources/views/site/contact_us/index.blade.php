@@ -19,11 +19,11 @@
     <section class="flat-title-page style-2">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="{{route('site.index')}}">Home</a></li>
-                <li>/ Pages</li>
-                <li>/ Contact Us</li>
+                <li><a href="{{route('site.index')}}">{{__('Home')}}</a></li>
+                <li>/ {{__('Pages')}}</li>
+                <li>/ {{__('Contact Us')}}</li>
             </ul>
-            <h2 class="text-center">Contact Us</h2>
+            <h2 class="text-center">{{__('Contact Us')}}</h2>
         </div>
     </section>
     <!-- End Page Title -->
@@ -34,54 +34,54 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="contact-content">
-                        <h5>Drop Us A Line</h5>
-                        <p class="body-2 text-variant-1">Feel free to connect with us through our online channels for updates, news, and more.</p>
+                        <h5>{{__('Drop Us A Line')}}</h5>
+                        <p class="body-2 text-variant-1">{{__('Feel free to connect with us through our online channels for updates, news, and more')}}.</p>
                         <form  class="form-contact" id="mainAdd" method="post" action="javascript:void(0)">
                             <div class="box grid-2">
                                 <fieldset>
-                                    <label for="name">Full Name:</label>
-                                    <input type="text" class="form-control style-1" placeholder="Name" name="name" id="name" required>
+                                    <label for="name">{{__('Full Name')}}:</label>
+                                    <input type="text" class="form-control style-1" placeholder="{{__('Name')}}" name="name" id="name" required>
                                 </fieldset>
                                 <fieldset>
-                                    <label for="email">Email Address:</label>
-                                    <input type="text" class="form-control style-1" placeholder="Email" name="email" id="email" required>
+                                    <label for="email">{{__('Email Address')}}:</label>
+                                    <input type="text" class="form-control style-1" placeholder="{{__('Email')}}" name="email" id="email" required>
                                 </fieldset>
                             </div>
                             <div class="box grid-2">
                                 <fieldset>
-                                    <label for="phone">Phone Numbers:</label>
+                                    <label for="phone">{{__('Phone Numbers')}}:</label>
                                     <input type="text" class="form-control style-1" placeholder="ex 012345678" name="phone" id="phone" required>
                                 </fieldset>
                                 <fieldset>
-                                    <label for="subject">Subject:</label>
-                                    <input type="text" class="form-control style-1" placeholder="Enter Keyword" name="subject" id="subject" required>
+                                    <label for="subject">{{__('Subject')}}:</label>
+                                    <input type="text" class="form-control style-1" placeholder="{{__('Enter Keyword')}}" name="subject" id="subject" required>
                                 </fieldset>
                             </div>
                             <fieldset class="box">
-                                <label for="message">Your Message:</label>
-                                <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Message" name="message" id="message" required></textarea>
+                                <label for="message">{{__('Your Message')}}:</label>
+                                <textarea name="message" class="form-control" cols="30" rows="10" placeholder="{{__('Message')}}" name="message" id="message" required></textarea>
                             </fieldset>
                             <div class="send-wrap">
-                                <button class="tf-btn primary size-1" id="add_form" type="submit">Send Message</button>
+                                <button class="tf-btn primary size-1" id="add_form" type="submit">{{__('Send Message')}}</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="contact-info">
-                        <h5>Contact Us</h5>
+                        <h5>{{__('Contact Us')}}</h5>
                         <ul>
                             <li class="box">
-                                <div class="text-1 title">Address:</div>
+                                <div class="text-1 title">{{__('Address')}}:</div>
                                 <p class="p-16 text-variant-1">{{$data_settings['address']}}</p>
                             </li>
                             <li class="box">
-                                <div class="text-1 title">Infomation:</div>
+                                <div class="text-1 title">{{__('Infomation')}}:</div>
                                 <p class="p-16 text-variant-1">{{$data_settings['phone']}} <br> {{$data_settings['email']}}</p>
                             </li>
 
                             <li class="box">
-                                <div class="text-1 title">Follow Us:</div>
+                                <div class="text-1 title">{{__('Follow Us')}}:</div>
                                 <ul class="box-social">
                                     <li><a href="{{$data_settings['facebook']}}" class="item">
                                             <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
