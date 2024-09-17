@@ -1,6 +1,6 @@
 <div class="single-property-element single-wrapper-review">
     <div class="box-title-review d-flex justify-content-between align-items-center flex-wrap gap-20">
-        <div class="h7 fw-7">Guest Reviews</div>
+        <div class="h7 fw-7">{{__('Guest Reviews')}}</div>
 {{--        <a href="#" class="tf-btn">View All Reviews</a>--}}
     </div>
     <div class="wrap-review">
@@ -79,10 +79,10 @@
                     <fieldset class="form-wg">
                         <label class="sub-ip">Review</label>
                         <textarea id="comment-message" name="comment" rows="4" tabindex="4"
-                                  placeholder="Write comment " aria-required="true"></textarea>
+                                  placeholder="{{__('Write comment')}}" aria-required="true"></textarea>
                     </fieldset>
                     <button class="form-wg tf-btn primary" id="store_reviews" name="submit" type="submit">
-                        <span>Post Comment</span>
+                        <span>{{__('Post Comment')}}</span>
                     </button>
                 </form>
             </div>

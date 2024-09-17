@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <div class="form-style">
-                                <label class="title-select">Type</label>
+                                <label class="title-select">{{__('Type')}}</label>
                                 <div class="group-select">
                                     <select name="category_id" class="form-control">
                                         <option value="" data-display="{{__('select')}}">{{__('Nothing')}}</option>

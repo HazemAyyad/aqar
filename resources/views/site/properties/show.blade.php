@@ -87,7 +87,7 @@
                 <a href="{{$property->more_info->video_url}}" data-fancybox="gallery2" class="box-icon">
                     <span class="icon icon-play2"></span>
                 </a>
-                <a href="{{$correctedImagePath}}"  data-fancybox="gallery" class="tf-btn primary">View All Photos</a>
+                <a href="{{$correctedImagePath}}"  data-fancybox="gallery" class="tf-btn primary">{{__('View All Photos')}}</a>
             </div>
         </div>
             @else
@@ -105,7 +105,7 @@
                     <div class="header-property-detail">
                         <div class="content-top d-flex justify-content-between align-items-center">
                             <div class="box-name">
-                                <a href="#" class="flag-tag primary">For
+                                <a href="#" class="flag-tag primary">{{__('For')}}
                                     @if($property->status==0)
                                         {{__('Not available')}}
                                     @elseif($property->status==1)
@@ -128,12 +128,12 @@
                             </div>
                             <div class="box-price d-flex align-items-center">
                                 <h4>${{$property->price->price}}</h4>
-                                <span class="body-1 text-variant-1">/month</span>
+                                <span class="body-1 text-variant-1">/{{__('month')}}</span>
                             </div>
                         </div>
                         <div class="content-bottom">
                             <div class="info-box">
-                                <div class="label">FEATUREs:</div>
+                                <div class="label">{{__('FEATUREs')}}:</div>
                                 <ul class="meta">
                                     <li class="meta-item"><span class="icon icon-bed"></span> {{$property->more_info->bedrooms}} Bedroom</li>
                                     <li class="meta-item"><span class="icon icon-bathtub"></span> {{$property->more_info->bathrooms}} Bathroom</li>
@@ -163,138 +163,138 @@
                         </div>
                     </div>
                     <div class="single-property-element single-property-desc">
-                        <div class="h7 title fw-7">Description</div>
+                        <div class="h7 title fw-7">{{__('Description')}}</div>
                         {!! $property->more_info->content !!}
                     </div>
                     <div class="single-property-element single-property-overview">
-                        <div class="h7 title fw-7">Overview</div>
+                        <div class="h7 title fw-7">{{__('Overview')}}</div>
                         <ul class="info-box">
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-house-line"></i></a>
                                 <div class="content">
-                                    <span class="label">ID:</span>
+                                    <span class="label">{{__('ID')}}:</span>
                                     <span>{{$property->id+1000}}</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-arrLeftRight"></i></a>
                                 <div class="content">
-                                    <span class="label">Type:</span>
+                                    <span class="label">{{__('Type')}}:</span>
                                     <span>{{$property->category->name}}</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-bed"></i></a>
                                 <div class="content">
-                                    <span class="label">Bedrooms:</span>
-                                    <span>{{$property->more_info->bedrooms}} Rooms</span>
+                                    <span class="label">{{__('Bedrooms')}}:</span>
+                                    <span>{{$property->more_info->bedrooms}} {{__('Rooms')}}</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-bathtub"></i></a>
                                 <div class="content">
-                                    <span class="label">Bathrooms:</span>
-                                    <span>{{$property->more_info->bathrooms}} Rooms</span>
+                                    <span class="label">{{__('Bathrooms')}}:</span>
+                                    <span>{{$property->more_info->bathrooms}} {{__('Rooms')}}</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-garage"></i></a>
                                 <div class="content">
-                                    <span class="label">Garages:</span>
-                                    <span>{{$property->more_info->garagess}} Rooms</span>
+                                    <span class="label">{{__('Garages')}}:</span>
+                                    <span>{{$property->more_info->garagess}} {{__('Rooms')}}</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-ruler"></i></a>
                                 <div class="content">
-                                    <span class="label">Size:</span>
+                                    <span class="label">{{__('Size')}}:</span>
                                     <span>{{$property->more_info->size}} m²</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-crop"></i></a>
                                 <div class="content">
-                                    <span class="label">Land Size:</span>
+                                    <span class="label">{{__('Land Size')}}:</span>
                                     <span>{{$property->more_info->land_size}} m²</span>
                                 </div>
                             </li>
                             <li class="item">
                                 <a href="#" class="box-icon w-52"><i class="icon icon-hammer"></i></a>
                                 <div class="content">
-                                    <span class="label">Year Built:</span>
+                                    <span class="label">{{__('Year Built')}}:</span>
                                     <span>{{$property->more_info->year_built}} </span>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="single-property-element single-property-video">
-                        <div class="h7 title fw-7">Video</div>
+                        <div class="h7 title fw-7">{{__('Video')}}</div>
                         <div class="img-video">
                             <img src="{{asset('site/images/banner/img-video.jpg')}}" alt="img-video">
                             <a href="{{$property->more_info->video_url}}" data-fancybox="gallery2" class="btn-video"> <span class="icon icon-play2"></span></a>
                         </div>
                     </div>
                     <div class="single-property-element single-property-info">
-                        <div class="h7 title fw-7">Property Details</div>
+                        <div class="h7 title fw-7">{{__('Property Details')}}</div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Property ID:</span>
+                                    <span class="label">{{__('Property ID')}}:</span>
                                     <div class="content fw-7">{{$property->id+1000}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Bedrooms:</span>
+                                    <span class="label">{{__('Bedrooms')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->bedrooms}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Price:</span>
+                                    <span class="label">{{__('Price')}}:</span>
                                     <div class="content fw-7">${{$property->price->price}}<span class="caption-1 fw-4 text-variant-1">/month</span></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Bedrooms:</span>
+                                    <span class="label">{{__('Bedrooms')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->bedrooms}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Property Size:</span>
+                                    <span class="label">{{__('Property Size')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->size}} m²</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Bathrooms:</span>
+                                    <span class="label">{{__('Bathrooms')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->bathrooms}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Year built:</span>
+                                    <span class="label">{{__('Year built')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->year_built}}</div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Property Type:</span>
+                                    <span class="label">{{__('Property Type')}}:</span>
                                     <div class="content fw-7">{{$property->category->name}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Garage:</span>
+                                    <span class="label">{{__('Garage')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->garages}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Property Status:</span>
+                                    <span class="label">{{__('Property Status')}}:</span>
                                     <div class="content fw-7">For
                                         @if($property->status==0)
                                             {{__('Not available')}}
@@ -318,14 +318,14 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="inner-box">
-                                    <span class="label">Garage Size:</span>
+                                    <span class="label">{{__('Garage Size')}}:</span>
                                     <div class="content fw-7">{{$property->more_info->garages_size}} m²</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="single-property-element single-property-feature">
-                        <div class="h7 title fw-7">Amenities and features</div>
+                        <div class="h7 title fw-7">{{__('Amenities and features')}}</div>
                         <div class="wrap-feature">
 
                             @foreach($categoriesWithFeatures as $categoryName => $features)
@@ -350,7 +350,7 @@
                         <div id="map"></div>
                         <ul class="info-map">
                             <li>
-                                <div class="fw-7">Address</div>
+                                <div class="fw-7">{{__('Address')}}</div>
                                 <span class="mt-4 text-variant-1">
                                     {{$property->address->full_address}}, {{$property->address->city->name}},
                                                             {{$property->address->state->name}},{{$property->address->country->name}}
@@ -370,38 +370,38 @@
                     </div>
 
                     <div class="single-property-element single-property-loan">
-                        <div class="h7 title fw-7">Loan Calculator</div>
+                        <div class="h7 title fw-7">{{__('Loan Calculator')}}</div>
                         <form id="loanCalculator" class="box-loan-calc">
                             <div class="box-top">
                                 <div class="item-calc">
-                                    <label for="totalAmount" class="label">Total Amount:</label>
+                                    <label for="totalAmount" class="label">{{__('Total Amount')}}:</label>
                                     <input type="number" id="totalAmount" value="{{$property->price->price}}" readonly placeholder="10,000" class="form-control">
                                 </div>
                                 <div class="item-calc">
-                                    <label for="downPayment" class="label">Down Payment:</label>
+                                    <label for="downPayment" class="label">{{__('Down Payment')}}:</label>
                                     <input type="number" id="downPayment" placeholder="3000" class="form-control">
                                 </div>
                                 <div class="item-calc">
-                                    <label for="amortizationPeriod" class="label">Amortization Period (months):</label>
+                                    <label for="amortizationPeriod" class="label">{{__('Amortization Period (months)')}}:</label>
                                     <input type="number" id="amortizationPeriod" placeholder="12" class="form-control">
                                 </div>
                                 <div class="item-calc">
-                                    <label for="interestRate" class="label">Interest rate (%):</label>
+                                    <label for="interestRate" class="label">{{__('Interest rate (%)')}}':</label>
                                     <input type="number" id="interestRate" placeholder="5" class="form-control">
                                 </div>
                             </div>
                             <div class="box-bottom">
-                                <button type="button" id="calculateButton" class="tf-btn primary">Calculate</button>
+                                <button type="button" id="calculateButton" class="tf-btn primary">{{__('Calculate')}}</button>
                                 <div class="d-flex gap-4">
-                                    <span class="h7 fw-7">Monthly Payment:</span>
+                                    <span class="h7 fw-7">{{__('Monthly Payment')}}:</span>
                                     <span id="monthlyPayment" class="result h7 fw-7">$0.00</span>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="single-property-element single-property-nearby">
-                        <div class="h7 title fw-7">What’s nearby?</div>
-                        <p class="body-2">Explore nearby amenities to precisely locate your property and identify surrounding conveniences, providing a comprehensive overview of the living environment and the property's convenience.</p>
+                        <div class="h7 title fw-7">{{__("What’s nearby?")}}</div>
+                        <p class="body-2">{{__("Explore nearby amenities to precisely locate your property and identify surrounding conveniences, providing a comprehensive overview of the living environment and the property's convenience")}}.</p>
                         <div class="grid-2 box-nearby">
                             @php
                                 $facilities = $property->facilities;
@@ -440,23 +440,23 @@
                         @include('site.properties.partials.filter_search',['features'=>$all_features]) <!-- Extract the search form into a partial -->
 
                         <div class="widget-box single-property-whychoose bg-surface">
-                            <div class="h7 title fw-7">Why Choose Us?</div>
+                            <div class="h7 title fw-7">{{__('Why Choose Us?')}}</div>
                             <ul class="box-whychoose">
                                 <li class="item-why">
                                     <i class="icon icon-secure"></i>
-                                    Secure Booking
+                                    {{__('Secure Booking')}}
                                 </li>
                                 <li class="item-why">
                                     <i class="icon icon-guarantee"></i>
-                                    Best Price Guarantee
+                                    {{__('Best Price Guarantee')}}
                                 </li>
                                 <li class="item-why">
                                     <i class="icon icon-booking"></i>
-                                    Easy Booking Process
+                                    {{__('Easy Booking Process')}}
                                 </li>
                                 <li class="item-why">
                                     <i class="icon icon-support"></i>
-                                    Available Support 24/7
+                                    {{__('Available Support 24/7')}}
                                 </li>
                             </ul>
                         </div>
@@ -470,8 +470,8 @@
     <section class="flat-section pt-0 flat-latest-property">
         <div class="container">
             <div class="box-title">
-                <div class="text-subtitle text-primary">Featured properties</div>
-                <h4 class="mt-4">The Most Recent Estate</h4>
+                <div class="text-subtitle text-primary">{{__('Featured properties')}}</div>
+                <h4 class="mt-4">{{__('The Most Recent Estate')}}</h4>
             </div>
             <div class="swiper tf-latest-property" data-preview-lg="3" data-preview-md="2" data-preview-sm="2" data-space="30" data-loop="true">
                 <div class="swiper-wrapper">
