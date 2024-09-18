@@ -66,7 +66,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{route('admin.properties.index')}}">{{__('Properties')}}</a>
+                    <a href="{{route('admin.properties.index',1)}}">{{__('Properties')}}</a>
                 </li>
                 <li class="breadcrumb-item active">{{__('Edit Property')}}</li>
                 <!-- Basic table -->

@@ -59,6 +59,34 @@
             </div>
         </div>
         <!-- / Content -->
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="moderationStatusModal" tabindex="-1" aria-labelledby="moderationStatusModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="moderationStatusModalLabel">Change Moderation Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="moderationStatusForm">
+                            <div class="mb-3">
+                                <label for="moderation_status" class="form-label">Select Status</label>
+                                <select class="form-select" id="moderation_status" name="moderation_status">
+                                    <option value="0">Pending</option>
+                                    <option value="1">Approved</option>
+                                    <option value="2">Rejected</option>
+                                </select>
+                            </div>
+                            <input type="hidden" id="property_id">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveModerationStatus">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 @endsection
 @section('scripts')
@@ -77,7 +105,7 @@
     {{--    <script src="{{asset('../app-assets/js/scripts/tables/table-datatables-basic.js"></script>--}}
     <script>
 
-        var data_url='{{ route('admin.properties.get_properties')}}'
+        var data_url='{{ route('admin.properties.get_properties',$status)}}'
 
         var dt;
         $(function() {
@@ -163,5 +191,79 @@
             })
         }
     </script>
+    <script !src="">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip(); // Initialize tooltips
+        });
+
+    </script>
+    <script>
+        function changeModerationStatus(element) {
+            var propertyId = $(element).data('id');
+            var currentStatus = $(element).data('status');
+
+            // Set the current property ID and moderation status in the modal
+            $('#property_id').val(propertyId);
+            $('#moderation_status').val(currentStatus); // Set the selected value
+
+            // Show the Bootstrap modal
+            var myModal = new bootstrap.Modal(document.getElementById('moderationStatusModal'));
+            myModal.show();
+        }
+
+        // Handle the form submission
+        $('#saveModerationStatus').click(function() {
+            var propertyId = $('#property_id').val();
+            var newStatus = $('#moderation_status').val();
+            $('#saveModerationStatus').html('');
+            $('#saveModerationStatus').append('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
+                '<span class="ml-25 align-middle">{{ __('Saving') }}...</span>');
+
+            $.ajax({
+                url: '{{ route("admin.properties.updateModerationStatus") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: propertyId,
+                    moderation_status: newStatus
+                },
+                success: function(response) {
+
+                    $('#saveModerationStatus').html('{{ __('Save changes') }}');
+                    if (response.success) {
+                        Swal.fire(
+                            'Updated!',
+                            'Moderation status has been updated.',
+                            'success'
+                        );
+
+                        // Hide the modal after successful update
+                        var myModalEl = document.getElementById('moderationStatusModal');
+                        var modal = bootstrap.Modal.getInstance(myModalEl);
+                        modal.hide();
+
+                        // Reload DataTable without refreshing the entire page
+                        $('.datatables-basic').DataTable().ajax.reload(null, false); // Use the DataTable ID you initialized
+                    } else {
+                        $('#saveModerationStatus').html('{{ __('Save changes') }}');
+                        Swal.fire(
+                            'Error!',
+                            'Failed to update moderation status.',
+                            'error'
+                        );
+                    }
+                },
+                error: function() {
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while updating the moderation status.',
+                        'error'
+                    );
+                }
+            });
+        });
+    </script>
+
+
 
 @endsection

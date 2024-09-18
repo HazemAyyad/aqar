@@ -202,7 +202,7 @@ class PropertyController extends Controller
                     'slug' => $request->slug,
                     'type' => $request->type,
                     'status' => $request->status,
-                    'moderation_status' => $request->moderation_status??1,
+//                    'moderation_status' => $request->moderation_status??1,
                     'category_id' => $request->category_id,
                 ]);
                 $information = PropertyInformation::query()->create([

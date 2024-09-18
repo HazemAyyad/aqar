@@ -117,7 +117,7 @@ class SiteController extends Controller
         $selectedTab = $request->input('tab', [1,0]); // Default to 'rent' if no tab is selected
 
         $propertiesQuery = Property::query()
-
+            ->where(['moderation_status'=>1])
             ->with([
                 'images' => function ($query) {
                     $query->take(1); // Limit to the first image
@@ -206,6 +206,7 @@ class SiteController extends Controller
         $properties = $propertiesQuery->paginate($perPage);
 
         $latestProperties = Property::query()
+            ->where(['moderation_status'=>1])
             ->with([
                 'images' => function ($query) {
                     $query->take(1); // Limit to the first image
@@ -246,7 +247,7 @@ class SiteController extends Controller
         $selectedTab = $request->input('tab', [1,0]); // Default to 'rent' if no tab is selected
 
         $propertiesQuery = Property::query()
-
+            ->where(['moderation_status'=>1])
             ->with([
                 'images' => function ($query) {
                     $query->take(1); // Limit to the first image
@@ -384,6 +385,7 @@ class SiteController extends Controller
             session()->put($sessionKey, true);
         }
         $latestProperties = Property::query()
+            ->where(['moderation_status'=>1])
             ->with([
                 'images' => function ($query) {
                     $query->take(1); // Limit to the first image
