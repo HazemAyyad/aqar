@@ -77,12 +77,12 @@
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="ti ti-logout me-2 ti-sm"></i>
-                                <span class="align-middle">Log Out</span>
+                                <span class="align-middle">{{__('Log Out')}}</span>
                             </a>
 
                             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                                 @csrf
-                            </form>
+                            </form> 
                         </li>
                     </ul>
                 </li>
