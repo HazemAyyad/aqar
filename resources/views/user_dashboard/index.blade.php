@@ -10,10 +10,10 @@
                 <span class="icon icon-list-dashes"></span>
             </div>
             <div class="content-box">
-                <div class="title-count">your Listing</div>
+                <div class="title-count">{{__('your Listing')}}</div>
                 <div class="d-flex align-items-end">
                     <h6 class="number" data-speed="2000" data-to="17" data-inviewport="yes">{{count($properties)}}</h6>
-                    <span class="fw-7 text-variant-2">/{{count($properties)}} remaining</span>
+                    <span class="fw-7 text-variant-2">/{{count($properties)}} {{__('remaining')}}</span>
                 </div>
 
             </div>
@@ -23,7 +23,7 @@
                 <span class="icon icon-clock-countdown"></span>
             </div>
             <div class="content-box">
-                <div class="title-count">Pending</div>
+                <div class="title-count">{{__('Pending')}}</div>
                 <div class="d-flex align-items-end">
                     <h6 class="number" data-speed="2000" data-to="0" data-inviewport="yes">0</h6>
                 </div>
@@ -35,7 +35,7 @@
                 <span class="icon icon-bookmark"></span>
             </div>
             <div class="content-box">
-                <div class="title-count">Favorite</div>
+                <div class="title-count">{{__('Favorite')}}</div>
                 <div class="d-flex align-items-end">
                     <h6 class="number" data-speed="2000" data-to="1" data-inviewport="yes">0</h6>
                 </div>
@@ -47,7 +47,7 @@
                 <span class="icon icon-review"></span>
             </div>
             <div class="content-box">
-                <div class="title-count">Reviews</div>
+                <div class="title-count">{{__('Reviews')}}</div>
                 <div class="d-flex align-items-end">
                     <h6 class="number" data-speed="2000" data-to="17" data-inviewport="yes">0</h6>
                 </div>
@@ -58,17 +58,17 @@
     <div class="wrapper-content row">
         <div class="col-xl-9">
             <div class="widget-box-2 wd-listing">
-                <h6 class="title">New Listing</h6>
+                <h6 class="title">{{__('New Listing')}}</h6>
                 @include('user_dashboard.includes.filter')
-                <div class="d-flex gap-4"><span class="text-primary fw-7">{{$properties->count()}}</span><span class="text-variant-1">Results found</span></div>
+                <div class="d-flex gap-4"><span class="text-primary fw-7">{{$properties->count()}}</span><span class="text-variant-1">{{__('Results found')}}</span></div>
                 <div class="wrap-table">
                     <div class="table-responsive">
                         <table>
                             <thead>
                             <tr>
-                                <th>LISTING TITLE</th>
-                                <th>Date Published</th>
-                                <th>Action</th>
+                                <th>{{__('LISTING TITLE')}}</th>
+                                <th>{{__('Date Published')}}</th>
+                                <th>{{__('Action')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,7 +115,7 @@
                             @else
                                 <tr class="file-delete"  >
                                     <td>
-                                        not found any things
+                                        {{__('not found any things')}}
                                     </td>
 
 
@@ -136,15 +136,15 @@
         </div>
         <div class="col-xl-3">
             <div class="widget-box-3 mess-box">
-                <h6>Messages</h6>
-                <span class="text-variant-1">No message</span>
+                <h6>{{__('Messages')}}</h6>
+                <span class="text-variant-1">{{__('No message')}}</span>
             </div>
             <div class="widget-box-3 recent-box">
-                <h6>Recent Reviews</h6>
+                <h6>{{__('Recent Reviews')}}</h6>
 
                 @if($reviews->isEmpty())
                     <div class="box-tes-item">
-                        <span class="text-variant-1">No Reviews</span>
+                        <span class="text-variant-1">{{__('No Reviews')}}</span>
                     </div>
                 @else
                     @foreach($reviews as $propertyId => $propertyReviews)

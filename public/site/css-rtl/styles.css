@@ -8539,7 +8539,7 @@ label {
   box-shadow: 0px 2px 2px 0px rgba(28, 36, 51, 0.1019607843);
   height: 100%;
   top: 80px;
-  left: 0;
+  right: 0;
   bottom: 0;
   overflow-y: auto;
   z-index: 20;
@@ -8625,7 +8625,7 @@ label {
 }
 
 .layout-wrap .main-content {
-  padding-left: 280px;
+  padding-right: 280px;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   -ms-transition: all 0.4s ease;

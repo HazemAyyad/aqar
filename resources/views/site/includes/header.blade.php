@@ -241,7 +241,7 @@
 
 
 
-                                                                <div class="language-dropdown">
+                                <div class="language-dropdown">
                                     <a class="lang-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }}
                                     </a>

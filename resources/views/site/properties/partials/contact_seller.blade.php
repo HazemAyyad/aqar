@@ -1,5 +1,5 @@
 <div class="widget-box single-property-contact bg-surface">
-    <div class="h7 title fw-7">Contact Sellers</div>
+    <div class="h7 title fw-7">{{__('Contact Sellers')}}</div>
     <div class="box-avatar">
         <div class="avatar avt-100 round">
             @if($property->user_id!=null)
@@ -30,22 +30,22 @@
     </div>
     <form  class="contact-form" id="mainAdd" method="post" action="javascript:void(0)">
         <div class="ip-group form-group">
-            <label for="name">Full Name:</label>
+            <label for="name">{{__('Full Name')}}:</label>
             <input type="text" name="name" required placeholder="Jony Dane" class="form-control">
         </div>
         <div class="ip-group form-group">
-            <label for="phone">Phone Number:</label>
+            <label for="phone">{{__('Phone Number')}}:</label>
             <input type="text" name="phone" required placeholder="ex 0123456789" class="form-control">
         </div>
         <div class="ip-group form-group">
-            <label for="email">Email Address:</label>
+            <label for="email">{{__('Email Address')}}:</label>
             <input type="text" name="email" required placeholder="themesflat@gmail.com" class="form-control">
         </div>
         <div class="ip-group form-group">
-            <label for="subject">Your Message:</label>
+            <label for="subject">{{__('Your Message')}}:</label>
             <textarea id="comment-message" required name="subject" rows="4" tabindex="4"
-                      placeholder="Message" aria-required="true"></textarea>
+                      placeholder="{{__('Message')}}" aria-required="true"></textarea>
         </div>
-        <button type="submit" class="tf-btn primary w-100" id="add_form">Send Message</button>
+        <button type="submit" class="tf-btn primary w-100" id="add_form">{{__('Send Message')}}</button>
     </form>
 </div>
