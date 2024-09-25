@@ -115,7 +115,7 @@
 
                                                             <select name="type" id="type" class="form-select">
                                                                 <option value="0">{{__('Rent')}}</option>
-                                                                <option value="1">{{__('Sold')}}</option>
+                                                                <option value="1">{{__('Sell')}}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -193,7 +193,7 @@
                                                             <select id="state" name="state_id" class="form-control select2">
                                                                 <option value="">{{ __('Select State') }}</option>
                                                             </select>
-                                                            <div id="state-loading" class="loading-indicator" style="display: none;">Loading states...</div> <!-- Loading animation -->
+                                                            <div id="state-loading" class="loading-indicator" style="display: none;">{{__('Loading states...')}}</div> <!-- Loading animation -->
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -202,7 +202,7 @@
                                                             <select id="city" name="city_id" class="form-control select2">
                                                                 <option value="">{{ __('Select City') }}</option>
                                                             </select>
-                                                            <div id="city-loading" class="loading-indicator" style="display: none;">Loading cities...</div> <!-- Loading animation -->
+                                                            <div id="city-loading" class="loading-indicator" style="display: none;">{{__('Loading cities...')}}</div> <!-- Loading animation -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -482,7 +482,7 @@
                                                                     <div class="mb-0">
                                                                         <button type="button" class="btn btn-primary" data-repeater-create>
                                                                             <i class="ti ti-plus me-1"></i>
-                                                                            <span class="align-middle">Add</span>
+                                                                            <span class="align-middle">{{__('Add')}}</span>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -505,7 +505,7 @@
                                     <div class="col-12">
                                         <div class="card widget-box-2">
 
-                                            <h6 class="title">{{__('status')}}</h6>
+                                            <h6 class="title">{{__('Status')}}</h6>
                                             <div class="card-body">
                                                 <div class="form-group mb-3">
                                                     <select name="status" id="status" class="form-select">
@@ -754,11 +754,11 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('#state').prop('disabled', false).empty().append('<option value="">Select State</option>');
+                            $('#state').prop('disabled', false).empty().append('<option value="">{{__('Select State')}}</option>');
                             $.each(data, function(key, value) {
                                 $('#state').append('<option value="' + value.id + '">' + value.name + '</option>');
                             });
-                            $('#city').empty().append('<option value="">Select City</option>');
+                            $('#city').empty().append('<option value="">{{__('Select City')}}</option>');
                             $('#state').trigger('change.select2');
                             $('#state-loading').hide();
                         },
@@ -768,8 +768,8 @@
                         }
                     });
                 } else {
-                    $('#state, #city').empty().append('<option value="">Select State</option>');
-                    $('#city').append('<option value="">Select City</option>');
+                    $('#state, #city').empty().append('<option value="">{{__('Select State')}}</option>');
+                    $('#city').append('<option value="">{{__('Select City')}}</option>');
                     $('#state, #city').trigger('change.select2');
                 }
             });
@@ -787,7 +787,7 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            $('#city').prop('disabled', false).empty().append('<option value="">Select City</option>');
+                            $('#city').prop('disabled', false).empty().append('<option value="">{{__('Select City')}}</option>');
                             $.each(data, function(key, value) {
                                 $('#city').append('<option value="' + value.id + '">' + value.name + '</option>');
                             });
@@ -800,7 +800,7 @@
                         }
                     });
                 } else {
-                    $('#city').empty().append('<option value="">Select City</option>');
+                    $('#city').empty().append('<option value="">{{__('Select City')}}</option>');
                     $('#city').trigger('change.select2');
                 }
             });
@@ -829,12 +829,12 @@
             clickable: true,
             addRemoveLinks: true,
             acceptedFiles: 'image/*',
-            dictFallbackMessage: " المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات ",
-            dictInvalidFileType: "لايمكنك رفع هذا النوع من الملفات ",
-            dictCancelUpload: "الغاء الرفع ",
-            dictCancelUploadConfirmation: " هل انت متاكد من الغاء رفع الملفات ؟ ",
-            dictRemoveFile: "حذف الصوره",
-            dictMaxFilesExceeded: "لايمكنك رفع عدد اكثر من هضا ",
+            dictFallbackMessage: " {{__('Your browser does not support multiple images and drag and drop.')}} ",
+            dictInvalidFileType: "{{__('You cannot upload this type of file.')}} ",
+            dictCancelUpload: "{{__('Cancel upload')}} ",
+            dictCancelUploadConfirmation: " {{__('Are you sure you want to cancel the file upload?')}} ",
+            dictRemoveFile: "{{__('Delete the image')}}",
+            dictMaxFilesExceeded: " {{__('You can upload more than this.')}}",
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
@@ -870,7 +870,7 @@
 
         $.validator.addMethod('filesize', function(value, element, param) {
             return this.optional(element) || (element.files[0].size <= param);
-        }, 'يجيب ان يكون حجم المرفق اقل من 5 ميجا بايت');
+        }, '{{__('Attachment size must be less than 5MB.')}}');
 
         $("form[name='my-form']").validate({
             rules: {
@@ -880,10 +880,10 @@
                 project_type_id: { required: true }
             },
             messages: {
-                title: { required: "العنوان مطلوب" },
-                description: { required: "الوصف مطلوب" },
-                photo: { required: "الصورة مطلوبة" },
-                project_type_id: { required: "نوع المشروع مطلوب" }
+                title: { required: "{{__('Title required')}}" },
+                description: { required: "{{__('Description required')}}" },
+                photo: { required: "{{__('Image required')}}" },
+                project_type_id: { required: "Project Type Required" }
             },
             submitHandler: function(form) {
                 $.ajaxSetup({
@@ -988,7 +988,7 @@
 
             const fullEditor = new Quill('#full-editor', {
                 bounds: '#full-editor',
-                placeholder: 'Type Something...',
+                placeholder: '{{__('Type Something...')}}',
                 modules: {
                     formula: true,
                     toolbar: fullToolbar

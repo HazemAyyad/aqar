@@ -9,15 +9,15 @@
 
 
     <div class="widget-box-2 wd-listing">
-        <h6 class="title">My Properties</h6>
+        <h6 class="title">{{__('My Properties')}}</h6>
         <div class="wrap-table">
             <div class="table-responsive">
                 <table>
                     <thead>
                     <tr>
-                        <th>LISTING TITLE</th>
-                        <th>Date Published</th>
-                        <th>Action</th>
+                        <th>{{__('LISTING TITLE')}}</th>
+                        <th>{{__('Date Published')}}</th>
+                        <th>{{__('Action')}}</th>
                     </tr>
                     </thead>
                     <tbody>'
@@ -53,9 +53,9 @@
 
                             <td>
                                 <ul class="list-action">
-                                    <li><a href="{{route('user.properties.edit',$property->id)}}" class="item"><i class="icon icon-edit"></i>Edit</a></li>
-                                    <li><a class="item" href="javascript:void(0)" onclick="soldItem({{$property->id}})"><i class="icon icon-sold"></i>Sold</a></li>
-                                    <li><a class="item" href="javascript:void(0)" onclick="deleteItem({{$property->id}})"><i class="icon icon-trash"></i>Delete</a></li>
+                                    <li><a href="{{route('user.properties.edit',$property->id)}}" class="item"><i class="icon icon-edit"></i>{{__('Edit')}}</a></li>
+                                    <li><a class="item" href="javascript:void(0)" onclick="soldItem({{$property->id}})"><i class="icon icon-sold"></i>{{__('Sold')}}</a></li>
+                                    <li><a class="item" href="javascript:void(0)" onclick="deleteItem({{$property->id}})"><i class="icon icon-trash"></i>{{__('Delete')}}</a></li>
                                 </ul>
                             </td>
                         </tr>
@@ -63,7 +63,7 @@
                     @else
                         <tr class="file-delete"  >
                             <td>
-                                not found any things
+                                {{__('Not Found Any Things')}}
                             </td>
 
 
