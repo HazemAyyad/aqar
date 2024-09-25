@@ -3631,7 +3631,7 @@ label {
   margin-top: -6px;
   pointer-events: none;
   position: absolute;
-  right: 18px;
+  left: 18px;
   top: 50%;
   -webkit-transform-origin: 66% 66%;
   -ms-transform-origin: 66% 66%;
@@ -8539,7 +8539,7 @@ label {
   box-shadow: 0px 2px 2px 0px rgba(28, 36, 51, 0.1019607843);
   height: 100%;
   top: 80px;
-  left: 0;
+  right: 0;
   bottom: 0;
   overflow-y: auto;
   z-index: 20;
@@ -8647,10 +8647,10 @@ label {
   margin-bottom: 30px;
 }
 .layout-wrap.full-width .sidebar-menu-dashboard {
-  transform: translateX(-100%);
+  transform: translateX(100%);
 }
 .layout-wrap.full-width .main-content {
-  padding-left: 0;
+  padding-right: 0;
 }
 .layout-wrap .main-content-inner {
   padding: 80px 175px;
@@ -9125,7 +9125,7 @@ tr {
   position: absolute;
   content: "\e914";
   font-family: "icomoon";
-  right: 16px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
 }
