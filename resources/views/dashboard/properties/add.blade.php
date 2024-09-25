@@ -61,7 +61,7 @@
                         <a href="{{route('admin.dashboard')}}">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{route('admin.properties.index')}}">{{__('Properties')}}</a>
+                        <a href="{{route('admin.properties.index',0)}}">{{__('Properties')}}</a>
                     </li>
                     <li class="breadcrumb-item active">{{__('Create Property')}}</li>
                     <!-- Basic table -->
@@ -89,11 +89,46 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <div class="form-group ">
-                                                                    <label class="form-label" for="name">{{__('Name')}}</label>
-                                                                    <input type="text" class="form-control"  name="name" id="name" placeholder="{{__('Name')}}" required>
+                                                                <div class="accordion" id="accordionExample">
+
+                                                                    @foreach ($lang as $index => $locale)
+                                                                        <div class="card accordion-item @if ($index === 0) active @endif">
+                                                                            <h2 class="accordion-header" id="heading{{ $locale }}">
+                                                                                <button type="button" class="accordion-button @if ($index !== 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#accordion{{ $locale }}" aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="accordion{{ $locale }}" role="tabpanel">
+                                                                                    {{ strtoupper($locale) }}
+                                                                                </button>
+                                                                            </h2>
+
+                                                                            <div id="accordion{{ $locale }}" class="accordion-collapse collapse @if ($index === 0) show @endif" data-bs-parent="#accordionExample">
+                                                                                <div class="accordion-body">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="name_{{ $locale }}">{{ __('Name') }} ({{ strtoupper($locale) }})</label>
+                                                                                        <input type="text" class="form-control" name="name[{{ $locale }}]" id="name_{{ $locale }}" placeholder="{{ __('Name in ') . strtoupper($locale) }}" required>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="description_{{ $locale }}">{{ __('Description') }} ({{ strtoupper($locale) }})</label>
+                                                                                        <textarea class="form-control" name="description[{{ $locale }}]" id="description_{{ $locale }}" rows="5" required></textarea>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="content_{{ $locale }}">{{ __('Content') }} ({{ strtoupper($locale) }})</label>
+                                                                                        <div id="editor-container-{{ $locale }}" class="editor-container">
+                                                                                            <!-- Quill editor will be initialized here -->
+                                                                                        </div>
+                                                                                        <textarea name="content[{{ $locale }}]" id="content_{{ $locale }}" class="d-none"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
                                                                 </div>
+
+
+
+                                                                <!-- Rest of your form here -->
                                                             </div>
+
 
                                                             <div class="col-md-12">
                                                                 <label class="form-label" for="slug">{{ __('Permalink') }}</label>
@@ -1015,8 +1050,10 @@
                 ['clean']
             ];
 
-            const fullEditor = new Quill('#full-editor', {
-                bounds: '#full-editor',
+            // Initialize Quill editors for each language section in the accordion
+            @foreach ($lang as $locale)
+            var quill{{ ucfirst($locale) }} = new Quill('#editor-container-{{ $locale }}', {
+                bounds: '#editor-container-{{ $locale }}',
                 placeholder: 'Type Something...',
                 modules: {
                     formula: true,
@@ -1024,14 +1061,17 @@
                 },
                 theme: 'snow'
             });
+            @endforeach
 
             $('#add_form').click(function(e) {
+                e.preventDefault();
 
                 var form = $(this.form);
 
                 if (!form.valid()) {
                     return false;
                 }
+
                 if (form.valid()) {
                     $.ajaxSetup({
                         headers: {
@@ -1040,8 +1080,12 @@
                     });
 
                     var postData = new FormData(this);
-                    var quillContent = fullEditor.root.innerHTML;
-                    postData.append('content', quillContent);
+
+                    // Collect content from all Quill editors
+                    @foreach ($lang as $locale)
+                    var quillContent{{ ucfirst($locale) }} = quill{{ ucfirst($locale) }}.root.innerHTML;
+                    postData.append('content[{{ $locale }}]', quillContent{{ ucfirst($locale) }});
+                    @endforeach
 
                     $('#add_form').html('');
                     $('#add_form').append('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
@@ -1063,7 +1107,10 @@
                             }, 200);
                             // $('#mainAdd')[0].reset();
                             $('.custom-error').remove();
-                            // fullEditor.root.innerHTML = '';
+                            // Clear editors after successful save
+                            @foreach ($lang as $locale)
+                                quill{{ ucfirst($locale) }}.root.innerHTML = '';
+                            @endforeach
                         },
                         error: function (data) {
                             $('.custom-error').remove();
@@ -1088,6 +1135,7 @@
             });
         });
     </script>
+
 
     <script>
         $(document).ready(function() {

@@ -258,9 +258,10 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     });
     //properties
     Route::as('properties.')->group(function () {
-        Route::get('properties', [PropertyController::class, 'index'])->name('index');
-        Route::get('get_properties', [PropertyController::class, 'get_properties'])->name('get_properties');
+        Route::get('properties/{status}', [PropertyController::class, 'index'])->name('index');
+        Route::get('get_properties/{status}', [PropertyController::class, 'get_properties'])->name('get_properties');
         Route::get('/property/edit/{id}', [PropertyController::class, 'edit'])->name('edit');
+        Route::post('/property/updateModerationStatus', [PropertyController::class, 'updateModerationStatus'])->name('updateModerationStatus');
         Route::post('/property/update/{id}', [PropertyController::class, 'update'])->name('update');
         Route::get('/property/create', [PropertyController::class, 'create'])->name('create');
         Route::post('/property/store', [PropertyController::class, 'store'])->name('store');

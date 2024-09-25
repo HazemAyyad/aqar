@@ -96,8 +96,18 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="{{route('admin.properties.index')}}" class="menu-link">
-                        <div data-i18n="{{__('Properties')}}">{{__('Properties')}}</div>
+                    <a href="{{route('admin.properties.index','1')}}" class="menu-link">
+                        <div data-i18n="{{__('Approved Properties')}}">{{__('Approved Properties')}}</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{route('admin.properties.index','0')}}" class="menu-link">
+                        <div data-i18n="{{__('Pending Properties')}}">{{__('Pending Properties')}}</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{route('admin.properties.index','2')}}" class="menu-link">
+                        <div data-i18n="{{__('Rejected Properties')}}">{{__('Rejected Properties')}}</div>
                     </a>
                 </li>
                 <li class="menu-item">
