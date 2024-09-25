@@ -93,11 +93,43 @@
 
                                                 <div class="card-body">
                                                     <div class="row">
+
                                                         <div class="col-md-12">
-                                                            <div class="form-group ">
-                                                                <label class="form-label" for="name">{{__('Name')}}</label>
-                                                                <input type="text" class="form-control" value="{{ old('title', $property->title ?? '') }}"  name="name" id="name" placeholder="{{__('Name')}}" required>
+                                                            <div class="accordion" id="accordionExample">
+                                                                @foreach ($lang as $index => $locale)
+                                                                    <div class="card accordion-item @if ($index === 0) active @endif">
+                                                                        <h2 class="accordion-header" id="heading{{ $locale }}">
+                                                                            <button type="button" class="accordion-button @if ($index !== 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#accordion{{ $locale }}" aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="accordion{{ $locale }}" role="tabpanel">
+                                                                                {{ strtoupper($locale) }}
+                                                                            </button>
+                                                                        </h2>
+
+                                                                        <div id="accordion{{ $locale }}" class="accordion-collapse collapse @if ($index === 0) show @endif" data-bs-parent="#accordionExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" for="name_{{ $locale }}">{{ __('Name') }} ({{ strtoupper($locale) }})</label>
+                                                                                    <input type="text" class="form-control" name="name[{{ $locale }}]" id="name_{{ $locale }}" value="{{ $property->getTranslation('title', $locale) }}" placeholder="{{ __('Name in ') . strtoupper($locale) }}" required>
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" for="description_{{ $locale }}">{{ __('Description') }} ({{ strtoupper($locale) }})</label>
+                                                                                    <textarea class="form-control" name="description[{{ $locale }}]" id="description_{{ $locale }}" rows="5" required>{{ $property->getTranslation('description', $locale) }}</textarea>
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" for="content_{{ $locale }}">{{ __('Content') }} ({{ strtoupper($locale) }})</label>
+                                                                                    <div id="editor-container-{{ $locale }}" class="editor-container">
+                                                                                        <!-- Quill editor will be initialized here -->
+                                                                                    </div>
+                                                                                    <textarea name="content[{{ $locale }}]" id="content_{{ $locale }}" class="d-none">{{ $property->getTranslation('content', $locale) }}</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
                                                             </div>
+
+                                                            <!-- Rest of your form here -->
                                                         </div>
 
                                                         <div class="col-md-12">
@@ -116,12 +148,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12">
-                                                            <div class="form-group  ">
-                                                                <label class="form-label" for="description">{{__('Description')}}</label>
-                                                                <textarea class="form-control" name="description"  required id="description"  rows="5">{{ old('description', $property->description ?? '') }}</textarea>
-                                                            </div>
-                                                        </div>
+
                                                         <div class="col-12  ">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="type">{{__('Property Type')}}</label>
@@ -144,20 +171,7 @@
                                     </div>
 
 
-                                    <div class="row mt-2">
-                                        <!-- Full Editor -->
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <h5 class="card-header">{{__('Content')}}</h5>
-                                                <div class="card-body">
-                                                    <div id="full-editor">
-                                                        {!! old('content', $property->more_info->content ?? '')  !!}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /Full Editor -->
-                                    </div>
+
                                     <div class="row mt-2">
                                         <!-- Images -->
                                         <div class="col-12">
@@ -953,8 +967,13 @@
                 ['clean']
             ];
 
-            const fullEditor = new Quill('#full-editor', {
-                bounds: '#full-editor',
+            // Array to store Quill editors for different languages
+            const editors = {};
+
+            // Initialize a Quill editor for each language
+            @foreach ($lang as $locale)
+                editors["{{ $locale }}"] = new Quill('#editor-container-{{ $locale }}', {
+                bounds: '#editor-container-{{ $locale }}',
                 placeholder: 'Type Something...',
                 modules: {
                     formula: true,
@@ -962,14 +981,18 @@
                 },
                 theme: 'snow'
             });
+            @endforeach
 
+            // Handle form submission
             $('#add_form').click(function(e) {
-
+                e.preventDefault();
                 var form = $(this.form);
 
+                // Validate form
                 if (!form.valid()) {
                     return false;
                 }
+
                 if (form.valid()) {
                     $.ajaxSetup({
                         headers: {
@@ -977,39 +1000,43 @@
                         }
                     });
 
-                    var postData = new FormData(this);
-                    var quillContent = fullEditor.root.innerHTML;
-                    postData.append('content', quillContent);
+                    // Prepare form data
+                    var postData = new FormData(this.form);
 
-                    $('#add_form').html('');
-                    $('#add_form').append('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
+                    // Append Quill content for each language
+                    @foreach ($lang as $locale)
+                    var quillContent = editors["{{ $locale }}"].root.innerHTML; // Get Quill content for this language
+                    postData.append('content[{{ $locale }}]', quillContent); // Append to form data
+                    @endforeach
+
+                    // Show loading spinner
+                    $('#add_form').html('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
                         '<span class="ml-25 align-middle">{{ __('Saving') }}...</span>');
 
+                    // AJAX request
                     $.ajax({
-                        url: '{{ route('admin.properties.update',$property->id) }}',
+                        url: '{{ route('admin.properties.update', $property->id) }}',
                         type: "POST",
                         data: postData,
                         processData: false,
                         contentType: false,
-                        success: function (response) {
+                        success: function(response) {
                             $('#add_form').html('{{ __('Save') }}');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 toastr.success(response.success, {
                                     closeButton: true,
                                     tapToDismiss: false
                                 });
                             }, 200);
-                            // $('#mainAdd')[0].reset();
-                            $('.custom-error').remove();
-                            // fullEditor.root.innerHTML = '';
+                            $('.custom-error').remove(); // Remove any existing error messages
                         },
-                        error: function (data) {
+                        error: function(data) {
                             $('.custom-error').remove();
                             $('#add_form').html('{{ __('Save') }}');
                             var response = data.responseJSON;
                             if (data.status == 422) {
                                 if (response && response.errors) {
-                                    $.each(response.errors, function (key, value) {
+                                    $.each(response.errors, function(key, value) {
                                         var error_message = '<div class="custom-error"><p style="color: red">' + value[0] + '</p></div>';
                                         $('[name="' + key + '"]').closest('.form-group').append(error_message);
                                     });
@@ -1022,10 +1049,11 @@
                             }
                         }
                     });
-                })
+                }
             });
         });
     </script>
+
 
     <script>
         $(document).ready(function() {

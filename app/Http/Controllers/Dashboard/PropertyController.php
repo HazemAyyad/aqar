@@ -471,25 +471,22 @@ class PropertyController extends Controller
         }
     }
 
-    public function update(Request $request,$id){
-        $property= Property::find($id);
+    public function update(Request $request, $id)
+    {
+        $property = Property::find($id);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'slug' => 'required',
             'description' => 'required',
             'category_id' => 'required',
-//            'video_url' => 'required',
             'content' => 'required',
             'images' => 'required',
             'country_id' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
             'full_address' => 'required',
-
             'price' => 'required',
             'currency' => 'required',
-
-
             'size' => 'required',
             'land_area' => 'required',
             'rooms' => 'required',
@@ -500,117 +497,124 @@ class PropertyController extends Controller
             'floors' => 'required',
             'year_built' => 'required',
             'property_features' => 'required',
-
-
         ]);
+
         if ($validator->fails()) {
-            $errors = $validator->errors();
-            $input=$request->all();
-            return response(["responseJSON" => $errors,"input"=>$input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
+            return response([
+                "responseJSON" => $validator->errors(),
+                "input" => $request->all(),
+                "message" => 'Verify that the data is correct, fill in all fields'
+            ], 422);
         }
-        $data = $request->all();
 
-        if ($validator->passes()) {
+        DB::beginTransaction();
+        try {
+//            return $request->all();
+            // Update the property with translations for title, description, and slug
+            $property->update([
+                'user_id' => $request->user_id,
+                'type' => $request->type,
+                'status' => $request->status,
+                'moderation_status' => $request->moderation_status,
+                'category_id' => $request->category_id,
+                'title'=>
+            ]);
 
-            DB::beginTransaction();
-            try {
-                $property->update([
-                    'title' => $request->name,
-                    'user_id' => $request->user_id,
-                    'description' => $request->description,
-                    'slug' => $request->slug,
-                    'type' => $request->type,
-                    'status' => $request->status,
-                    'moderation_status' => $request->moderation_status,
-                    'category_id' => $request->category_id,
-                ]);
-                $information = PropertyInformation::query()->where('property_id', $id)->first();
-                $information->update([
+            // Update translations for 'title', 'description', and 'slug'
+            $property->-('title', [
+            ]);
+            $property->setTranslations('description', [
+                'en' => $request->description_en,
+                'ar' => $request->description_ar,
+             ]);
+return $property;
 
-                    'content' => $request['content'],
-                    'video_url' => $request->video_url,
-                    'size' => $request->size,
-                    'land_area' => $request->land_area,
-                    'rooms' => $request->rooms,
-                    'bedrooms' => $request->bedrooms,
-                    'bathrooms' => $request->bathrooms,
-                    'garages' => $request->garages,
-                    'garages_size' => $request->garages_size,
-                    'floors' => $request->floors,
-                    'year_built' => $request->year_built,
-                ]);
-                if ($request->auto_renew=='on'){
-                    $auto_renew=1;
-                }else{
-                    $auto_renew=0;
+            // Property Information
+            $information = PropertyInformation::where('property_id', $id)->first();
+            $information->update([
+                'content' => [
+                    'en' => $request->content_en,
+                    'ar' => $request->content_ar,
+                ],
+                'video_url' => $request->video_url,
+                'size' => $request->size,
+                'land_area' => $request->land_area,
+                'rooms' => $request->rooms,
+                'bedrooms' => $request->bedrooms,
+                'bathrooms' => $request->bathrooms,
+                'garages' => $request->garages,
+                'garages_size' => $request->garages_size,
+                'floors' => $request->floors,
+                'year_built' => $request->year_built,
+            ]);
+
+            // Property Price
+            $price = PropertyPrice::where('property_id', $id)->first();
+            $price->update([
+                'price' => $request->price,
+                'currency' => $request->currency,
+                'period' => $request->period,
+                'private_notes' => $request->private_notes,
+                'never_expired' => $request->never_expired == 'on' ? 1 : 0,
+                'auto_renew' => $request->auto_renew == 'on' ? 1 : 0,
+            ]);
+
+            // Property Address with translations for 'full_address'
+            $address = PropertyAddress::where('property_id', $id)->first();
+            $address->update([
+                'full_address' => [
+                    'en' => $request->full_address_en,
+                    'ar' => $request->full_address_ar,
+                ],
+                'country_id' => $request->country_id,
+                'state_id' => $request->state_id,
+                'city_id' => $request->city_id,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+
+            // Property Features
+            if (count($request->property_features) != 0) {
+                PropertyFeature::where('property_id', $id)->delete();
+                foreach ($request->property_features as $feature) {
+                    PropertyFeature::create([
+                        'property_id' => $property->id,
+                        'feature_id' => $feature,
+                    ]);
                 }
-                if ($request->never_expired=='on'){
-                    $never_expired=1;
-                }else{
-                    $never_expired=0;
-                }
-                $price = PropertyPrice::query()->where('property_id', $id)->first();
-                $price->update([
-
-
-                    'price' => $request->price,
-                    'currency' => $request->currency,
-                    'period' => $request->period,
-                    'private_notes' => $request->private_notes,
-                    'never_expired' => $never_expired,
-                    'auto_renew' => $auto_renew,
-
-                ]);
-                $address = PropertyAddress::query()->where('property_id', $id)->first();
-                $address ->update([
-
-                    'full_address' => $request->full_address,
-                    'country_id' => $request->country_id,
-                    'state_id' => $request->state_id,
-                    'city_id' => $request->city_id,
-                    'latitude' => $request->latitude,
-                    'longitude' => $request->longitude,
-
-
-                ]);
-                if (count($request->property_features) != 0) {
-                    PropertyFeature::query()->where('property_id',$id)->delete();
-                    foreach ($request->property_features as $feature) {
-                        PropertyFeature::query()->create([
-                            'property_id' => $property->id,
-                            'feature_id' => $feature,
-                        ]);
-                    }
-                }
-                if (count($request->facilities) != 0) {
-                    PropertyFacility::query()->where('property_id',$id)->delete();
-                    foreach ($request->facilities as $facility) {
-                        PropertyFacility::query()->create([
-                            'property_id' => $property->id,
-                            'facility_id' => $facility['facility_id'],
-                            'distance' => $facility['distance'],
-                        ]);
-                    }
-                }
-                if (count($request->images) != 0) {
-                    PropertyImage::query()->where('property_id',$id)->delete();
-                    foreach ($request->images as $image) {
-                        PropertyImage::query()->create([
-                            'property_id' => $property->id,
-                            'img' => $image,
-
-                        ]);
-                    }
-                }
-                DB::commit();
-                return response()->json(['success'=>"The process has successfully"]);
-            }catch (\Throwable $e) {
-                DB::rollBack();
-                throw $e;
             }
 
+            // Property Facilities
+            if (count($request->facilities) != 0) {
+                PropertyFacility::where('property_id', $id)->delete();
+                foreach ($request->facilities as $facility) {
+                    PropertyFacility::create([
+                        'property_id' => $property->id,
+                        'facility_id' => $facility['facility_id'],
+                        'distance' => $facility['distance'],
+                    ]);
+                }
+            }
+
+            // Property Images
+            if (count($request->images) != 0) {
+                PropertyImage::where('property_id', $id)->delete();
+                foreach ($request->images as $image) {
+                    PropertyImage::create([
+                        'property_id' => $property->id,
+                        'img' => $image,
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return response()->json(['success' => "The process has successfully"]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            throw $e;
         }
     }
+
     public function delete($id)
     {
         $category =Property::find($id);
