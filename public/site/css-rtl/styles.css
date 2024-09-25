@@ -9116,6 +9116,9 @@ tr {
 .ip-group .ip-datepicker::placeholder {
   color: #161e2d;
 }
+.form-select {
+  --bs-form-select-bg-img: none;
+}
 .ip-group.icon {
   background-color: #ffffff;
   position: relative;
