@@ -102,7 +102,7 @@
                                                                     <span class="icon icon-eye"></span>
                                                                 </a>
                                                             </li>
-                                                        </ul>
+                                                        </ul> 
                                                     </div>
                                                     <div class="bottom">
                                                         <span class="flag-tag style-2">{{ $property->category->name }}</span>
