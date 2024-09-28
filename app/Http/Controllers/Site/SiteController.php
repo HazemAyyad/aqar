@@ -365,9 +365,10 @@ class SiteController extends Controller
 
 
         $property = Property::query()
-            ->whereJsonContains('slug->en', $slug) // Check for English slug
-            ->orWhereJsonContains('slug->ar', $slug) // Check for Arabic slug
-            
+            ->where(function ($query) use ($slug) {
+                $query->whereJsonContains('slug->en', $slug) // Check for English slug
+                ->orWhereJsonContains('slug->ar', $slug); // Check for Arabic slug
+            })
             ->with([
             'images' => function ($query) {
                 $query->take(5); // Limit to the first image
