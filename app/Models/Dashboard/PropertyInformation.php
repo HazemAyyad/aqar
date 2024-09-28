@@ -13,7 +13,6 @@ class PropertyInformation extends Model
      protected $table='property_informations';
      protected $guarded=[];
     public $translatable = [
-
         'content',
     ];
 //    protected $appends=['photo'];

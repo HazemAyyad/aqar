@@ -118,6 +118,21 @@
                                                                                         </div>
                                                                                         <textarea name="content[{{ $locale }}]" id="content_{{ $locale }}" class="d-none"></textarea>
                                                                                     </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <label class="form-label" for="slug_{{ $locale }}">{{ __('Permalink') }} ({{ strtoupper($locale) }})</label>
+                                                                                        <div class="input-group input-group-merge">
+                                                                                            <span class="input-group-text" id="slug_{{ $locale }}">{{ config('app.url') }}/property/</span>
+                                                                                            <input type="text" id="slug_{{ $locale }}" name="slug[{{ $locale }}]"   class="form-control" aria-describedby="slug" readonly>
+                                                                                            <div id="slug-feedback">
+                                                                                                <i class="fa fa-check text-success d-none"></i>
+                                                                                                <i class="fa fa-times text-danger d-none"></i>
+                                                                                            </div>
+                                                                                            <!-- Loading Spinner -->
+                                                                                            <div id="loading-spinner" class="d-none">
+                                                                                                <i class="fa fa-spinner fa-spin"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -130,29 +145,10 @@
                                                             </div>
 
 
-                                                            <div class="col-md-12">
-                                                                <label class="form-label" for="slug">{{ __('Permalink') }}</label>
-                                                                <div class="input-group input-group-merge">
-                                                                    <span class="input-group-text" id="slug">{{ config('app.url') }}/property/</span>
-                                                                    <input type="text" id="slug" name="slug" class="form-control" aria-describedby="slug" readonly>
-                                                                    <div id="slug-feedback">
-                                                                        <i class="fa fa-check text-success d-none"></i>
-                                                                        <i class="fa fa-times text-danger d-none"></i>
-                                                                    </div>
-                                                                    <!-- Loading Spinner -->
-                                                                    <div id="loading-spinner" class="d-none">
-                                                                        <i class="fa fa-spinner fa-spin"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
 
-                                                            <div class="col-md-12">
-                                                                <div class="form-group  ">
-                                                                    <label class="form-label" for="description">{{__('Description')}}</label>
-                                                                    <textarea class="form-control" name="description"  required id="description"  rows="5"> </textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12  ">
+
+
+                                                            <div class="col-12  mt-2">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="type">{{__('Property Type')}}</label>
 
@@ -174,19 +170,7 @@
                                         </div>
 
 
-                                        <div class="row mt-2">
-                                            <!-- Full Editor -->
-                                            <div class="col-12">
-                                                <div class="card">
-                                                    <h5 class="card-header">{{__('Content')}}</h5>
-                                                    <div class="card-body">
-                                                        <div id="full-editor">
-                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /Full Editor -->
-                                        </div>
+                                         
                                         <div class="row mt-2">
                                             <!-- Images -->
                                             <div class="col-12">
@@ -656,17 +640,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const nameInput = document.querySelector('input[name="name"]');
-            const slugInput = document.querySelector('input[name="slug"]');
-            const checkIcon = document.querySelector('#slug-feedback .fa-check');
-            const falseIcon = document.querySelector('#slug-feedback .fa-times');
-            const loadingSpinner = document.getElementById('loading-spinner');
+            // Loop through each language input field to set up event listeners
+            @foreach ($lang as $locale)
+            const nameInput_{{ $locale }} = document.querySelector('input[name="name[{{ $locale }}]"]');
+            const slugInput_{{ $locale }} = document.querySelector('input[name="slug[{{ $locale }}]"]');
+            const checkIcon_{{ $locale }} = document.querySelector('#slug_{{ $locale }} .fa-check');
+            const falseIcon_{{ $locale }} = document.querySelector('#slug_{{ $locale }} .fa-times');
+            const loadingSpinner_{{ $locale }} = document.getElementById('loading-spinner');
 
-            nameInput.addEventListener('input', function () {
-                const name = nameInput.value;
+            // Event listener for name input
+            nameInput_{{ $locale }}.addEventListener('input', function () {
+                const name = nameInput_{{ $locale }}.value;
                 if (name) {
                     // Show the loading spinner
-                    loadingSpinner.classList.remove('d-none');
+                    loadingSpinner_{{ $locale }}.classList.remove('d-none');
 
                     fetch('{{ route('admin.properties.generate.slug') }}', {
                         method: 'POST',
@@ -674,47 +661,44 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
-                        body: JSON.stringify({ name: name, lang: 'ar' }) // Assuming Arabic
+                        body: JSON.stringify({ name: name, lang: '{{ $locale }}' }) // Use the current locale
                     })
                         .then(response => response.json())
                         .then(data => {
-                            slugInput.value = data.slug;
+                            slugInput_{{ $locale }}.value = data.slug;
 
                             // Hide the loading spinner
-                            loadingSpinner.classList.add('d-none');
+                            loadingSpinner_{{ $locale }}.classList.add('d-none');
 
                             // Keep the slug input read-only after generation
-                            slugInput.readOnly = true;
+                            slugInput_{{ $locale }}.readOnly = true;
 
                             // Show the check icon if the slug is valid
-                            slugInput.style.borderColor = 'green';
-                            checkIcon.classList.remove('d-none');
-                            falseIcon.classList.add('d-none');
+                            slugInput_{{ $locale }}.style.borderColor = 'green';
+                            checkIcon_{{ $locale }}.classList.remove('d-none');
+                            falseIcon_{{ $locale }}.classList.add('d-none');
                         })
                         .catch(() => {
                             // Hide the loading spinner
-                            loadingSpinner.classList.add('d-none');
+                            loadingSpinner_{{ $locale }}.classList.add('d-none');
 
                             // Allow editing if there's an issue
-                            slugInput.readOnly = false;
+                            slugInput_{{ $locale }}.readOnly = false;
 
                             // Show the error icon if there's an issue
-                            slugInput.style.borderColor = 'red';
-                            checkIcon.classList.add('d-none');
-                            falseIcon.classList.remove('d-none');
+                            slugInput_{{ $locale }}.style.borderColor = 'red';
+                            checkIcon_{{ $locale }}.classList.add('d-none');
+                            falseIcon_{{ $locale }}.classList.remove('d-none');
                         });
                 } else {
-                    slugInput.value = '';
-                    loadingSpinner.classList.add('d-none');
-                    checkIcon.classList.add('d-none');
-                    falseIcon.classList.add('d-none');
+                    slugInput_{{ $locale }}.value = '';
+                    loadingSpinner_{{ $locale }}.classList.add('d-none');
+                    checkIcon_{{ $locale }}.classList.add('d-none');
+                    falseIcon_{{ $locale }}.classList.add('d-none');
                 }
             });
+            @endforeach
         });
-
-
-
-
     </script>
 
 

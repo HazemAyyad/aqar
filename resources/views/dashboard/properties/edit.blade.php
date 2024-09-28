@@ -121,8 +121,24 @@
                                                                                     <div id="editor-container-{{ $locale }}" class="editor-container">
                                                                                         <!-- Quill editor will be initialized here -->
                                                                                     </div>
-                                                                                    <textarea name="content[{{ $locale }}]" id="content_{{ $locale }}" class="d-none">{{ $property->getTranslation('content', $locale) }}</textarea>
+                                                                                    <textarea name="content[{{ $locale }}]" id="content_{{ $locale }}" class="d-none">{{ $property->more_info->getTranslation('content', $locale) }}</textarea>
                                                                                 </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label class="form-label" for="slug_{{ $locale }}">{{ __('Permalink') }} ({{ strtoupper($locale) }})</label>
+                                                                                    <div class="input-group input-group-merge">
+                                                                                        <span class="input-group-text" id="slug_{{ $locale }}">{{ config('app.url') }}/property/</span>
+                                                                                        <input type="text" id="slug_{{ $locale }}" name="slug[{{ $locale }}]" value="{{$property->getTranslation('slug', $locale)}}" class="form-control" aria-describedby="slug" readonly>
+                                                                                        <div id="slug-feedback">
+                                                                                            <i class="fa fa-check text-success d-none"></i>
+                                                                                            <i class="fa fa-times text-danger d-none"></i>
+                                                                                        </div>
+                                                                                        <!-- Loading Spinner -->
+                                                                                        <div id="loading-spinner" class="d-none">
+                                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -132,24 +148,10 @@
                                                             <!-- Rest of your form here -->
                                                         </div>
 
-                                                        <div class="col-md-12">
-                                                            <label class="form-label" for="slug">{{ __('Permalink') }}</label>
-                                                            <div class="input-group input-group-merge">
-                                                                <span class="input-group-text" id="slug">{{ config('app.url') }}/property/</span>
-                                                                <input type="text" id="slug" name="slug" value="{{ old('slug', $property->slug ?? '') }}" class="form-control" aria-describedby="slug" readonly>
-                                                                <div id="slug-feedback">
-                                                                    <i class="fa fa-check text-success d-none"></i>
-                                                                    <i class="fa fa-times text-danger d-none"></i>
-                                                                </div>
-                                                                <!-- Loading Spinner -->
-                                                                <div id="loading-spinner" class="d-none">
-                                                                    <i class="fa fa-spinner fa-spin"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
 
-                                                        <div class="col-12  ">
+
+                                                        <div class="col-12  mt-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="type">{{__('Property Type')}}</label>
 
@@ -627,17 +629,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const nameInput = document.querySelector('input[name="name"]');
-            const slugInput = document.querySelector('input[name="slug"]');
-            const checkIcon = document.querySelector('#slug-feedback .fa-check');
-            const falseIcon = document.querySelector('#slug-feedback .fa-times');
-            const loadingSpinner = document.getElementById('loading-spinner');
+            // Loop through each language input field to set up event listeners
+            @foreach ($lang as $locale)
+            const nameInput_{{ $locale }} = document.querySelector('input[name="name[{{ $locale }}]"]');
+            const slugInput_{{ $locale }} = document.querySelector('input[name="slug[{{ $locale }}]"]');
+            const checkIcon_{{ $locale }} = document.querySelector('#slug_{{ $locale }} .fa-check');
+            const falseIcon_{{ $locale }} = document.querySelector('#slug_{{ $locale }} .fa-times');
+            const loadingSpinner_{{ $locale }} = document.getElementById('loading-spinner');
 
-            nameInput.addEventListener('input', function () {
-                const name = nameInput.value;
+            // Event listener for name input
+            nameInput_{{ $locale }}.addEventListener('input', function () {
+                const name = nameInput_{{ $locale }}.value;
                 if (name) {
                     // Show the loading spinner
-                    loadingSpinner.classList.remove('d-none');
+                    loadingSpinner_{{ $locale }}.classList.remove('d-none');
 
                     fetch('{{ route('admin.properties.generate.slug') }}', {
                         method: 'POST',
@@ -645,48 +650,46 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
-                        body: JSON.stringify({ name: name, lang: 'ar' }) // Assuming Arabic
+                        body: JSON.stringify({ name: name, lang: '{{ $locale }}' }) // Use the current locale
                     })
                         .then(response => response.json())
                         .then(data => {
-                            slugInput.value = data.slug;
+                            slugInput_{{ $locale }}.value = data.slug;
 
                             // Hide the loading spinner
-                            loadingSpinner.classList.add('d-none');
+                            loadingSpinner_{{ $locale }}.classList.add('d-none');
 
                             // Keep the slug input read-only after generation
-                            slugInput.readOnly = true;
+                            slugInput_{{ $locale }}.readOnly = true;
 
                             // Show the check icon if the slug is valid
-                            slugInput.style.borderColor = 'green';
-                            checkIcon.classList.remove('d-none');
-                            falseIcon.classList.add('d-none');
+                            slugInput_{{ $locale }}.style.borderColor = 'green';
+                            checkIcon_{{ $locale }}.classList.remove('d-none');
+                            falseIcon_{{ $locale }}.classList.add('d-none');
                         })
                         .catch(() => {
                             // Hide the loading spinner
-                            loadingSpinner.classList.add('d-none');
+                            loadingSpinner_{{ $locale }}.classList.add('d-none');
 
                             // Allow editing if there's an issue
-                            slugInput.readOnly = false;
+                            slugInput_{{ $locale }}.readOnly = false;
 
                             // Show the error icon if there's an issue
-                            slugInput.style.borderColor = 'red';
-                            checkIcon.classList.add('d-none');
-                            falseIcon.classList.remove('d-none');
+                            slugInput_{{ $locale }}.style.borderColor = 'red';
+                            checkIcon_{{ $locale }}.classList.add('d-none');
+                            falseIcon_{{ $locale }}.classList.remove('d-none');
                         });
                 } else {
-                    slugInput.value = '';
-                    loadingSpinner.classList.add('d-none');
-                    checkIcon.classList.add('d-none');
-                    falseIcon.classList.add('d-none');
+                    slugInput_{{ $locale }}.value = '';
+                    loadingSpinner_{{ $locale }}.classList.add('d-none');
+                    checkIcon_{{ $locale }}.classList.add('d-none');
+                    falseIcon_{{ $locale }}.classList.add('d-none');
                 }
             });
+            @endforeach
         });
-
-
-
-
     </script>
+
 
 
     <script>
@@ -967,19 +970,36 @@
                 ['clean']
             ];
 
-            // Array to store Quill editors for different languages
+            // Object to store Quill editors for different languages
             const editors = {};
 
-            // Initialize a Quill editor for each language
-            @foreach ($lang as $locale)
-                editors["{{ $locale }}"] = new Quill('#editor-container-{{ $locale }}', {
-                bounds: '#editor-container-{{ $locale }}',
-                placeholder: 'Type Something...',
-                modules: {
-                    formula: true,
-                    toolbar: fullToolbar
-                },
-                theme: 'snow'
+            // Initialize Quill editors for visible language sections and set content
+            function initQuillEditor(locale) {
+                if (!editors[locale]) {
+                    // Initialize Quill editor for this locale
+                    editors[locale] = new Quill(`#editor-container-${locale}`, {
+                        bounds: `#editor-container-${locale}`,
+                        placeholder: 'Type Something...',
+                        modules: {
+                            formula: true,
+                            toolbar: fullToolbar
+                        },
+                        theme: 'snow'
+                    });
+
+                    // Set initial content from the textarea
+                    const initialContent = document.getElementById(`content_${locale}`).value;
+                    editors[locale].root.innerHTML = initialContent;
+                }
+            }
+
+            // Initialize Quill editors for all locales when the document is ready
+            @foreach ($lang as $index => $locale)
+            initQuillEditor('{{ $locale }}');
+
+            // Initialize Quill editor for each language when the accordion is shown
+            $('#accordion{{ $locale }}').on('shown.bs.collapse', function () {
+                initQuillEditor('{{ $locale }}');
             });
             @endforeach
 
@@ -988,71 +1008,68 @@
                 e.preventDefault();
                 var form = $(this.form);
 
-                // Validate form
+                // Validate form before submission
                 if (!form.valid()) {
                     return false;
                 }
 
-                if (form.valid()) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Prepare form data
+                var postData = new FormData(this.form);
+
+                // Append Quill content for each language
+                @foreach ($lang as $locale)
+                var quillContent = editors["{{ $locale }}"].root.innerHTML; // Get Quill content
+                postData.append('content[{{ $locale }}]', quillContent); // Append content to form data
+                @endforeach
+
+                // Show loading spinner
+                $('#add_form').html('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
+                    '<span class="ml-25 align-middle">{{ __('Saving') }}...</span>');
+
+                // Perform AJAX request to update the property
+                $.ajax({
+                    url: '{{ route('admin.properties.update', $property->id) }}',
+                    type: "POST",
+                    data: postData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#add_form').html('{{ __('Save') }}');
+                        setTimeout(function() {
+                            toastr.success(response.success, {
+                                closeButton: true,
+                                tapToDismiss: false
+                            });
+                        }, 200);
+                        $('.custom-error').remove(); // Remove existing errors
+                    },
+                    error: function(data) {
+                        $('.custom-error').remove();
+                        $('#add_form').html('{{ __('Save') }}');
+                        var response = data.responseJSON;
+                        if (data.status == 422 && response.errors) {
+                            $.each(response.errors, function(key, value) {
+                                var error_message = '<div class="custom-error"><p style="color: red">' + value[0] + '</p></div>';
+                                $('[name="' + key + '"]').closest('.form-group').append(error_message);
+                            });
+                        } else {
+                            swal.fire({
+                                icon: 'error',
+                                title: response.message
+                            });
                         }
-                    });
-
-                    // Prepare form data
-                    var postData = new FormData(this.form);
-
-                    // Append Quill content for each language
-                    @foreach ($lang as $locale)
-                    var quillContent = editors["{{ $locale }}"].root.innerHTML; // Get Quill content for this language
-                    postData.append('content[{{ $locale }}]', quillContent); // Append to form data
-                    @endforeach
-
-                    // Show loading spinner
-                    $('#add_form').html('<span class="spinner-border spinner-border-sm align-middle ms-2"></span>' +
-                        '<span class="ml-25 align-middle">{{ __('Saving') }}...</span>');
-
-                    // AJAX request
-                    $.ajax({
-                        url: '{{ route('admin.properties.update', $property->id) }}',
-                        type: "POST",
-                        data: postData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            $('#add_form').html('{{ __('Save') }}');
-                            setTimeout(function() {
-                                toastr.success(response.success, {
-                                    closeButton: true,
-                                    tapToDismiss: false
-                                });
-                            }, 200);
-                            $('.custom-error').remove(); // Remove any existing error messages
-                        },
-                        error: function(data) {
-                            $('.custom-error').remove();
-                            $('#add_form').html('{{ __('Save') }}');
-                            var response = data.responseJSON;
-                            if (data.status == 422) {
-                                if (response && response.errors) {
-                                    $.each(response.errors, function(key, value) {
-                                        var error_message = '<div class="custom-error"><p style="color: red">' + value[0] + '</p></div>';
-                                        $('[name="' + key + '"]').closest('.form-group').append(error_message);
-                                    });
-                                }
-                            } else {
-                                swal.fire({
-                                    icon: 'error',
-                                    title: response.message
-                                });
-                            }
-                        }
-                    });
-                }
+                    }
+                });
             });
         });
     </script>
+
 
 
     <script>

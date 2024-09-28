@@ -16,7 +16,7 @@ class Property extends Model
     public $translatable = [
         'title',
         'description',
-      'content',
+       'slug'
     ];
     public function images()
     {

@@ -375,25 +375,27 @@ class PropertyController extends Controller
 
                 // Store translations for 'title', 'description', and 'slug'
                 $property->setTranslations('title', [
-                    'en' => $request->name_en,
-                    'ar' => $request->name_ar,
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
                 ]);
+
                 $property->setTranslations('description', [
-                    'en' => $request->description_en,
-                    'ar' => $request->description_ar,
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
                 ]);
                 $property->setTranslations('slug', [
-                    'en' => $request->slug_en,
-                    'ar' => $request->slug_ar,
+                    'en' => $request->input('slug.en'),
+                    'ar' => $request->input('slug.ar'),
                 ]);
+                $property->save();
 
                 // Property Information
                 $information = PropertyInformation::create([
                     'property_id' => $property->id,
                     'content' => [
-                        'en' => $request->content_en,
-                        'ar' => $request->content_ar,
-                    ],
+                        'en' => $request->input('content.en'),
+                        'ar' => $request->input('content.ar'),
+                     ],
                     'video_url' => $request->video_url,
                     'size' => $request->size,
                     'land_area' => $request->land_area,
@@ -517,24 +519,33 @@ class PropertyController extends Controller
                 'status' => $request->status,
                 'moderation_status' => $request->moderation_status,
                 'category_id' => $request->category_id,
-                'title'=>
+
             ]);
 
+
             // Update translations for 'title', 'description', and 'slug'
-            $property->-('title', [
+            $property->setTranslations('title', [
+                'en' => $request->input('name.en'),
+                'ar' => $request->input('name.ar'),
             ]);
+
             $property->setTranslations('description', [
-                'en' => $request->description_en,
-                'ar' => $request->description_ar,
-             ]);
-return $property;
+                'en' => $request->input('description.en'),
+                'ar' => $request->input('description.ar'),
+            ]);
+            $property->setTranslations('slug', [
+                'en' => $request->input('slug.en'),
+                'ar' => $request->input('slug.ar'),
+            ]);
+             $property->save();
 
             // Property Information
             $information = PropertyInformation::where('property_id', $id)->first();
             $information->update([
                 'content' => [
-                    'en' => $request->content_en,
-                    'ar' => $request->content_ar,
+
+                    'en' => $request->input('content.en'),
+                    'ar' => $request->input('content.ar'),
                 ],
                 'video_url' => $request->video_url,
                 'size' => $request->size,
@@ -563,8 +574,9 @@ return $property;
             $address = PropertyAddress::where('property_id', $id)->first();
             $address->update([
                 'full_address' => [
-                    'en' => $request->full_address_en,
-                    'ar' => $request->full_address_ar,
+                    'en' => $request->input('full_address.en'),
+                    'ar' => $request->input('full_address.ar'),
+
                 ],
                 'country_id' => $request->country_id,
                 'state_id' => $request->state_id,
