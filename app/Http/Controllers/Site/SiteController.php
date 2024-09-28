@@ -364,7 +364,11 @@ class SiteController extends Controller
 
 
 
-        $property = Property::query()->where('slug',$slug)->with([
+        $property = Property::query()
+            ->whereJsonContains('slug->en', $slug) // Check for English slug
+            ->orWhereJsonContains('slug->ar', $slug) // Check for Arabic slug
+            
+            ->with([
             'images' => function ($query) {
                 $query->take(5); // Limit to the first image
             },
@@ -375,9 +379,7 @@ class SiteController extends Controller
             'facilities.facility', // Include the related facilities
              'features.feature.featureCategory', // Load the feature category through the feature
             'user' // Include the related user
-        ])
-
-            ->first();
+        ])->first();
         $sessionKey = 'property_' . $slug . '_viewed';
 
         if (!session()->has($sessionKey)) {

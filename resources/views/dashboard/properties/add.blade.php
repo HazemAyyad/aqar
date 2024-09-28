@@ -170,7 +170,7 @@
                                         </div>
 
 
-                                         
+
                                         <div class="row mt-2">
                                             <!-- Images -->
                                             <div class="col-12">
@@ -860,78 +860,74 @@
             console.log(input.files);
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $(".img-preview").attr("src", e.target.result);
                 };
 
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        var uploadedDocumentMap = {}
+
+        var uploadedDocumentMap = {};
         Dropzone.options.dpzMultipleFiles = {
             paramName: "dzfile", // The name that will be used to transfer the file
-            //autoProcessQueue: false,
-            // maxFilesize: 5, // MB
-
             maxFilesize: 5, // MB (0.5 MB)
             clickable: true,
             addRemoveLinks: true,
             acceptedFiles: 'image/*',
-            dictFallbackMessage: " المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات ",
-            dictInvalidFileType: "لايمكنك رفع هذا النوع من الملفات ",
-            dictCancelUpload: "الغاء الرفع ",
-            dictCancelUploadConfirmation: " هل انت متاكد من الغاء رفع الملفات ؟ ",
-            dictRemoveFile: "حذف الصوره",
-            dictMaxFilesExceeded: "لايمكنك رفع عدد اكثر من هضا ",
+            dictFallbackMessage: "المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات",
+            dictInvalidFileType: "لا يمكنك رفع هذا النوع من الملفات",
+            dictCancelUpload: "الغاء الرفع",
+            dictCancelUploadConfirmation: "هل انت متأكد من الغاء رفع الملفات؟",
+            dictRemoveFile: "حذف الصورة",
+            dictMaxFilesExceeded: "لا يمكنك رفع عدد اكثر من هذا",
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             url: "{{ route('admin.images.store') }}", // Set the url
             success: function(file, response) {
-                $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">')
-                uploadedDocumentMap[file.name] = response.name
+                $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">');
+                uploadedDocumentMap[file.name] = response.name;
             },
             removedfile: function(file) {
-                file.previewElement.remove()
-                var name = ''
-                if (typeof file.file_name !== 'undefined') {
-                    name = file.file_name
-                } else {
-                    name = uploadedDocumentMap[file.name]
-                }
-                $('form').find('input[name="images[]"][value="' + name + '"]').remove()
+                file.previewElement.remove();
+                var name = uploadedDocumentMap[file.name];
+                $('form').find('input[name="images[]"][value="' + name + '"]').remove();
             },
-            // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
             init: function() {
                 @if (isset($event) && $event->document)
-                var files =
-                    {!! json_encode($event->document) !!}
-                    for (var i in files) {
-                    var file = files[i]
-                    this.options.addedfile.call(this, file)
-                    file.previewElement.classList.add('dz-complete')
-                    $('form').append('<input type="hidden" name="images[]" value="' + file.file_name + '">')
+                var files = {!! json_encode($event->document) !!};
+                for (var i in files) {
+                    var file = files[i];
+                    this.options.addedfile.call(this, file);
+                    file.previewElement.classList.add('dz-complete');
+                    $('form').append('<input type="hidden" name="images[]" value="' + file.file_name + '">');
                 }
                 @endif
             }
-        }
+        };
 
-        $.validator.addMethod('filesize', function(value, element, param) {
-            return this.optional(element) || (element.files[0].size <= param);
-        }, 'يجيب ان يكون حجم المرفق اقل من 5 ميجا بايت');
-
+        // Client-side validation for image field
         $("form[name='my-form']").validate({
             rules: {
                 title: { required: true },
                 description: { required: true },
-                photo: { filesize: 5 * 1024 * 1024  }, // 0.5 MB in bytes
+                'images[]': { required: true }, // Ensure at least one image is required
                 project_type_id: { required: true }
             },
             messages: {
                 title: { required: "العنوان مطلوب" },
                 description: { required: "الوصف مطلوب" },
-                photo: { required: "الصورة مطلوبة" },
+                'images[]': { required: "الصورة مطلوبة" }, // Custom error message for images
                 project_type_id: { required: "نوع المشروع مطلوب" }
+            },
+            // Custom placement for error messages
+            errorPlacement: function(error, element) {
+                if (element.attr("name") === "images[]") {
+                    error.appendTo('#dpz-multiple-files'); // Append the error to the Dropzone div
+                } else {
+                    error.insertAfter(element); // Default behavior for other fields
+                }
             },
             submitHandler: function(form) {
                 $.ajaxSetup({
@@ -947,7 +943,7 @@
                 $("#spinner").show();
 
                 $.ajax({
-                    url: '',
+                    url: '', // Your form submission URL here
                     type: "POST",
                     data: data,
                     dataType: 'JSON',
@@ -984,20 +980,25 @@
                             var errorText = "";
                             $.each(errors, function(key, value) {
                                 errorText += value + "\n";
-                                $('.' + key).text(value);
+                                if (key === 'images[]') {
+                                    $('#dpz-multiple-files').append('<div style="color:red">' + value[0] + '</div>');
+                                } else {
+                                    $('.' + key).text(value);
+                                }
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation Errors',
+                                text: errorText
                             });
                         }
                     }
                 });
             }
         });
-
-
-
-
-
     </script>
-     <script>
+
+    <script>
         $(function () {
             'use strict';
 
@@ -1050,7 +1051,7 @@
             $('#add_form').click(function(e) {
                 e.preventDefault();
 
-                var form = $(this.form);
+                var form = $(this.form); // Get the form reference
 
                 if (!form.valid()) {
                     return false;
@@ -1063,7 +1064,7 @@
                         }
                     });
 
-                    var postData = new FormData(this);
+                    var postData = new FormData(form[0]); // Use form[0] to get the HTMLFormElement
 
                     // Collect content from all Quill editors
                     @foreach ($lang as $locale)
@@ -1089,7 +1090,6 @@
                                     tapToDismiss: false
                                 });
                             }, 200);
-                            // $('#mainAdd')[0].reset();
                             $('.custom-error').remove();
                             // Clear editors after successful save
                             @foreach ($lang as $locale)
@@ -1099,21 +1099,44 @@
                         error: function (data) {
                             $('.custom-error').remove();
                             $('#add_form').html('{{ __('Save') }}');
+
                             var response = data.responseJSON;
-                            if (data.status == 422) {
-                                if (response && response.errors) {
-                                    $.each(response.errors, function (key, value) {
+                            // console.log(response)
+                            // console.log(response.responseJSON)
+
+                            if (data.status == 422) { // Validation error
+                                if (response && response.responseJSON) {
+                                    var errorMessages = '';
+
+                                    $.each(response.responseJSON, function (key, value) {
+                                        errorMessages += '<p>' + value[0] + '</p>';
+
                                         var error_message = '<div class="custom-error"><p style="color: red">' + value[0] + '</p></div>';
-                                        $('[name="' + key + '"]').closest('.form-group').append(error_message);
+                                        if (key === 'images') {
+                                            $('#image-upload-section').append(error_message);
+                                        } else {
+                                            $('[name="' + key + '"]').closest('.form-group').append(error_message);
+                                        }
+                                    });
+
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: '{{ __("Validation Errors") }}',
+                                        html: errorMessages,
+                                        confirmButtonText: '{{ __("OK") }}'
                                     });
                                 }
                             } else {
-                                swal.fire({
+                                Swal.fire({
                                     icon: 'error',
                                     title: response.message
                                 });
                             }
                         }
+
+
+
+
                     });
                 }
             });
