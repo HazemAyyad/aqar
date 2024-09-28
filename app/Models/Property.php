@@ -15,11 +15,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Translatable\HasTranslations;
+use Spatie\Sluggable\HasTranslatableSlug;
 
 class Property extends Model
 {
-    use HasFactory,SoftDeletes;
-     protected $guarded=[];
+    use HasFactory,SoftDeletes,HasTranslations;
+    protected $guarded=[];
+    
+    public $translatable = ['title','description','slug'];
     public function images()
     {
         return $this->hasMany(PropertyImage::class);
@@ -66,5 +70,7 @@ class Property extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+    
+    
 
 }
