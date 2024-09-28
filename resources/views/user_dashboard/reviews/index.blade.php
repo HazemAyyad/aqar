@@ -18,19 +18,19 @@
 
 
     <div class="widget-box-2 wd-listing">
-        <h6 class="title">My Reviews</h6>
+        <h6 class="title">{{__('My Reviews')}}</h6>
         <div class="wrap-table">
             <div class="table-responsive">
                 <table>
                     <thead>
                     <tr>
-                        <th>Property TITLE</th>
-                        <th>User Name</th>
-                        <th>Comment</th>
-                        <th>Rating</th>
-                        <th>Date Published</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>{{__('Property TITLE')}}</th>
+                        <th>{{__('User Name')}}</th>
+                        <th>{{__('Comment')}}</th>
+                        <th>{{__('Rating')}}</th>
+                        <th>{{__('Date Published')}}</th>
+                        <th>{{__('Status')}}</th>
+                        <th>{{__('Action')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -100,7 +100,7 @@
                     @else
                         <tr class="file-delete"  >
                             <td>
-                                 not found any things
+                                 {{__('not found any things')}}
                             </td>
 
 

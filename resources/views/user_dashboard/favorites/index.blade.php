@@ -9,15 +9,15 @@
 
 
     <div class="widget-box-2 wd-listing">
-        <h6 class="title">My Favorites</h6>
+        <h6 class="title">{{__('My Favorites')}}</h6>
         <div class="wrap-table">
             <div class="table-responsive">
                 <table>
                     <thead>
                     <tr>
-                        <th>LISTING TITLE</th>
-                        <th>Date Published</th>
-                        <th>Action</th>
+                        <th>{{__('LISTING TITLE')}}</th>
+                        <th>{{__('Date Published')}}</th>
+                        <th>{{__('Action')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,7 @@
                     @else
                         <tr class="file-delete"  >
                             <td>
-                                 not found any things
+                                 {{__('not found any things')}}
                             </td>
 
 

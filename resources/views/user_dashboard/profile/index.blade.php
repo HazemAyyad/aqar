@@ -27,21 +27,21 @@
         <form id="editUserForm" name="editUserForm" class="row g-3" action="javascript:void(0)">
             @csrf
         <div class="box">
-            <h6 class="title">Account Settings</h6>
+            <h6 class="title">{{__('Account Settings')}}</h6>
             <div class="box-agent-account">
-                <h6>Agent Account</h6>
-                <p class="note">Your current account type is set to agent, if you want to remove your agent account, and return to normal account, you must click the button below</p>
-                <a href="#" class="tf-btn primary">Remove Agent Account</a>
+                <h6>{{__('Agent Account')}}</h6>
+                <p class="note">{{__('Your current account type is set to agent, if you want to remove your agent account, and return to normal account, you must click the button below')}}</p>
+                <a href="#" class="tf-btn primary">{{__('Remove Agent Account')}}</a>
             </div>
         </div>
         <div class="box">
-            <h6 class="title">Avatar</h6>
+            <h6 class="title">{{__('Avatar')}}</h6>
             <div class="box-agent-avt">
                 <div class="avatar">
                     <img src="{{$user->photo}}" alt="avatar" loading="lazy" width="128" height="128">
                 </div>
                 <div class="content uploadfile">
-                    <p>Upload a new avatar</p>
+                    <p>{{__('Upload a new avatar')}}</p>
                     <div class="box-ip">
                         <input type="file" name="photo" class="ip-file">
                     </div>
@@ -50,13 +50,13 @@
             </div>
         </div>
         <div class="box">
-            <h6 class="title">Agent Poster</h6>
+            <h6 class="title">{{__('Agent Poster')}}</h6>
             <div class="box-agent-avt">
                 <div class="img-poster">
                     <img src="{{$user->agent_poster}}"  alt="avatar" loading="lazy">
                 </div>
                 <div class="content uploadfile">
-                    <p>Upload a new poster</p>
+                    <p>{{__('Upload a new poster')}}</p>
                     <div class="box-ip">
                         <input type="file" name="agent_poster" class="ip-file">
                     </div>
@@ -64,75 +64,75 @@
                 </div>
             </div>
         </div>
-        <h6 class="title">Information</h6>
+        <h6 class="title">{{__('Information')}}</h6>
         <div class="box box-fieldset">
-            <label for="name">Full name:<span>*</span></label>
+            <label for="name">{{__('Full name')}}:<span>*</span></label>
             <input type="text" value="{{$user->name}}" required name="name" class="form-control style-1">
         </div>
         <div class="box box-fieldset">
-            <label for="desc">Description:<span>*</span></label>
+            <label for="desc">{{__('Description')}}:<span>*</span></label>
             <textarea name="description" required>{{$user->description}}</textarea>
         </div>
         <div class="box grid-4 gap-30">
             <div class="box-fieldset">
-                <label for="company">Your Company:<span>*</span></label>
+                <label for="company">{{__('Your Company')}}:<span>*</span></label>
                 <input type="text" name="company" required value="{{$user->company}}" class="form-control style-1">
             </div>
             <div class="box-fieldset">
-                <label for="position">Position:<span>*</span></label>
+                <label for="position">{{__('Position')}}:<span>*</span></label>
                 <input type="text" name="position" required value="{{$user->position}}" class="form-control style-1">
             </div>
             <div class="box-fieldset">
-                <label for="num">Office Number:<span>*</span></label>
+                <label for="num">{{__('Office Number')}}:<span>*</span></label>
                 <input type="number" name="office_no" required value="{{$user->office_no}}" class="form-control style-1">
             </div>
             <div class="box-fieldset">
-                <label for="address">Office Address:<span>*</span></label>
+                <label for="address">{{__('Office Address')}}:<span>*</span></label>
                 <input type="text" name="office_address" required value="{{$user->office_address}}" class="form-control style-1">
             </div>
         </div>
         <div class="box grid-4 gap-30 box-info-2">
             <div class="box-fieldset">
-                <label for="job">Job:<span>*</span></label>
+                <label for="job">{{__('Job')}}:<span>*</span></label>
                 <input type="text" name="job" required value="{{$user->job}}" class="form-control style-1">
             </div>
             <div class="box-fieldset">
-                <label for="email">Email address:<span>*</span></label>
+                <label for="email">{{__('Email address')}}:<span>*</span></label>
                 <input type="text" name="email" required value="{{$user->email}}" class="form-control style-1">
             </div>
             <div class="box-fieldset">
-                <label for="mobile">Your Phone:<span>*</span></label>
+                <label for="mobile">{{__('Your Phone')}}:<span>*</span></label>
                 <input type="number" name="mobile" required value="{{$user->mobile}}"  class="form-control style-1">
             </div>
         </div>
         <div class="box box-fieldset">
-            <label for="location">Location:<span>*</span></label>
+            <label for="location">{{__('Location')}}:<span>*</span></label>
             <input type="text" name="location" required value="{{$user->location}}" class="form-control style-1">
         </div>
         <div class="box box-fieldset">
-            <label for="fb">Facebook:<span>*</span></label>
+            <label for="fb">{{__('Facebook')}}:<span>*</span></label>
             <input type="url" name="facebook" required value="{{$user->facebook}}" class="form-control style-1">
         </div>
         <div class="box box-fieldset">
-            <label for="tw">Twitter:<span>*</span></label>
+            <label for="tw">{{__('Twitter')}}:<span>*</span></label>
             <input type="url" name="twitter" required value="{{$user->twitter}}" class="form-control style-1">
         </div>
         <div class="box box-fieldset">
-            <label for="linkedin">Linkedin:<span>*</span></label>
+            <label for="linkedin">{{__('Linkedin')}}:<span>*</span></label>
             <input type="url"  name="linkedin" required value="{{$user->linkedin}}" class="form-control style-1">
         </div>
         <div class="box">
-            <button type="submit" id="user_update"  class="tf-btn primary">Save & Update</button>
+            <button type="submit" id="user_update"  class="tf-btn primary">{{__('Save & Update')}}</button>
         </div>
         </form>
-        <h6 class="title">Change password</h6>
+        <h6 class="title">{{__('Change password')}}</h6>
         <form id="formChangePassword" method="POST" action="javascript:void(0)">
             @csrf
         <div class="box grid-3 gap-30">
             <div class="box-fieldset">
-                <label for="old-pass">Old Password:<span>*</span></label>
+                <label for="old-pass">{{__('Old Password')}}:<span>*</span></label>
                 <div class="box-password">
-                    <input type="password" class="form-contact style-1 password-field" placeholder="Password">
+                    <input type="password" class="form-contact style-1 password-field" placeholder="{{__('Password')}}">
                     <span class="show-pass">
                                             <i class="icon-pass icon-eye"></i>
                                             <i class="icon-pass icon-eye-off"></i>
@@ -140,7 +140,7 @@
                 </div>
             </div>
             <div class="box-fieldset">
-                <label for="new-pass">New Password:<span>*</span></label>
+                <label for="new-pass">{{__('New Password')}}:<span>*</span></label>
                 <div class="box-password">
                     <input type="password" class="form-contact style-1 password-field2"
 
@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="box-fieldset">
-                <label for="password_confirmation">Confirm Password:<span>*</span></label>
+                <label for="password_confirmation">{{__('Confirm Password')}}:<span>*</span></label>
                 <div class="box-password">
                     <input type="password" class="form-contact style-1 password-field3"
 
@@ -171,7 +171,7 @@
             </div>
         </div>
         <div class="box">
-            <button type="submit" id="update_password" class="tf-btn primary">Update Password</button>
+            <button type="submit" id="update_password" class="tf-btn primary">{{__('Update Password')}}</button>
         </div>
         </form>
     </div>
