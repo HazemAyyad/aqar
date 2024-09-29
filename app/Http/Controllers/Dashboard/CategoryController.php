@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Dashboard\Category;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\Dashboard\Facility;
+use App\Models\Dashboard\Category;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
@@ -69,11 +69,7 @@ class CategoryController extends Controller
 
     }
     public function create(){
-
-
-
-                return view('dashboard.properties.categories.add');
-
+        return view('dashboard.properties.categories.add');
     }
     public function edit($id){
         $category=Category::query()->findOrFail($id);
@@ -99,9 +95,30 @@ class CategoryController extends Controller
             return response(["responseJSON" => $errors,"input"=>$input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
         }
         if ($validator->passes()) {
-            $data=$request->all();
+             DB::beginTransaction();
+            try {
 
-            $category = Category::query()->create($data);
+                $category= Category::query()->create([
+                    'name'=> [
+                        'en' => $request->input('name.en'),
+                        'ar' => $request->input('name.ar'),
+                    ],
+                    'description'=> [
+                        'en' => $request->input('description.en'),
+                        'ar' => $request->input('description.ar'),
+                    ],
+                    'slug'=> [
+                        'en' => $request->input('slug.en'),
+                        'ar' => $request->input('slug.ar'),
+                    ],
+                    'status'=>$request->status,
+                ]);
+                // return $request;
+             
+            }catch (\Throwable $e) {
+                DB::rollBack();
+                throw $e;
+            }
 
             return response()->json(['success'=>"The process has successfully"]);
         }
