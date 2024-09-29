@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Spatie\Translatable\HasTranslations;
 
-  
+
 class Facility extends Model
 {
     use HasFactory,SoftDeletes,HasTranslations;

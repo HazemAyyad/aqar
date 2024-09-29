@@ -111,10 +111,9 @@ class CategoryController extends Controller
                         'en' => $request->input('slug.en'),
                         'ar' => $request->input('slug.ar'),
                     ],
-                    'status'=>$request->status,
-                ]);
+                    'status'=>$request->status   ]);
                 // return $request;
-             
+
             }catch (\Throwable $e) {
                 DB::rollBack();
                 throw $e;
