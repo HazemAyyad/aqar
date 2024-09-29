@@ -31,16 +31,33 @@
                     <div class="card-body">
                         <form id="mainAdd" method="post" action="javascript:void(0)" >
                             @csrf
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="name">{{__('Name')}}</label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{$category->name}}" placeholder="{{__('Name')}}" required>
+
+                            <div class="col-md-12">
+                                <div class="accordion" id="accordionExample">
+                                    @foreach ($lang as $index => $locale)
+                                        <div class="card accordion-item @if ($index === 0) active @endif">
+                                            <h2 class="accordion-header" id="heading{{ $locale }}">
+                                                <button type="button" class="accordion-button @if ($index !== 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#accordion{{ $locale }}" aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="accordion{{ $locale }}" role="tabpanel">
+                                                    {{ strtoupper($locale) }}
+                                                </button>
+                                            </h2>
+
+                                            <div id="accordion{{ $locale }}" class="accordion-collapse collapse @if ($index === 0) show @endif" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name_{{ $locale }}">{{ __('Name') }} ({{ strtoupper($locale) }})</label>
+                                                        <input type="text" class="form-control" name="name[{{ $locale }}]" value="{{ $category->getTranslation('name', $locale) }}" id="name_{{ $locale }}" placeholder="{{ __('Name in ') . strtoupper($locale) }}" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
 
 
-
-
-                            <div class="form-group mb-3">
+                                    <div class="form-group mb-3">
                                 <label class="form-label" for="status">{{__('Status')}}</label>
                                 <select name="status" id="status" class="form-select">
                                     <option value="0" {{$category->status==0?'selected':''}}>{{__('Pending')}}</option>

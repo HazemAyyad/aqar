@@ -94,9 +94,15 @@ class FeatureCategoryController extends Controller
             return response(["responseJSON" => $errors,"input"=>$input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
         }
         if ($validator->passes()) {
-            $data=$request->all();
 
-            $category = FeatureCategory::query()->create($data);
+
+            $category = FeatureCategory::query()->create([
+                'name'=> [
+                        'en' => $request->input('name.en'),
+                        'ar' => $request->input('name.ar'),
+                    ],
+                'status'=>$request->status
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -116,7 +122,13 @@ class FeatureCategoryController extends Controller
         $data = $request->all();
 
         if ($validator->passes()) {
-             $category->update($data);
+             $category->update([
+                 'name'=> [
+                     'en' => $request->input('name.en'),
+                     'ar' => $request->input('name.ar'),
+                 ],
+                 'status'=>$request->status
+             ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

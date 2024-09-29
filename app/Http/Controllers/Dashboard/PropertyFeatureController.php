@@ -36,14 +36,15 @@ class PropertyFeatureController extends Controller
                 return $btn;
             })
 
+
             ->editColumn('name', function ($row) {
                 return '<strong class="Titillium-font danger">' . $row->name . '</strong>';
             })
-            ->editColumn('description', function ($row) {
-                return '<strong class="Titillium-font danger">' . $row->description . '</strong>';
+            ->editColumn('category_id', function ($row) {
+                return '<strong class="Titillium-font danger">' . $row->featureCategory->name . '</strong>';
             })
 //            ->escapeColumns('name')
-            ->rawColumns(['name','description','action'])
+            ->rawColumns(['name','category_id','action'])
             ->make(true);
 
     }
@@ -80,7 +81,14 @@ class PropertyFeatureController extends Controller
         if ($validator->passes()) {
             $data=$request->all();
 
-            $category= Feature::query()->create($data);
+            $category= Feature::query()->create([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'icon'=>$request->icon,
+                'category_id'=>$request->category_id,
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -103,7 +111,14 @@ class PropertyFeatureController extends Controller
 
         if ($validator->passes()) {
 
-            $category->update($data);
+            $category->update([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'icon'=>$request->icon,
+                'category_id'=>$request->category_id,
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

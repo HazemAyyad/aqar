@@ -84,7 +84,22 @@ class PeopleSayController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/says/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $say = PeopleSay::query()->create($data);
+            $say = PeopleSay::query()->create([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'position'=> [
+                    'en' => $request->input('position.en'),
+                    'ar' => $request->input('position.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+                 'rating'=>$request->rating,
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -114,7 +129,22 @@ class PeopleSayController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/says/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $say->update($data);
+            $say->update([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'position'=> [
+                    'en' => $request->input('position.en'),
+                    'ar' => $request->input('position.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+                'rating'=>$request->rating,
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

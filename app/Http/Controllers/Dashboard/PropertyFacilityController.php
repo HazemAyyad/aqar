@@ -78,7 +78,14 @@ class PropertyFacilityController extends Controller
         if ($validator->passes()) {
             $data=$request->all();
 
-            $category= Facility::query()->create($data);
+            $category= Facility::query()->create([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'icon'=>$request->icon,
+                'status'=>$request->status,
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -101,7 +108,14 @@ class PropertyFacilityController extends Controller
 
         if ($validator->passes()) {
 
-            $category->update($data);
+            $category->update([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+                'icon'=>$request->icon,
+                'status'=>$request->status,
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }
