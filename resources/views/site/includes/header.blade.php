@@ -245,7 +245,7 @@
                                     <a class="lang-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ LaravelLocalization::getSupportedLocales()[LaravelLocalization::getCurrentLocale()]['native'] }}
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                    <ul class="dropdown-menu" aria-labelledby="languageDropdown" >
                                         @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                             @if (LaravelLocalization::getCurrentLocale() !== $localeCode)
                                                 <li>
@@ -255,7 +255,9 @@
                                                 </li>
                                             @endif
                                         @endforeach
+                                       
                                     </ul>
+                                    
                                 </div>
 
 

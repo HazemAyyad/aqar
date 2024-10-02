@@ -704,6 +704,7 @@ label {
 }
 .header-account ul {
   margin-right: 20px;
+  margin-left: 20px;
 }
 .header-account ul li {
   font-weight: 700;
@@ -2755,6 +2756,7 @@ label {
 }
 .btn-view .icon {
   color: #ED2027;
+  transform: rotate(180deg);
 }
 .btn-view:hover .icon {
   animation: 0.3s link-icon linear;
@@ -8501,7 +8503,7 @@ label {
 }
 .header-account .dropdown-menu {
   max-width: 204px;
-  width: 100%;
+  /* width: 100%; */
   margin-top: 18px !important;
   border: 1px solid #e4e4e4;
   border-top: 0;
@@ -8509,11 +8511,14 @@ label {
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   padding: 0;
+  text-align: center;
 }
 .header-account .dropdown-menu .dropdown-item {
   padding: 16px 24px;
   line-height: 26px;
   font-weight: 600;
+  border-bottom-left-radius: 16px;
+border-bottom-right-radius: 16px;
   font-size: 16px;
   text-transform: capitalize;
   color: #5c6368;
@@ -9527,7 +9532,7 @@ tr {
   }
 
   .header-account ul {
-    margin-right: 20px;
+    margin-right: 20px; 
   }
 
   .header-account {
