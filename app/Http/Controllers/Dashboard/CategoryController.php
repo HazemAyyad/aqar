@@ -95,8 +95,7 @@ class CategoryController extends Controller
             return response(["responseJSON" => $errors,"input"=>$input, "message" => 'Verify that the data is correct, fill in all fields'], 422);
         }
         if ($validator->passes()) {
-             DB::beginTransaction();
-            try {
+
 
                 $category= Category::query()->create([
                     'name'=> [
@@ -111,13 +110,9 @@ class CategoryController extends Controller
                         'en' => $request->input('slug.en'),
                         'ar' => $request->input('slug.ar'),
                     ],
-                    'status'=>$request->status   ]);
-                // return $request;
+                    'status'=>$request->status
+                ]);
 
-            }catch (\Throwable $e) {
-                DB::rollBack();
-                throw $e;
-            }
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -139,7 +134,21 @@ class CategoryController extends Controller
         $data = $request->all();
 
         if ($validator->passes()) {
-             $category->update($data);
+             $category->update([
+                 'name'=> [
+                     'en' => $request->input('name.en'),
+                     'ar' => $request->input('name.ar'),
+                 ],
+                 'description'=> [
+                     'en' => $request->input('description.en'),
+                     'ar' => $request->input('description.ar'),
+                 ],
+                 'slug'=> [
+                     'en' => $request->input('slug.en'),
+                     'ar' => $request->input('slug.ar'),
+                 ],
+                 'status'=>$request->status
+             ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

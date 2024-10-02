@@ -86,7 +86,23 @@ class AgentController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/agents/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $agent = Agent::query()->create($data);
+            $agent = Agent::query()->create([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+
+                'position'=> [
+                    'en' => $request->input('position.en'),
+                    'ar' => $request->input('position.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+                'facebook'=>$request->facebook,
+                'twitter'=>$request->twitter,
+                'instagram'=>$request->instagram,
+                'linkedin'=>$request->linkedin,
+                'phone'=>$request->phone,
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -119,7 +135,23 @@ class AgentController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/agents/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $agent->update($data);
+            $agent->update([
+                'name'=> [
+                    'en' => $request->input('name.en'),
+                    'ar' => $request->input('name.ar'),
+                ],
+
+                'position'=> [
+                    'en' => $request->input('position.en'),
+                    'ar' => $request->input('position.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+                'facebook'=>$request->facebook,
+                'twitter'=>$request->twitter,
+                'instagram'=>$request->instagram,
+                'linkedin'=>$request->linkedin,
+                'phone'=>$request->phone,
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

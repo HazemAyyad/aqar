@@ -33,15 +33,33 @@
                     <div class="card-body">
                         <form id="mainAdd" method="post" action="javascript:void(0)" >
                             @csrf
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="title">{{__('title')}}</label>
-                                <input type="text" class="form-control" name="title" id="title" value="{{$benefit->title}}" placeholder="{{__('Title')}}" required>
-                            </div>
+                            <div class="col-md-12">
+                                <div class="accordion" id="accordionExample">
+                                    @foreach ($lang as $index => $locale)
+                                        <div class="card accordion-item @if ($index === 0) active @endif">
+                                            <h2 class="accordion-header" id="heading{{ $locale }}">
+                                                <button type="button" class="accordion-button @if ($index !== 0) collapsed @endif" data-bs-toggle="collapse" data-bs-target="#accordion{{ $locale }}" aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="accordion{{ $locale }}" role="tabpanel">
+                                                    {{ strtoupper($locale) }}
+                                                </button>
+                                            </h2>
+
+                                            <div id="accordion{{ $locale }}" class="accordion-collapse collapse @if ($index === 0) show @endif" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="title_{{ $locale }}">{{ __('Title') }} ({{ strtoupper($locale) }})</label>
+                                                        <input type="text" class="form-control" name="title[{{ $locale }}]"  value="{{ $benefit->getTranslation('title', $locale) }}" id="title_{{ $locale }}" placeholder="{{ __('Title in ') . strtoupper($locale) }}" required>
+                                                    </div>
 
 
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="description">{{__('description')}}</label>
-                                <textarea name="description" id="description"  class="form-control" rows="3">{{$benefit->description}} </textarea>
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-label" for="description_{{ $locale }}">{{__('description')}}  ({{ strtoupper($locale) }})</label>
+                                                        <textarea name="description[{{ $locale }}]" id="description_{{ $locale }}"  class="form-control" rows="3">{{ $benefit->getTranslation('description', $locale) }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                             <div class="form-group  mb-3">

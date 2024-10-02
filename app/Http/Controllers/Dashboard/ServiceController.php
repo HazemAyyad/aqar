@@ -65,7 +65,7 @@ class ServiceController extends Controller
             'title' => 'required',
 
             'description' => 'required',
-
+            'slug' => 'required',
             'photo' => 'required',
 
         ]);
@@ -82,7 +82,23 @@ class ServiceController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/services/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $service = Service::query()->create($data);
+            $service = Service::query()->create([
+                'title'=> [
+                    'en' => $request->input('title.en'),
+                    'ar' => $request->input('title.ar'),
+                ],
+
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'slug'=> [
+                    'en' => $request->input('slug.en'),
+                    'ar' => $request->input('slug.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -92,7 +108,7 @@ class ServiceController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
              'description' => 'required',
- //            'photo' => 'required',
+             'slug' => 'required',
 
 
         ]);
@@ -110,7 +126,23 @@ class ServiceController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/services/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $service->update($data);
+            $service->update([
+                'title'=> [
+                    'en' => $request->input('title.en'),
+                    'ar' => $request->input('title.ar'),
+                ],
+
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'slug'=> [
+                    'en' => $request->input('slug.en'),
+                    'ar' => $request->input('slug.ar'),
+                ],
+                'photo'=>$data['photo']?? $service->photo ,
+
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

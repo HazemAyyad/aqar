@@ -82,7 +82,19 @@ class BenefitController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/benefits/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $benefit = Benefit::query()->create($data);
+            $benefit = Benefit::query()->create([
+                'title'=> [
+                    'en' => $request->input('title.en'),
+                    'ar' => $request->input('title.ar'),
+                ],
+
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'photo'=>$data['photo'] ,
+
+            ]);
 
             return response()->json(['success'=>"The process has successfully"]);
         }
@@ -110,7 +122,19 @@ class BenefitController extends Controller
                 $image_url->move(env('PATH_FILE_URL').'/uploads/benefits/', $image_name);
                 $data['photo'] = $image_name;
             }
-            $benefit->update($data);
+            $benefit->update([
+                'title'=> [
+                    'en' => $request->input('title.en'),
+                    'ar' => $request->input('title.ar'),
+                ],
+
+                'description'=> [
+                    'en' => $request->input('description.en'),
+                    'ar' => $request->input('description.ar'),
+                ],
+                'photo'=>$data['photo']?? $benefit->photo ,
+
+            ]);
             return response()->json(['success'=>"The process has successfully"]);
         }
     }

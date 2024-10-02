@@ -31,7 +31,8 @@
                     <div class="card-body">
                         <form id="mainAdd" method="post" action="javascript:void(0)">
                             @csrf
-
+                            <div class="col-md-12">
+                                <div class="accordion" id="accordionExample">
                             @foreach ($lang as $index => $locale)
                                 <div class="card accordion-item @if ($index === 0) active @endif">
                                     <h2 class="accordion-header" id="heading{{ $locale }}">
@@ -92,24 +93,25 @@
 
                                 </div>
                             @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="status">{{ __('Status') }}</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option value="0">{{ __('Pending') }}</option>
+                                    <option value="1">{{ __('Published') }}</option>
+                                    <option value="2">{{ __('draft') }}</option>
+                                </select>
+                            </div>
 
-
-
+                            <button type="submit" class="btn btn-primary waves-effect waves-light " id="add_form">
+                                {{ __('Save') }}
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="form-label" for="status">{{ __('Status') }}</label>
-                        <select name="status" id="status" class="form-select">
-                            <option value="0">{{ __('Pending') }}</option>
-                            <option value="1">{{ __('Published') }}</option>
-                            <option value="2">{{ __('draft') }}</option>
-                        </select>
-                    </div>
 
-                    <button type="submit" class="btn btn-primary waves-effect waves-light " id="add_form">
-                        {{ __('Save') }}
-                    </button>
-                    </form>
+
                 </div>
             </div>
         </div>
