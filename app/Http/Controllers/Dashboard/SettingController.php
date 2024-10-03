@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Setting;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
@@ -35,13 +36,23 @@ class SettingController extends Controller
 
         if (in_array($page_name, $all_pages)) {
             // Retrieve settings for the specific page
-            $settings = Setting::where('page', $page_name)->get();
+               $settings = Setting::where('page', $page_name)->get();
 
             // Pass the settings to the view
             return view('dashboard.settings.' . $page_name, compact('settings'));
         } else {
             abort(404);
         }
+    }
+    public function page_slider()
+    {
+
+            // Retrieve settings for the specific page
+               $settings = Slider::where('page', 'slider')->get();
+
+            // Pass the settings to the view
+            return view('dashboard.settings.slider', compact('settings'));
+
     }
     public function update_about_us(Request $request, $page_name)
     {
@@ -80,6 +91,56 @@ class SettingController extends Controller
 
         return response()->json(['success' => __('Settings updated successfully!')]);
     }
+    public function update_slider(Request $request)
+    {
+        $settings = Slider::where('page', 'slider')->get();
+
+        foreach ($settings as $setting) {
+            // Handle text fields (description, slider_text_1, slider_text_2, slider_text_3)
+            if ($request->has($setting->key) && !str_contains($setting->key, 'slider_img')) {
+                $translations = [];
+
+                // Iterate over the locales (ar, en) for text translations
+                foreach ($request->input($setting->key) as $locale => $value) {
+                    if (is_string($locale)) {
+                        $translations[$locale] = $value;  // Store each locale value
+                    }
+                }
+
+                // Update translations for the text fields
+                $setting->setTranslations('value', $translations);
+                $setting->save();
+            }
+
+            // Handle image uploads (slider_img)
+            if ($setting->key == 'slider_img') {
+                // Ensure that the request has a file for each locale
+                if ($request->hasFile('slider_img')) {
+                    foreach ($request->file('slider_img') as $locale => $file) {
+                        if ($file && $file->isValid()) {
+                            // Store the image with the locale-specific name
+                            $image_url = $file;
+                            $image_name = '/uploads/sliders/' . time() . '_' . $locale . '.' . $image_url->getClientOriginalExtension();
+                            $image_url->move(env('PATH_FILE_URL') . '/uploads/sliders/', $image_name);
+
+                            // Retrieve the current translations for slider_img
+                            $currentTranslations = $setting->getTranslations('value');
+                            $currentTranslations[$locale] = $image_name;  // Save image path for the respective locale
+
+                            // Update translations for the slider image
+                            $setting->setTranslations('value', $currentTranslations);
+                            $setting->save();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Return success response
+        return response()->json(['success' => __('Slider updated successfully')]);
+    }
+
+
     public function update_settings(Request $request, $page_name)
     {
         // Fetch the settings based on the page identifier (e.g., page name)

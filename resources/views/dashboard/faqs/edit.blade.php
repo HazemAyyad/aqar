@@ -50,10 +50,10 @@
                                 <label class="form-label" for="category_id">{{__('Category')}}</label>
                                 <select id="category_id" name="category_id" class="select2 form-select form-select-lg"  data-allow-clear="true">
                                     <option></option>
-                                    <option value="0" {{$faqs->category_id==0?'selected':''}}>Overview</option>
-                                    <option value="1" {{$faqs->category_id==1?'selected':''}}>Costs and Payments</option>
-                                    <option value="2" {{$faqs->category_id==2?'selected':''}}>Safety and Security</option>
-                                    <option value="3" {{$faqs->category_id==3?'selected':''}}>Other</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" {{$faqs->category_id==$category->id?'selected':''}}>{{$category->title}}</option>
+                                    @endforeach
+
 
                                 </select>
                             </div>

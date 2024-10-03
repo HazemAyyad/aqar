@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Admin;
 use App\Models\Dashboard\Faqs;
+use App\Models\FaqCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +70,7 @@ class FaqsController extends Controller
                     $class = 'text-danger';
                     $tooltipetitle = $type;
                 }
-                return '<strong  class="' . $class . ' " tabindex="0" data-toggle="tooltip" title="' . $tooltipetitle . '" >' . $type . '</strong>';
+                return '<strong  class="' . $class . ' " tabindex="0" data-toggle="tooltip" title="' . $tooltipetitle . '" >' . $row->category->title . '</strong>';
 
                 // return '<button class="btn btn-sm ' . $class . ' round" type="button"  data-toggle="tooltip" data-placement="top" title=" ' . $tooltipetitle . ' .">' . $status . '<i class="fa fa-info-circle" ></i></button>';
             })
@@ -79,18 +80,18 @@ class FaqsController extends Controller
 
     }
     public function create(){
+        $categories=FaqCategory::all();
 
 
-
-                return view('dashboard.faqs.add');
+                return view('dashboard.faqs.add',compact('categories'));
 
     }
     public function edit($id){
         $faqs=Faqs::query()->findOrFail($id);
+        $categories=FaqCategory::all();
 
 
-
-                return view('dashboard.faqs.edit',compact('faqs'));
+                return view('dashboard.faqs.edit',compact('faqs','categories'));
 
 
 

@@ -37,23 +37,23 @@
                             @foreach($lang as $item)
                                 <div class="form-group mb-3">
                                     <label class="form-label" for="title_{{$item}}">{{__('Title')}} {{$item}}</label>
-                                    <input type="text" class="form-control" name="title_{{$item}}" id="title_{{$item}}" value="{{$faqs['title_'.$item]}}" placeholder="{{__('Title')}} {{$item}}" required>
+                                    <input type="text" class="form-control" name="title_{{$item}}" id="title_{{$item}}" value="{{$policy['title_'.$item]}}" placeholder="{{__('Title')}} {{$item}}" required>
                                 </div>
                             @endforeach
                             @foreach($lang as $item)
                                 <div class="form-group mb-3">
                                     <label class="form-label" for="answer_{{$item}}">{{__('Description')}} {{$item}}</label>
-                                    <textarea  id="answer_{{$item}}" class="form-control" name="answer_{{$item}}">{{$faqs['answer_'.$item]}}</textarea>
+                                    <textarea  id="answer_{{$item}}" class="form-control" name="answer_{{$item}}">{{$policy['answer_'.$item]}}</textarea>
                                 </div>
                             @endforeach
                             <div class="form-group mb-3">
                                 <label class="form-label" for="category_id">{{__('Category')}}</label>
                                 <select id="category_id" name="category_id" class="select2 form-select form-select-lg"  data-allow-clear="true">
                                     <option></option>
-                                    <option value="0" {{$faqs->category_id==0?'selected':''}}>Overview</option>
-                                    <option value="1" {{$faqs->category_id==1?'selected':''}}>Costs and Payments</option>
-                                    <option value="2" {{$faqs->category_id==2?'selected':''}}>Safety and Security</option>
-                                    <option value="3" {{$faqs->category_id==3?'selected':''}}>Other</option>
+                                    @foreach($categories  as $category)
+                                        <option value="{{$category->id}}" {{$policy->category_id==$category->id?'selected':''}}>{{$category->title}}</option>
+
+                                    @endforeach
 
                                 </select>
                             </div>
@@ -101,7 +101,7 @@
     </script>
     <script>
 
-        var data_url='{{ route('admin.policies.update',$faqs->id)}}'
+        var data_url='{{ route('admin.policies.update',$policy->id)}}'
 
         $(document).ready(function() {
             function myHandel(obj, id) {

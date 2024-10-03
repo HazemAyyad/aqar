@@ -23,35 +23,29 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
 
-                    @php
-                        $categories = [
-                            0 => __('Overview'),
-                            1 => __('Costs and Payments'),
-                            2 => __('Safety and Security'),
-                            3 => __('Other')
-                        ];
-                    @endphp
 
-                    @foreach($categories as $category_id => $category_name)
+
+
+                    @foreach ($categories as $category)
                         @php
                             // Filter FAQs for the current category using Collection's filter method
-                            $filteredFaqs = $faqs->filter(function($faq) use ($category_id) {
-                                return $faq->category_id == $category_id;
+                            $filteredFaqs = $faqs->filter(function ($faq) use ($category) {
+                                return $faq->category_id == $category->id;
                             });
                         @endphp
 
-                        @if($filteredFaqs->isNotEmpty())
+                        @if ($filteredFaqs->isNotEmpty())
                             <div class="tf-faq">
-                                <h5>{{ $category_name }}</h5>
-                                <ul class="box-faq" id="wrapper-faq-{{ $category_id }}">
-                                    @foreach($filteredFaqs as $faq)
+                                <h5>{{ $category->title }}</h5> <!-- Assuming the category name is stored in the name property -->
+                                <ul class="box-faq" id="wrapper-faq-{{ $category->id }}">
+                                    @foreach ($filteredFaqs as $faq)
                                         <li class="faq-item">
                                             <a href="#accordion-faq-{{ $faq->id }}" class="faq-header collapsed" data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordion-faq-{{ $faq->id }}">
-                                                {{ $faq->title_en }}
+                                                {{ App::isLocale('en') ? $faq->title_en : $faq->title_ar }}
                                             </a>
-                                            <div id="accordion-faq-{{ $faq->id }}" class="collapse" data-bs-parent="#wrapper-faq-{{ $category_id }}">
+                                            <div id="accordion-faq-{{ $faq->id }}" class="collapse" data-bs-parent="#wrapper-faq-{{ $category->id }}">
                                                 <p class="faq-body">
-                                                    {{ $faq->answer_en }}
+                                                    {{ App::isLocale('en') ? $faq->answer_en : $faq->answer_ar }}
                                                 </p>
                                             </div>
                                         </li>
@@ -59,8 +53,8 @@
                                 </ul>
                             </div>
                         @endif
-
                     @endforeach
+
 
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Admin;
 use App\Models\Dashboard\Policy;
+use App\Models\PolicyCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,7 @@ class PolicyController extends Controller
     {
 
 
-        return DataTables::of(Policy::query()->get())
+        return DataTables::of(Policy::query()->with('category')->get())
             ->addIndexColumn()
             ->addColumn('action', function($row) use ($request){
 
@@ -43,26 +44,26 @@ class PolicyController extends Controller
             ->addColumn('category', function ($row) {
 
                 $type = $row->category_id;
-                if ($type == 0) {
+                if ($type == 1) {
                     $type='Terms';
                     $class = 'text-success';
                     $tooltipetitle =$type;
                 }
-                elseif ($type == 1) {
+                elseif ($type == 2) {
                     $type='Limitations';
                     $class = 'text-primary';
                     $tooltipetitle =$type;
                 }
-                elseif ($type == 2) {
+                elseif ($type == 3) {
                     $type='Revisions and errata';
                     $class = 'text-warning';
                     $tooltipetitle =$type;
                 }
-                 elseif ($type == 3) {
+                 elseif ($type == 4) {
                     $type='Site terms of use modifications';
                     $class = 'text-danger';
                     $tooltipetitle =$type;
-                } elseif ($type == 4) {
+                } elseif ($type == 5) {
                     $type='Risks';
                     $class = 'text-danger';
                     $tooltipetitle =$type;
@@ -73,7 +74,7 @@ class PolicyController extends Controller
                     $class = 'text-danger';
                     $tooltipetitle = $type;
                 }
-                return '<strong  class="' . $class . ' " tabindex="0" data-toggle="tooltip" title="' . $tooltipetitle . '" >' . $type . '</strong>';
+                return '<strong  class="' . $class . ' " tabindex="0" data-toggle="tooltip" title="' . $tooltipetitle . '" >' . $row->category->title . '</strong>';
 
                 // return '<button class="btn btn-sm ' . $class . ' round" type="button"  data-toggle="tooltip" data-placement="top" title=" ' . $tooltipetitle . ' .">' . $status . '<i class="fa fa-info-circle" ></i></button>';
             })
@@ -84,17 +85,17 @@ class PolicyController extends Controller
     }
     public function create(){
 
+        $categories = PolicyCategory::all();
 
-
-                return view('dashboard.policies.add');
+                return view('dashboard.policies.add',compact('categories'));
 
     }
     public function edit($id){
         $policy=Policy::query()->findOrFail($id);
+        $categories = PolicyCategory::all();
 
 
-
-                return view('dashboard.policies.edit',compact('policy'));
+                return view('dashboard.policies.edit',compact('policy','categories'));
 
 
 

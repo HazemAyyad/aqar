@@ -16,9 +16,12 @@ use App\Models\Dashboard\FeatureCategory;
 use App\Models\Dashboard\Partner;
 use App\Models\Dashboard\PeopleSay;
 use App\Models\Dashboard\Policy;
+use App\Models\FaqCategory;
+use App\Models\PolicyCategory;
 use App\Models\Property;
 use App\Models\Dashboard\Service;
 use App\Models\Dashboard\Setting;
+use App\Models\Slider;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -78,20 +81,15 @@ class SiteController extends Controller
          $locations = $cities->toArray();
          $partners=Partner::all();
           $blogs=Blog::query()->with(['user','category'])->take(3)->get();
+        $sliders= Slider::where('page', 'slider')->get();
         return view('site.index',compact('categories','top_properties','features','agents',
-        'people_says','benefits','services','locations','partners','blogs'));
+        'people_says','benefits','services','locations','partners','blogs','sliders'));
     }
     public function privacy_policy()
     {
 
-        $categories = [
-            0=>'Terms' ,
-            1=>'Limitations',
-            2=>'Revisions and errata',
-            3=>'Site terms of use modifications',
-            4=>'Risks'
-        ];
-         $policies = Policy::all();
+        $categories = PolicyCategory::all();
+          $policies = Policy::all();
         return view('site.privacy-policy.index',compact('policies','categories'));
     }
     public function properties(Request $request)
@@ -456,10 +454,11 @@ class SiteController extends Controller
     }
     public function faqs(Request $request)
     {
+        $categories=FaqCategory::all();
 
 
          $faqs = Faqs::all();
-        return view('site.faqs.index', compact('faqs'));
+        return view('site.faqs.index', compact('faqs','categories'));
     }
     public function about_us(Request $request)
     {

@@ -3,7 +3,7 @@
         <a href="{{route('admin.dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path 
+                  <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
                       d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
@@ -191,6 +191,11 @@
                     <li class="menu-item">
                         <a href="{{route('admin.settings.page','sections')}}" class="menu-link">
                             <div data-i18n="{{__('Sections')}}">{{__('Sections')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('admin.settings.page_slider')}}" class="menu-link">
+                            <div data-i18n="{{__('Slider')}}">{{__('Slider')}}</div>
                         </a>
                     </li>
 {{--                    <li class="menu-item">--}}

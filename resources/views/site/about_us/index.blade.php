@@ -40,7 +40,12 @@
                         @php
                             $description = collect($aboutUs)->firstWhere('key', 'description');
                         @endphp
-                        {{ $description['value'] ?? 'Default description text' }}
+
+                        @if (App::isLocale('en'))
+                            {{ $description['value'] ?? 'Default description text' }}
+                        @else
+                            {{ $description['value_ar'] ?? 'Default description text' }}
+                        @endif
                     </P>
                     <a href="#" class="btn-view style-1"><span class="text">{{__('Learn More')}}</span> <span class="icon icon-arrow-right2"></span> </a>
 
@@ -74,7 +79,12 @@
 
                         @endphp
                         <p>
-                            {{$why_choose_us['value']}}
+
+                            @if (App::isLocale('en'))
+                                {{ $why_choose_us['value'] ?? 'Default description text' }}
+                            @else
+                                {{ $why_choose_us['value_ar'] ?? 'Default description text' }}
+                            @endif
                         </p>
                         <ul class="list-view">
                             @foreach($benefits as $benefit)

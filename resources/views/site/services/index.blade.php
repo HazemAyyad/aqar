@@ -124,11 +124,21 @@
                             @foreach($faqs as $faq)
                                 <li class="faq-item">
                                     <a href="#accordion-faq-{{$faq->id}}" class="faq-header collapsed" data-bs-toggle="collapse" aria-expanded="false" aria-controls="accordion-faq-{{$faq->id}}">
-                                        {{$faq->title_en}}
+                                        @if (App::isLocale('en'))
+                                            {{$faq->title_en}}
+                                        @else
+                                            {{$faq->title_ar}}
+                                        @endif
+
                                     </a>
                                     <div id="accordion-faq-{{$faq->id}}" class="collapse" data-bs-parent="#wrapper-faq">
                                         <p class="faq-body">
-                                            {{$faq->answer_en}}
+
+                                            @if (App::isLocale('en'))
+                                                {{$faq->answer_en}}
+                                            @else
+                                                {{$faq->answer_ar}}
+                                            @endif
                                          </p>
                                     </div>
 

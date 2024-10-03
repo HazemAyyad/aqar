@@ -4,30 +4,38 @@
 @section('content')
         <!-- Slider -->
         <section class="flat-slider home-1">
-            <div class="container relative">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="slider-content">
-                            <div class="heading text-center">
-                                <h1 class="text-white animationtext slide">
-                                    {{__('Find Your')}}
-                                    <span class="tf-text s1 cd-words-wrapper">
-                                                <span class="item-text is-visible">{{__('Dream Home')}}</span>
-                                                <span class="item-text is-hidden">{{__('Perfect Home')}}</span>
-                                                <span class="item-text is-hidden">{{__('Real Estate')}}</span>
-                                            </span>
-                                </h1>
-                                <p class="subtitle text-white body-1 wow fadeIn" data-wow-delay=".8s" data-wow-duration="2000ms">{{__('We are a real estate agency that will help you find the best residence you dream of, let’s discuss for your dream house?')}}</p>
+            <div class="flat-slider home-1" style="background-image: url('{{ asset($sliders->where('key', 'slider_img')->first()->getTranslation('value', app()->getLocale())) }}'); background-attachment: fixed;">
+                <div class="container relative">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="slider-content">
+                                <div class="heading text-center">
+                                    <h1 class="text-white animationtext slide">
+                                        {{ __('Find Your') }}
+                                        <span class="tf-text s1 cd-words-wrapper">
+                                <span class="item-text is-visible">
+                                    {{ $sliders->where('key', 'slider_text_1')->first()->getTranslation('value', app()->getLocale()) }}
+                                </span>
+                                <span class="item-text is-hidden">
+                                    {{ $sliders->where('key', 'slider_text_2')->first()->getTranslation('value', app()->getLocale()) }}
+                                </span>
+                                <span class="item-text is-hidden">
+                                    {{ $sliders->where('key', 'slider_text_3')->first()->getTranslation('value', app()->getLocale()) }}
+                                </span>
+                            </span>
+                                    </h1>
+                                    <p class="subtitle text-white body-1 wow fadeIn" data-wow-delay=".8s" data-wow-duration="2000ms">
+                                        {{ $sliders->where('key', 'description')->first()->getTranslation('value', app()->getLocale()) }}
+                                    </p>
+                                </div>
+
+                                @include('site.includes.filter_search_master')
                             </div>
-                            @include('site.includes.filter_search_master') <!-- Extract the search form into a partial -->
-
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
+
             <div class="overlay"></div>
         </section>
         <!-- End Slider -->
