@@ -169,7 +169,14 @@ img {
   vertical-align: middle;
   -ms-interpolation-mode: bicubic;
 }
-
+.partner-item img {
+  max-width: 100%;
+  height: 130px;
+}
+.images-style img {
+  max-width: 100%;
+  height: 250px;
+}
 .row {
   margin-right: -15px;
   margin-left: -15px;
