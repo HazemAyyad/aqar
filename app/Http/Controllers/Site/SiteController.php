@@ -64,7 +64,7 @@ class SiteController extends Controller
         $agents = Agent::all();
         $people_says = PeopleSay::all();
         $benefits = Benefit::query()->take(3)->get();
-        $services = Service::all();
+        $services = Service::query()->take(3)->latest();
         $cities = Property::query()
             ->where(['moderation_status' => 1])
             ->with([
