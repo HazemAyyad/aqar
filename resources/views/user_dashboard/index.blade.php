@@ -136,7 +136,7 @@
         </div>
         <div class="col-xl-3">
             <div class="widget-box-3 mess-box">
-                <h6>{{__('Messages')}}</h6>
+                <h6>{{__("Messages ")}}</h6>
                 <span class="text-variant-1">{{__('No message')}}</span>
             </div>
             <div class="widget-box-3 recent-box">
