@@ -453,6 +453,8 @@
         </section>
         <!-- End Benefit -->
         @endif
+
+        
         @if(isset($data_settings['4_top']) && $data_settings['4_top'] == 1)
         <!-- Property  -->
         <section class="flat-section flat-property">
@@ -466,7 +468,6 @@
                 </div>
                 <div class="wrap-property">
                     <!-- resources/views/top-properties.blade.php -->
-
                     @foreach($top_properties as $property)
                         @if($loop->first)
                             <!-- Left Box -->
@@ -509,9 +510,6 @@
                                                     </li>
                                                 </ul>
                                                 <ul class="d-flex gap-4">
-{{--                                                    <li class="box-icon w-40">--}}
-{{--                                                        <span class="icon icon-arrLeftRight"></span>--}}
-{{--                                                    </li>--}}
                                                     <li class="box-icon w-40">
                                                         <a href="javascript:"  data-toggle="tooltip" data-placement="top" title="Toggle Favorite" onclick="toggleFavorite({{ $property->id }})">
                                                             <span id="favorite-icon-{{ $property->id }}" class="icon {{ $property->isFavorited() ? 'fa-solid fa-heart' : 'icon-heart' }}"></span>
@@ -590,123 +588,118 @@
 
                     @endforeach
                     <div class="box-right wow fadeInRightSmall" data-wow-delay=".2s" data-wow-duration="2000ms">
-                    @foreach($top_properties as $property)
-                        @if($loop->first)
+                        @foreach($top_properties as $property)
+                            @if($loop->first)
 
-                        @endif
-                        <!-- Right Boxes -->
+                            @endif
+                            <!-- Right Boxes -->
+                                <div class="homeya-box list-style-1">
+                                    @php
+                                        $imagePath = asset($property->images[0]->img);
+                                        $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
+                                    @endphp
+                                    <a href="{{ route('site.property.show', $property->slug) }}" class="images-group">
+                                        <div class="images-style">
+                                            <img src="{{ $correctedImagePath }}" alt="img">
+                                        </div>
+                                        <div class="top">
+                                            <ul class="d-flex gap-4 flex-wrap flex-column">
+                                                @if($property->is_featured==1)
+                                                    <li class="flag-tag success">
 
-                            <div class="homeya-box list-style-1">
-                                @php
-                                    $imagePath = asset($property->images[0]->img);
-                                    $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
-                                @endphp
-                                <a href="{{ route('site.property.show', $property->slug) }}" class="images-group">
-                                    <div class="images-style">
-                                        <img src="{{ $correctedImagePath }}" alt="img">
-                                    </div>
-                                    <div class="top">
-                                        <ul class="d-flex gap-4 flex-wrap flex-column">
-                                            @if($property->is_featured==1)
-                                                <li class="flag-tag success">
-
-                                                    {{__('Featured')}}
+                                                        {{__('Featured')}}
+                                                    </li>
+                                                @endif
+                                                <li class="flag-tag style-1">For
+                                                    @if($property->status==0)
+                                                        {{__('Not available')}}
+                                                    @elseif($property->status==1)
+                                                        {{__('Preparing selling')}}
+                                                    @elseif($property->status==2)
+                                                        {{__('Selling')}}
+                                                    @elseif($property->status==3)
+                                                        {{__('sold')}}
+                                                    @elseif($property->status==4)
+                                                        {{__('Renting')}}
+                                                    @elseif($property->status==5)
+                                                        {{__('Rented')}}
+                                                    @elseif($property->status==6)
+                                                        {{__('Building')}}
+                                                    @else
+                                                        {{__('Unknown')}}
+                                                    @endif
                                                 </li>
-                                            @endif
-                                            <li class="flag-tag style-1">For
-                                                @if($property->status==0)
-                                                    {{__('Not available')}}
-                                                @elseif($property->status==1)
-                                                    {{__('Preparing selling')}}
-                                                @elseif($property->status==2)
-                                                    {{__('Selling')}}
-                                                @elseif($property->status==3)
-                                                    {{__('sold')}}
-                                                @elseif($property->status==4)
-                                                    {{__('Renting')}}
-                                                @elseif($property->status==5)
-                                                    {{__('Rented')}}
-                                                @elseif($property->status==6)
-                                                    {{__('Building')}}
-                                                @else
-                                                    {{__('Unknown')}}
-                                                @endif
-                                            </li>
-                                        </ul>
-                                        <ul class="d-flex gap-4">
-{{--                                            <li class="box-icon w-28">--}}
-{{--                                                <span class="icon icon-arrLeftRight"></span>--}}
-{{--                                            </li>--}}
-                                            <li class="box-icon w-28">
-                                                <span class="icon icon-heart"></span>
-                                            </li>
-                                            <li class="box-icon w-28">
-                                                <span class="icon icon-eye"></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="bottom">
-                                        <span class="flag-tag style-2">{{ $property->category->name }}</span>
-                                    </div>
-                                </a>
-                                <div class="content">
-                                    <div class="archive-top">
-                                        <div class="h7 text-capitalize fw-7">
-                                            <a href="{{ route('site.property.show', $property->slug) }}" class="link">
-                                                {{ $property->title }}
-                                            </a>
-                                        </div>
-                                        <div class="desc">
-                                            <i class="icon icon-mapPin"></i>
-                                            <p>
-                                                {{$property->address->full_address}}, {{$property->address->city->name}},
-                                                {{$property->address->state->name}},{{$property->address->country->name}}
-                                            </p>
-                                        </div>
-                                        <ul class="meta-list">
-                                            <li class="item">
-                                                <i class="icon icon-bed"></i>
-                                                <span>{{ $property->more_info->bedrooms }}</span>
-                                            </li>
-                                            <li class="item">
-                                                <i class="icon icon-bathtub"></i>
-                                                <span>{{ $property->more_info->bathrooms }}</span>
-                                            </li>
-                                            <li class="item">
-                                                <i class="icon icon-ruler"></i>
-                                                <span>{{ $property->more_info->size }} m²</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-8 align-items-center">
-                                            <div class="avatar avt-40 round">
-                                                @if($property->user_id!=null)
-                                                    <img src="{{asset($property->user->photo)}}" alt="avt">
+                                            </ul>
+                                            <ul class="d-flex gap-4">
 
-                                                @else
-                                                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="avt">
-                                                @endif
+                                                <li class="box-icon w-28">
+                                                    <span class="icon icon-heart"></span>
+                                                </li>
+                                                <li class="box-icon w-28">
+                                                    <span class="icon icon-eye"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bottom">
+                                            <span class="flag-tag style-2">{{ $property->category->name }}</span>
+                                        </div>
+                                    </a>
+                                    <div class="content">
+                                        <div class="archive-top">
+                                            <div class="h7 text-capitalize fw-7">
+                                                <a href="{{ route('site.property.show', $property->slug) }}" class="link">
+                                                    {{ $property->title }}
+                                                </a>
                                             </div>
-                                            <span>
-                                                @if($property->user_id!=null)
-                                                    {{$property->user->name}}
-                                                @else
-                                                    {{config('app.name')}}
-
-                                                @endif
-                                                </span>
+                                            <div class="desc">
+                                                <i class="icon icon-mapPin"></i>
+                                                <p>
+                                                    {{$property->address->full_address}}, {{$property->address->city->name}},
+                                                    {{$property->address->state->name}},{{$property->address->country->name}}
+                                                </p>
+                                            </div>
+                                            <ul class="meta-list">
+                                                <li class="item">
+                                                    <i class="icon icon-bed"></i>
+                                                    <span>{{ $property->more_info->bedrooms }}</span>
+                                                </li>
+                                                <li class="item">
+                                                    <i class="icon icon-bathtub"></i>
+                                                    <span>{{ $property->more_info->bathrooms }}</span>
+                                                </li>
+                                                <li class="item">
+                                                    <i class="icon icon-ruler"></i>
+                                                    <span>{{ $property->more_info->size }} m²</span>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="h7 fw-7">{{ $property->price->price }}</div>
-                                            <span class="text-variant-1">/m²</span>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex gap-8 align-items-center">
+                                                <div class="avatar avt-40 round">
+                                                    @if($property->user_id!=null)
+                                                        <img src="{{asset($property->user->photo)}}" alt="avt">
+
+                                                    @else
+                                                        <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="avt">
+                                                    @endif
+                                                </div>
+                                                <span>
+                                                    @if($property->user_id!=null)
+                                                        {{$property->user->name}}
+                                                    @else
+                                                        {{config('app.name')}}
+
+                                                    @endif
+                                                    </span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="h7 fw-7">{{ $property->price->price }}</div>
+                                                <span class="text-variant-1">/m²</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                    @endforeach
+                        @endforeach
                     </div>
 
                 </div>
