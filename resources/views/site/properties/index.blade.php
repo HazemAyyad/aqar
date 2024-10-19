@@ -62,7 +62,7 @@
                                                     $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
                                                 @endphp
                                                 <div   class="images-group">
-                                                    <div class="images-style">
+                                                    <div class="images-style-sp images-style">
                                                         <img src="{{$correctedImagePath}}" alt="{{ $property->title }}">
                                                     </div>
                                                     <div class="top">
@@ -177,7 +177,7 @@
                                                 $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
                                             @endphp
                                             <div   class="images-group">
-                                                <div class="images-style">
+                                                <div class="images-style images-style-sp">
                                                     <img src="{{$correctedImagePath}}" alt="{{ $property->title }}">
                                                 </div>
                                                 <div class="top">
