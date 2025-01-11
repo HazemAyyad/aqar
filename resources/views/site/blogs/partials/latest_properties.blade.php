@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
-                        <div class="h7 fw-7">${{ $property->price->price }}</div>
+                        <div class="h7 fw-7"> {{$data_settings['currency']}} {{ $property->price->price }}</div>
                         <span class="text-variant-1">/m²</span>
                     </div>
                 </div>

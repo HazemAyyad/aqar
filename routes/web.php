@@ -52,6 +52,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
          Route::get('faqs', [SiteController::class, 'faqs'])->name('faqs');
          Route::get('about-us', [SiteController::class, 'about_us'])->name('about-us');
          Route::get('contact-us', [SiteController::class, 'contact_us'])->name('contact');
+         Route::get('pricing-plans', [SiteController::class, 'pricing_plans'])->name('pricing-plans');
 
          Route::get('blogs', [SiteController::class, 'blogs'])->name('blogs');
          Route::get('blog/{slug}', [SiteController::class, 'show_blogs'])->name('blog.show');

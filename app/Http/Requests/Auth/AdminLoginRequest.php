@@ -18,6 +18,7 @@ class AdminLoginRequest extends FormRequest
     {
         return true;
     }
+    protected $redirector = '/admin/dashboard';
 
     /**
      * Get the validation rules that apply to the request.

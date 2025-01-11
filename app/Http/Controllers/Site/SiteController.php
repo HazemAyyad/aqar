@@ -15,6 +15,7 @@ use App\Models\Dashboard\Feature;
 use App\Models\Dashboard\FeatureCategory;
 use App\Models\Dashboard\Partner;
 use App\Models\Dashboard\PeopleSay;
+use App\Models\Dashboard\Plan;
 use App\Models\Dashboard\Policy;
 use App\Models\FaqCategory;
 use App\Models\PolicyCategory;
@@ -64,7 +65,7 @@ class SiteController extends Controller
         $agents = Agent::all();
         $people_says = PeopleSay::all();
         $benefits = Benefit::query()->take(3)->get();
-        $services = Service::query()->take(3)->latest();
+        $services = Service::query()->take(3)->oldest()->get();
         $cities = Property::query()
             ->where(['moderation_status' => 1])
             ->with([
@@ -92,6 +93,8 @@ class SiteController extends Controller
           $policies = Policy::all();
         return view('site.privacy-policy.index',compact('policies','categories'));
     }
+   
+
     public function properties(Request $request)
     {
 
@@ -487,6 +490,14 @@ class SiteController extends Controller
        $aboutUs=Setting::query()->where('page','about_us')->get();
         return view('site.contact_us.index', compact('services','features','agents','people_says'
         ,'benefits','partners','aboutUs'));
+    }
+    public function pricing_plans(Request $request)
+    {
+
+        $faqs = Faqs::all();
+        $plans = Plan::query()->where('status',1)->with('features')->get();
+
+        return view('site.pricing_plans.index', compact('faqs','plans'));
     }
 
     public function send_email_to_site(Request $request)

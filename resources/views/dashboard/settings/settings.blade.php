@@ -42,27 +42,27 @@
                                     @elseif($setting->key == 'youtube')
                                         <div class="form-group">
                                             <label class="form-label" for="youtube">{{__('Youtube')}}</label>
-                                            <input type="text" class="form-control" id="youtube" value="{{ $setting->value }}" name="whatsapp"  placeholder="{{__('Whatsapp')}}" required/>
+                                            <input type="text" class="form-control" id="youtube" value="{{ $setting->value }}" name="youtube"  placeholder="{{__('youtube')}}" required/>
                                         </div>
                                     @elseif($setting->key == 'twitter')
                                         <div class="form-group">
                                             <label class="form-label" for="twitter">{{__('twitter')}}</label>
-                                            <input type="text" class="form-control" id="twitter" value="{{ $setting->value }}" name="whatsapp"  placeholder="{{__('Whatsapp')}}" required/>
+                                            <input type="text" class="form-control" id="twitter" value="{{ $setting->value }}" name="twitter"  placeholder="{{__('twitter')}}" required/>
                                         </div>
                                     @elseif($setting->key == 'facebook')
                                         <div class="form-group">
                                             <label class="form-label" for="facebook">{{__('facebook')}}</label>
-                                            <input type="text" class="form-control" id="facebook" value="{{ $setting->value }}" name="whatsapp"  placeholder="{{__('Whatsapp')}}" required/>
+                                            <input type="text" class="form-control" id="facebook" value="{{ $setting->value }}" name="facebook"  placeholder="{{__('facebook')}}" required/>
                                         </div>
                                     @elseif($setting->key == 'instagram')
                                         <div class="form-group">
                                             <label class="form-label" for="instagram">{{__('instagram')}}</label>
-                                            <input type="text" class="form-control" id="instagram" value="{{ $setting->value }}" name="whatsapp"  placeholder="{{__('Whatsapp')}}" required/>
+                                            <input type="text" class="form-control" id="instagram" value="{{ $setting->value }}" name="instagram"  placeholder="{{__('instagram')}}" required/>
                                         </div>
                                     @elseif($setting->key == 'linkedin')
                                         <div class="form-group">
-                                            <label class="form-label" for="linkedin">{{__('linkedin')}}</label>
-                                            <input type="text" class="form-control" id="linkedin" value="{{ $setting->value }}" name="whatsapp"  placeholder="{{__('Whatsapp')}}" required/>
+                                            <label class="form-label" for="linkedin" >{{__('linkedin')}}</label>
+                                            <input type="text" class="form-control" id="linkedin" value="{{ $setting->value }}" name="linkedin"  placeholder="{{__('linkedin')}}" required/>
                                         </div>
                                     @elseif($setting->key == 'slogan')
                                         <div class="form-group mb-3">

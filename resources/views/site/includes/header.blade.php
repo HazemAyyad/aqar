@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{asset('/site/css/swiper-bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('/site/css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('/site/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/site/css/apexcharts.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('/site/css/apexcharts.css')}}">--}}
     <link rel="stylesheet"type="text/css" href="{{asset('/site/css/jqueryui.min.css')}}"/>
     @yield('style')
     @if (App::isLocale('en'))
@@ -30,6 +30,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{asset('/site/images/logo/favicon.png')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" rel="stylesheet">--}}
 
     <style>
           @font-face {
@@ -201,7 +202,7 @@
                         <div class="inner-container d-flex justify-content-between align-items-center">
                             <!-- Logo Box -->
                             <div class="logo-box">
-                                <div class="logo"><a href="{{route('site.index')}}"><img src="{{asset($data_settings['main_logo'])}}" alt="logo" width="174" height="44"></a></div>
+                                <div class="logo"><a href="{{route('site.index')}}"><img src="{{asset($data_settings['main_logo'])}}" alt="logo" width="60" height="60"></a></div>
                             </div>
                             <div class="nav-outer">
                                 <!-- Main Menu -->
@@ -228,6 +229,7 @@
                                                 <ul>
                                                     <li><a href="{{route('site.faqs')}}">{{__('FAQs')}}</a></li>
                                                     <li><a href="{{route('site.about-us')}}">{{__('About Us')}}</a></li>
+                                                    <li><a href="{{route('site.pricing-plans')}}">{{__('Pricing')}}</a></li>
 
                                                 </ul>
                                             </li>
@@ -255,9 +257,9 @@
                                                 </li>
                                             @endif
                                         @endforeach
-                                       
+
                                     </ul>
-                                    
+
                                 </div>
 
 

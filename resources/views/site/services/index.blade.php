@@ -57,7 +57,7 @@
                 <div class="col-lg-3">
                     <div class="box-title">
                         <div class="text-subtitle text-primary">{{__('Top Properties')}}</div>
-                        <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
+                        <h4 class="mt-4">{{__('Clients feedback')}}</h4>
                     </div>
                     <p class="text-variant-1 p-16">{{__('Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results')}}.</p>
                     <div class="box-navigation">

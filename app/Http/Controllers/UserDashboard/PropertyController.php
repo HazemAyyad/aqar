@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\UserDashboard;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 
 use App\Models\Country;
@@ -156,6 +157,18 @@ class PropertyController extends Controller
 
     }
     public function store(Request $request){
+//        $data = [
+//            'user_id' => Auth::guard('web')->user()->id,
+//            'author'=>Auth::guard('web')->user()->name,
+//            'url' => url('/admin/property/edit/'),
+//            'title'=>__('New Aqar by ').$request->name,
+//            'timestamp' => now()->toDateTimeString(),
+//        ];
+
+        // Dispatch the event
+//        event(new NotificationEvent($data));
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'slug' => 'required',
@@ -277,6 +290,16 @@ class PropertyController extends Controller
                         ]);
                     }
                 }
+                $data = [
+                    'user_id' => Auth::guard('web')->user()->id,
+                    'author'=>Auth::guard('web')->user()->name,
+                    'url' => url('/admin/property/edit/'.$property->id),
+                    'title'=>__('New Aqar by ').$request->name,
+                    'timestamp' => now()->toDateTimeString(),
+                ];
+
+                // Dispatch the event
+                event(new NotificationEvent($data));
                 DB::commit();
                 return response()->json(['success'=>"The process has successfully"]);
             }catch (\Throwable $e) {

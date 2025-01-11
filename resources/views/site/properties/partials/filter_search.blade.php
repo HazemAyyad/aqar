@@ -76,8 +76,13 @@
                                 </div>
                                 <div id="slider-range"></div>
                                 <div class="slider-labels">
-                                    <input type="hidden" name="min-value" value="{{ request('min-value', '0') }}">
-                                    <input type="hidden" name="max-value" value="{{ request('max-value', '1000000') }}">
+
+                                    <!-- Hidden inputs for price range -->
+                                    <input type="hidden" name="min-value" value="{{ request('min-value', 0) }}">
+                                    <input type="hidden" name="max-value" value="{{ request('max-value', 1000000) }}">
+
+
+
                                 </div>
                             </div>
                             <div class="form-style widget-price wd-price-2">
@@ -92,8 +97,9 @@
                                 </div>
                                 <div id="slider-range2"></div>
                                 <div class="slider-labels">
-                                    <input type="hidden" name="min-value2" value="{{ request('min-value2', '0') }}">
-                                    <input type="hidden" name="max-value2" value="{{ request('max-value2', '10000') }}">
+                                    <!-- Hidden inputs for size range -->
+                                    <input type="hidden" name="min-value2" value="{{ request('min-value2', 0) }}">
+                                    <input type="hidden" name="max-value2" value="{{ request('max-value2', 10000) }}">
                                 </div>
                             </div>
                             <div class="form-style btn-show-advanced">

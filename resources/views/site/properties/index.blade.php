@@ -102,7 +102,7 @@
                                                                     <span class="icon icon-eye"></span>
                                                                 </a>
                                                             </li>
-                                                        </ul> 
+                                                        </ul>
                                                     </div>
                                                     <div class="bottom">
                                                         <span class="flag-tag style-2">{{ $property->category->name }}</span>
@@ -152,7 +152,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="d-flex align-items-center">
-                                                    <h6>${{ $property->price->price }}</h6>
+                                                    <h6> {{$data_settings['currency']}} {{ $property->price->price }}</h6>
                                                     <span class="text-variant-1">/m²</span>
                                                 </div>
                                             </div>
@@ -262,7 +262,7 @@
                                                     </span>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <h6>${{ $property->price->price }}</h6>
+                                                        <h6> {{$data_settings['currency']}} {{ $property->price->price }}</h6>
                                                         <span class="text-variant-1">/m²</span>
                                                     </div>
                                                 </div>
@@ -284,6 +284,10 @@
 @endsection
 @section('scripts')
     <script>
+
+    </script>
+    <script>
+
         $(document).ready(function() {
             $('select').niceSelect(); // If you're using niceSelect for styling
 
@@ -293,42 +297,23 @@
             });
         });
 
-        $(function() {
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 1000000,
-                values: [$("#slider-range-value1").text(), $("#slider-range-value2").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value1").text(ui.values[0]);
-                    $("#slider-range-value2").text(ui.values[1]);
-                    $("input[name='min-value']").val(ui.values[0]);
-                    $("input[name='max-value']").val(ui.values[1]);
-                }
-            });
-
-            $("#slider-range2").slider({
-                range: true,
-                min: 0,
-                max: 10000,
-                values: [$("#slider-range-value01").text(), $("#slider-range-value02").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value01").text(ui.values[0]);
-                    $("#slider-range-value02").text(ui.values[1]);
-                    $("input[name='min-value2']").val(ui.values[0]);
-                    $("input[name='max-value2']").val(ui.values[1]);
-                }
-            });
-        });
 
         document.addEventListener('DOMContentLoaded', function () {
             var tabs = document.querySelectorAll('.nav-link-item');
+            var selectedTabInput = document.getElementById('selectedTab');
+
+            // Set default value to 'rent' if selectedTab is not already set
+            if (!selectedTabInput.value) {
+                selectedTabInput.value = 'rent'; // or the actual value corresponding to your 'Rent' tab
+            }
+
             tabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     var selectedTab = this.getAttribute('href').substring(1);
-                    document.getElementById('selectedTab').value = selectedTab;
+                    selectedTabInput.value = selectedTab;
                 });
             });
         });
+
     </script>
 @endsection

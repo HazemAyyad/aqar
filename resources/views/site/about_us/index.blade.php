@@ -132,7 +132,7 @@
         <div class="container">
             <div class="box-title text-center">
                 <div class="text-subtitle text-primary">{{__('Our Testimonials')}}</div>
-                <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
+                <h4 class="mt-4">{{__('Clients feedback')}}</h4>
             </div>
             <div class="swiper tf-sw-testimonial" data-preview-lg="2" data-preview-md="2" data-preview-sm="2" data-space="30">
                 <div class="swiper-wrapper">

@@ -173,10 +173,212 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css
     <script>
         const userId = "{{Auth::id()}}";
     </script>
-    <script src="{{ asset('js/app.js')}}"></script>
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <!-- Font Awesome CSS -->
+    <!-- jQuery -->
+    <!-- Toastr JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- Pusher JavaScript -->
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+    <style>
+        /* Customize the toast appearance */
+        .toast-success.custom-toast {
+            background-color: white !important; /* White background */
+            color: #28a745 !important; /* Green text color */
+            border: 1px solid #28a745; /* Green border */
+        }
+
+        /* Customize the progress bar color to green */
+        .toast-success.custom-toast .toast-progress {
+            background-color: #28a745 !important;
+        }
+
+        /* Style the close button inside a red circle */
+        .toast-close-button {
+            background-color: red !important;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .toast-close-button:hover {
+            background-color: darkred;
+        }
+
+        /* Modify the layout of the toast message */
+        .toast-title {
+            font-weight: bold;
+        }
+
+        .toast-message {
+            font-size: 14px;
+        }
+
+        /* Customize the toast container */
+        #toast-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+        }
+
+        /* Optional: Add a fade-in effect */
+        .toast {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .notification-content i,.notification-content span{
+            color: #0a3622;
+        }
+    </style>
+
+    <script>
+        Pusher.logToConsole = true;
+
+        // Initialize Pusher
+        var pusher = new Pusher('d3259213b97686091820', {
+            cluster: 'ap2'
+        });
+
+        // Subscribe to the channel
+        var channel = pusher.subscribe('notification');
+
+        // Define the notification audio
+        const audio = new Audio('{{ asset('audio/notfiy.mp3') }}');
+        audio.preload = 'auto'; // Preload audio for quicker playback
+        audio.loop = false;     // Ensure it doesn't loop by default
+        let audioUnlocked = false; // Flag to track if the audio is unlocked
+
+        // Function to unlock audio
+        const unlockAudio = () => {
+            if (!audioUnlocked) {
+                console.log('User interaction detected - unlocking audio.');
+                audio.muted = true; // Mute audio for autoplay unlock
+                audio.play()
+                    .then(() => {
+                        audioUnlocked = true;
+                        console.log('Audio unlocked successfully.');
+                        audio.pause();
+                        audio.muted = false; // Unmute for actual playback
+                        audio.currentTime = 0; // Reset playback position
+                    })
+                    .catch(error => console.error('Audio unlock failed:', error));
+            }
+        };
+
+        // Function to play the audio
+        const playAudio = () => {
+            if (audioUnlocked) {
+                console.log('Attempting to play audio...');
+                audio.play()
+                    .then(() => console.log('Audio played successfully.'))
+                    .catch(error => console.error('Audio playback failed:', error));
+            } else {
+                console.log('Audio is locked, cannot play.');
+            }
+        };
+
+        // Add event listeners to unlock audio on user interaction
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('keydown', unlockAudio, { once: true });
+
+        // Listen to the Pusher notification event
+        channel.bind('notification.event', function (data) {
+            console.log('Received data:', data); // Log the received data
+
+            if (data.author && data.title) {
+                // Generate notification HTML
+                var notificationsWrapper = $('#ul_notifications');
+                var notificationsCountElem = $('#notifications-item-count');
+                var notificationsCount = parseInt(notificationsCountElem.data('count')) || 0;
+                var existingNotifications = notificationsWrapper.html();
+                var newNotificationHtml = `
+                <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                    <a class="d-flex" href="{{url('/admin/notification/show')}}/${data.id}">
+                        <div class="flex-shrink-0 me-3">
+                            <div class="avatar">
+                                <img src="{{ asset('bell.png') }}" alt class="h-auto rounded-circle"/>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">${data.title}</h6>
+                            <small class="text-muted">${data.time}</small>
+                        </div>
+                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <span class="dropdown-notifications-read">
+                                <span class="badge badge-dot"></span>
+                            </span>
+                        </div>
+                    </a>
+                </li>`;
+
+                notificationsWrapper.html(newNotificationHtml + existingNotifications);
+                notificationsCount += 1;
+                notificationsCountElem.data('count', notificationsCount);
+                notificationsCountElem.text(notificationsCount);
+                notificationsWrapper.show();
+
+                // Show Toastr notification
+                toastr.success(
+                    `<a target="_blank" href="${data.url}">
+                    <div class="notification-content">
+                        <i class="fas fa-check-circle" ></i> <!-- Check Icon -->
+                        <span>${data.author}</span>
+                        <i class="fas fa-book" style="margin-left: 20px;"></i>
+                        <span>${data.title}</span>
+                    </div>
+                </a>`,
+                    __('New Aqar '),
+                    {
+                        closeButton: true,          // Show close button
+                        progressBar: true,          // Enable progress bar
+                        timeOut: 5000,              // Duration in milliseconds
+                        extendedTimeOut: 1000,      // Extra time when hovered
+                        positionClass: "toast-top-right", // Position on screen
+                        escapeHtml: false,          // Allow HTML in the message content
+                        toastClass: "toast-success custom-toast", // Custom class
+                    }
+                );
+
+                // Play audio if it's unlocked
+                playAudio();
+            } else {
+                console.error('Invalid data received:', data);
+            }
+        });
+
+        // Debugging line to confirm Pusher connection
+        pusher.connection.bind('connected', function () {
+            console.log('Pusher connected');
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
 </head>
 
 <body>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="content-footer-top">
                 <div class="footer-logo">
-                    <img src="{{asset($data_settings['secondary_logo'])}}" alt="logo-footer" width="174" height="44">
+                    <img src="{{asset($data_settings['secondary_logo'])}}" alt="logo-footer" >
                 </div>
                 <div class="wd-social">
                     <span>{{__('Follow Us')}}:</span>
@@ -259,19 +259,31 @@
 <script type="text/javascript" src="{{asset('/site/js/carousel.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/plugin.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/jquery.nice-select.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('/site/js/rangle-slider.js')}}"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>--}}
+
 <script type="text/javascript" src="{{asset('/site/js/countto.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/shortcodes.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/chart.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/chart-init.js')}}"></script>
 <script type="text/javascript" src="{{asset('/site/js/animation_heading.js')}}"></script>
-<script type="text/javascript" src="{{asset('/site/js/main.js')}}"></script>
+{{--<script type="text/javascript" src="{{asset('/site/js/main.js')}}"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script>
+    window.AppData = {
+        currency: @json($data_settings['currency']),
+        min_currency: @json($data_settings['min_currency']),
+        max_currency: @json($data_settings['max_currency']),
+        unit_size: @json($data_settings['unit_size']),
+        min_size: @json($data_settings['min_size']),
+        max_size: @json($data_settings['max_size']),
+    };
+    console.log(window.AppData)
+</script>
+<script type="text/javascript" src="{{asset('/site/js/rangle-slider.js')}}"></script>
 
 <script>
     $(function() {

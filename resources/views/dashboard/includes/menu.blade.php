@@ -189,6 +189,16 @@
                         </a>
                     </li>
                     <li class="menu-item">
+                        <a href="{{route('admin.plans.index')}}" class="menu-link">
+                            <div data-i18n="{{__('Plans')}}">{{__('Plans')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('admin.plan_features.index')}}" class="menu-link">
+                            <div data-i18n="{{__('Plan Feature')}}">{{__('Plan Feature')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
                         <a href="{{route('admin.settings.page','sections')}}" class="menu-link">
                             <div data-i18n="{{__('Sections')}}">{{__('Sections')}}</div>
                         </a>

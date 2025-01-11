@@ -3,7 +3,10 @@
 use App\Http\Controllers\AdminAuth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminAuth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\PlanController;
+use App\Http\Controllers\Dashboard\PlanFeatureController;
 use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -111,6 +114,28 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::get('/agent/create', [AgentController::class, 'create'])->name('create');
         Route::post('/agent/store', [AgentController::class, 'store'])->name('store');
         Route::delete('/agent/delete/{id}', [AgentController::class, 'delete'])->name('delete');
+
+    });
+    //plans
+    Route::as('plans.')->group(function () {
+        Route::get('plans', [PlanController::class, 'index'])->name('index');
+        Route::get('get_plans', [PlanController::class, 'get_plans'])->name('get_plans');
+        Route::get('/plan/edit/{id}', [PlanController::class, 'edit'])->name('edit');
+        Route::post('/plan/update/{id}', [PlanController::class, 'update'])->name('update');
+        Route::get('/plan/create', [PlanController::class, 'create'])->name('create');
+        Route::post('/plan/store', [PlanController::class, 'store'])->name('store');
+        Route::delete('/plan/delete/{id}', [PlanController::class, 'delete'])->name('delete');
+
+    });
+    //plan_features
+    Route::as('plan_features.')->group(function () {
+        Route::get('plan_features', [PlanFeatureController::class, 'index'])->name('index');
+        Route::get('get_plan_features', [PlanFeatureController::class, 'get_plan_features'])->name('get_plan_features');
+        Route::get('/plan_feature/edit/{id}', [PlanFeatureController::class, 'edit'])->name('edit');
+        Route::post('/plan_feature/update/{id}', [PlanFeatureController::class, 'update'])->name('update');
+        Route::get('/plan_feature/create', [PlanFeatureController::class, 'create'])->name('create');
+        Route::post('/plan_feature/store', [PlanFeatureController::class, 'store'])->name('store');
+        Route::delete('/plan_feature/delete/{id}', [PlanFeatureController::class, 'delete'])->name('delete');
 
     });
 //agents
@@ -284,11 +309,15 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::delete('blogs/delete/{id}', [BlogController::class, 'delete'])->name('delete');
 
     });
+//notification
+    Route::as('notification.')->group(function () {
+        //
+        Route::get('notifications', [NotificationController::class, 'notifications'])->name('notifications');
+        Route::get('show/{notify_id}', [NotificationController::class, 'show'])->name('show');
+        Route::get('read_all', [NotificationController::class, 'read_all'])->name('read_all');
 
-    Route::get('notifications', 'Dashboard\NotificationController@notifications')->name('notifications');
+    });
 
-    Route::get('notification/show/{notify_id}', 'Dashboard\NotificationController@show')->name('notification.show');
-    Route::get('read_all', 'Dashboard\NotificationController@read_all')->name('notification.read_all');
 
     Route::post('ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.image-upload');
 

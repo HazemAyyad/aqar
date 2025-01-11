@@ -1,67 +1,98 @@
 // Requires jQuery
 
+    const currency = window.AppData.currency || '$';
+    const minCurrency = Number(window.AppData.min_currency);
+    const maxCurrency = Number(window.AppData.max_currency);
+    const unitSize =  window.AppData.unit_size|| ' m²';
+    const minSize = Number(window.AppData.min_size);
+    const maxSize = Number(window.AppData.max_size);
+
+
 // Initialize slider:
 $(document).ready(function () {
-  $(".noUi-handle").on("click", function () {
-    $(this).width(50);
-  });
-  var rangeSlider = document.getElementById("slider-range");
-  var moneyFormat = wNumb({
-    decimals: 0,
-    thousand: ",",
-    prefix: "$",
-  });
-  noUiSlider.create(rangeSlider, {
-    start: [100, 650000],
-    step: 1,
-    range: {
-      min: [100],
-      max: [650000],
-    },
-    format: moneyFormat,
-    connect: true,
-  });
-  // Set visual min and max values and also update value hidden form inputs
-  rangeSlider.noUiSlider.on("update", function (values, handle) {
-    document.getElementById("slider-range-value1").innerHTML = values[0];
-    document.getElementById("slider-range-value2").innerHTML = values[1];
-    document.getElementsByName("min-value").value = moneyFormat.from(values[0]);
-    document.getElementsByName("max-value").value = moneyFormat.from(values[1]);
-  });
+    // Parse the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const minValue = urlParams.get('min-value') || minCurrency; // Default to 100 if not found
+    const maxValue = urlParams.get('max-value') || maxCurrency; // Default to 650000 if not found
+
+    $(".noUi-handle").on("click", function () {
+        $(this).width(50);
+    });
+
+    var rangeSlider = document.getElementById("slider-range");
+    var moneyFormat = wNumb({
+        decimals: 0,
+        thousand: ",",
+        prefix: currency+' ',
+    });
+
+    // Initialize noUiSlider with values from the query parameters or default values
+    noUiSlider.create(rangeSlider, {
+        start: [minValue, maxValue], // Set initial values from URL params or defaults
+        step: 1,
+        range: {
+            min: [minCurrency],
+            max: [maxCurrency],
+        },
+        format: moneyFormat,
+        connect: true,
+    });
+
+    // Update the visual min and max values and the hidden form inputs
+    rangeSlider.noUiSlider.on("update", function (values, handle) {
+        document.getElementById("slider-range-value1").innerHTML = values[0];
+        document.getElementById("slider-range-value2").innerHTML = values[1];
+
+        // Set hidden inputs for min-value and max-value
+        document.getElementsByName("min-value")[0].value = moneyFormat.from(values[0]);
+        document.getElementsByName("max-value")[0].value = moneyFormat.from(values[1]);
+
+    });
 });
 
+
 $(document).ready(function () {
-  $(".noUi-handle2").on("click", function () {
-    $(this).width(50);
-  });
-  var rangeSlider = document.getElementById("slider-range2");
-  var moneyFormat = wNumb({
-    decimals: 0,
-    thousand: ",",
-    postfix: " m²",
-  });
-  noUiSlider.create(rangeSlider, {
-    start: [500, 1500],
-    step: 1,
-    range: {
-      min: [20],
-      max: [10000],
-    },
-    format: moneyFormat,
-    connect: true,
-  });
-  // Set visual min and max values and also update value hidden form inputs
-  rangeSlider.noUiSlider.on("update", function (values, handle) {
-    document.getElementById("slider-range-value01").innerHTML = values[0];
-    document.getElementById("slider-range-value02").innerHTML = values[1];
-    document.getElementsByName("min-value2").value = moneyFormat.from(
-      values[0]
-    );
-    document.getElementsByName("max-value2").value = moneyFormat.from(
-      values[1]
-    );
-  });
+    // Parse the query parameters from the URL for second slider
+    const urlParams = new URLSearchParams(window.location.search);
+    const minValue2 = urlParams.get('min-value2') || minSize; // Default to 500 if not found
+    const maxValue2 = urlParams.get('max-value2') || maxSize; // Default to 1500 if not found
+
+    // Handle click event for the second slider handles
+    $(".noUi-handle2").on("click", function () {
+        $(this).width(50);
+    });
+
+    var rangeSlider2 = document.getElementById("slider-range2");
+    var moneyFormat2 = wNumb({
+        decimals: 0,
+        thousand: ",",
+        postfix: ' '+unitSize, // Square meters format
+    });
+
+    // Initialize the second slider with values from the query parameters or default values
+    noUiSlider.create(rangeSlider2, {
+        start: [minValue2, maxValue2], // Set initial values from URL params or defaults
+        step: 1,
+        range: {
+            min: [minSize],
+            max: [maxSize],
+        },
+        format: moneyFormat2,
+        connect: true,
+    });
+
+    // Update the visual min and max values and the hidden form inputs for the second slider
+    rangeSlider2.noUiSlider.on("update", function (values, handle) {
+        document.getElementById("slider-range-value01").innerHTML = values[0];
+        document.getElementById("slider-range-value02").innerHTML = values[1];
+
+        // Set hidden inputs for min-value2 and max-value2
+        document.getElementsByName("min-value2")[0].value = moneyFormat2.from(values[0]);
+        document.getElementsByName("max-value2")[0].value = moneyFormat2.from(values[1]);
+
+    });
 });
+
 
 $(document).ready(function () {
   if ($("#slider-range3").length > 0) {

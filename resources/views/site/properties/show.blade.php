@@ -691,7 +691,7 @@
                     <div class="title">
                         <a href="{{ route('site.property.show', $property->slug) }}" title="{{ Str::limit($property->title, 20) }}">{{ Str::limit($property->title, 20) }}</a>
                     </div>
-                    <div class="price">${{ $property->price->price }}</div>
+                    <div class="price"> {{$data_settings['currency']}} {{ $property->price->price }}</div>
                     <ul class="list-info">
                         <li>
                             <i class="icon icon-bed"></i>
@@ -726,43 +726,25 @@
             });
         });
 
-        $(function() {
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 1000000,
-                values: [$("#slider-range-value1").text(), $("#slider-range-value2").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value1").text(ui.values[0]);
-                    $("#slider-range-value2").text(ui.values[1]);
-                    $("input[name='min-value']").val(ui.values[0]);
-                    $("input[name='max-value']").val(ui.values[1]);
-                }
-            });
 
-            $("#slider-range2").slider({
-                range: true,
-                min: 0,
-                max: 10000,
-                values: [$("#slider-range-value01").text(), $("#slider-range-value02").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value01").text(ui.values[0]);
-                    $("#slider-range-value02").text(ui.values[1]);
-                    $("input[name='min-value2']").val(ui.values[0]);
-                    $("input[name='max-value2']").val(ui.values[1]);
-                }
-            });
-        });
 
         document.addEventListener('DOMContentLoaded', function () {
             var tabs = document.querySelectorAll('.nav-link-item');
+            var selectedTabInput = document.getElementById('selectedTab');
+
+            // Set default value to 'rent' if selectedTab is not already set
+            if (!selectedTabInput.value) {
+                selectedTabInput.value = 'rent'; // or the actual value corresponding to your 'Rent' tab
+            }
+
             tabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     var selectedTab = this.getAttribute('href').substring(1);
-                    document.getElementById('selectedTab').value = selectedTab;
+                    selectedTabInput.value = selectedTab;
                 });
             });
         });
+
         function myFunction() {
             var five = document.getElementById('1-star').checked;
             document.getElementById("one").innerHTML = five;

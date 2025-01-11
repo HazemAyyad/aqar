@@ -454,7 +454,7 @@
         <!-- End Benefit -->
         @endif
 
-        
+
         @if(isset($data_settings['4_top']) && $data_settings['4_top'] == 1)
         <!-- Property  -->
         <section class="flat-section flat-property">
@@ -578,7 +578,7 @@
                                             </span>
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <h6>{{ $property->price->price }}</h6>
+                                            <h6> {{$data_settings['currency']}} {{ $property->price->price }}</h6>
                                             <span class="text-variant-1">/{{__('month')}}</span>
                                         </div>
                                     </div>
@@ -693,7 +693,7 @@
                                                     </span>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <div class="h7 fw-7">{{ $property->price->price }}</div>
+                                                <div class="h7 fw-7"> {{$data_settings['currency']}} {{ $property->price->price }}</div>
                                                 <span class="text-variant-1">/m²</span>
                                             </div>
                                         </div>
@@ -715,7 +715,7 @@
                     <div class="col-lg-3">
                         <div class="box-title">
                             <div class="text-subtitle text-primary">{{__('Top Properties')}}</div>
-                            <h4 class="mt-4">{{__('What’s people say’s')}}</h4>
+                            <h4 class="mt-4">{{__('Clients feedback')}}</h4>
                         </div>
                         <p class="text-variant-1 p-16">{{__('Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.')}}</p>
                         <div class="box-navigation">
@@ -904,42 +904,50 @@
             });
         });
 
-        $(function() {
-            $("#slider-range").slider({
-                range: true,
-                min: 0,
-                max: 1000000,
-                values: [$("#slider-range-value1").text(), $("#slider-range-value2").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value1").text(ui.values[0]);
-                    $("#slider-range-value2").text(ui.values[1]);
-                    $("input[name='min-value']").val(ui.values[0]);
-                    $("input[name='max-value']").val(ui.values[1]);
-                }
-            });
-
-            $("#slider-range2").slider({
-                range: true,
-                min: 0,
-                max: 10000,
-                values: [$("#slider-range-value01").text(), $("#slider-range-value02").text()],
-                slide: function(event, ui) {
-                    $("#slider-range-value01").text(ui.values[0]);
-                    $("#slider-range-value02").text(ui.values[1]);
-                    $("input[name='min-value2']").val(ui.values[0]);
-                    $("input[name='max-value2']").val(ui.values[1]);
-                }
-            });
-        });
+        // $(function() {
+        //     $("#slider-range").slider({
+        //         range: true,
+        //         min: 0,
+        //         max: 1000000,
+        //         values: [$("#slider-range-value1").text(), $("#slider-range-value2").text()],
+        //         slide: function(event, ui) {
+        //             $("#slider-range-value1").text(ui.values[0]);
+        //             $("#slider-range-value2").text(ui.values[1]);
+        //             $("input[name='min-value']").val(ui.values[0]);
+        //             $("input[name='max-value']").val(ui.values[1]);
+        //         }
+        //     });
+        //
+        //     $("#slider-range2").slider({
+        //         range: true,
+        //         min: 0,
+        //         max: 10000,
+        //         values: [$("#slider-range-value01").text(), $("#slider-range-value02").text()],
+        //         slide: function(event, ui) {
+        //             $("#slider-range-value01").text(ui.values[0]);
+        //             $("#slider-range-value02").text(ui.values[1]);
+        //             $("input[name='min-value2']").val(ui.values[0]);
+        //             $("input[name='max-value2']").val(ui.values[1]);
+        //         }
+        //     });
+        // });
 
         document.addEventListener('DOMContentLoaded', function () {
             var tabs = document.querySelectorAll('.nav-link-item');
+            var selectedTabInput = document.getElementById('selectedTab');
+
+            // Set default value to 'rent' if selectedTab is not already set
+            if (!selectedTabInput.value) {
+                selectedTabInput.value = 'rent'; // or the actual value corresponding to your 'Rent' tab
+            }
+
             tabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     var selectedTab = this.getAttribute('href').substring(1);
-                    document.getElementById('selectedTab').value = selectedTab;
+                    selectedTabInput.value = selectedTab;
                 });
             });
         });
+
     </script>
 @endsection

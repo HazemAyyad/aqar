@@ -143,7 +143,7 @@ class SettingController extends Controller
 
     public function update_settings(Request $request, $page_name)
     {
-        // Fetch the settings based on the page identifier (e.g., page name)
+         // Fetch the settings based on the page identifier (e.g., page name)
         $settings = Setting::where('page', $page_name)->get();
 
         // Loop through each setting and update it based on the key
@@ -214,7 +214,7 @@ class SettingController extends Controller
                 case 'main_logo':
                     if ($request->hasFile('main_logo')) {
                         $image_url = $request->file('main_logo');
-                        $image_name = '/uploads/logos/' . time() . '.' . $image_url->getClientOriginalExtension();
+                        $image_name = '/uploads/logos/' . Uuid::uuid4() . '.' . $image_url->getClientOriginalExtension();
                         $image_url->move(public_path('uploads/logos'), $image_name);
                         $setting->value = $image_name; // Save the file path in the database
                     }
@@ -223,7 +223,7 @@ class SettingController extends Controller
                 case 'secondary_logo':
                     if ($request->hasFile('secondary_logo')) {
                         $image_url = $request->file('secondary_logo');
-                        $image_name = '/uploads/logos/' . time() . '.' . $image_url->getClientOriginalExtension();
+                        $image_name = '/uploads/logos/' . Uuid::uuid4() . '.' . $image_url->getClientOriginalExtension();
                         $image_url->move(public_path('uploads/logos'), $image_name);
                         $setting->value = $image_name; // Save the file path in the database
                     }

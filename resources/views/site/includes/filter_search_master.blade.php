@@ -11,7 +11,7 @@
         <div class="tab-pane fade active show" role="tabpanel">
             <div class="form-sl">
                 <form method="GET" action="{{ route('site.properties') }}">
-                    <input type="hidden" name="tab" id="selectedTab" value="{{ request('tab') }}">
+                    <input type="hidden" name="tab"  id="selectedTab" value="{{ request('tab') }}">
                     <div class="wd-find-select">
                         <div class="inner-group">
                             <div class="form-group-1 search-form form-style">
@@ -49,41 +49,38 @@
                         <div class="grid-2 group-box group-price">
                             <div class="widget-price">
                                 <div class="box-title-price">
-                                    <span class="title-price">{{__('Price Range')}}</span>
+                                    <span class="title-price">{{ __('Price Range') }}</span>
                                     <div class="caption-price">
-                                        <span>{{__('from')}}</span>
+                                        <span>{{ __('from') }}</span>
                                         <span id="slider-range-value1" class="fw-7">{{ request('min-value', '0') }}</span>
-                                        <span>{{__('to')}}</span>
+                                        <span>{{ __('to') }}</span>
                                         <span id="slider-range-value2" class="fw-7">{{ request('max-value', '1000000') }}</span>
                                     </div>
                                 </div>
                                 <div id="slider-range"></div>
                                 <div class="slider-labels">
-                                    <div>
-                                        <input type="hidden" name="min-value" value="{{ request('min-value', '0') }}">
-                                        <input type="hidden" name="max-value" value="{{ request('max-value', '1000000') }}">
-                                    </div>
+                                    <input type="hidden" name="min-value" value="{{ request('min-value', '0') }}">
+                                    <input type="hidden" name="max-value" value="{{ request('max-value', '1000000') }}">
                                 </div>
                             </div>
 
                             <div class="widget-price">
                                 <div class="box-title-price">
-                                    <span class="title-price">{{__('Size Range')}}</span>
+                                    <span class="title-price">{{ __('Size Range') }}</span>
                                     <div class="caption-price">
-                                        <span>{{__('from')}}</span>
+                                        <span>{{ __('from') }}</span>
                                         <span id="slider-range-value01" class="fw-7">{{ request('min-value2', '0') }}</span>
-                                        <span>{{__('to')}}</span>
+                                        <span>{{ __('to') }}</span>
                                         <span id="slider-range-value02" class="fw-7">{{ request('max-value2', '10000') }}</span>
                                     </div>
                                 </div>
                                 <div id="slider-range2"></div>
                                 <div class="slider-labels">
-                                    <div>
-                                        <input type="hidden" name="min-value2" value="{{ request('min-value2', '0') }}">
-                                        <input type="hidden" name="max-value2" value="{{ request('max-value2', '10000') }}">
-                                    </div>
+                                    <input type="hidden" name="min-value2" value="{{ request('min-value2', '0') }}">
+                                    <input type="hidden" name="max-value2" value="{{ request('max-value2', '10000') }}">
                                 </div>
                             </div>
+
                         </div>
                         <div class="grid-2 group-box">
                             <div class="group-select grid-2">
