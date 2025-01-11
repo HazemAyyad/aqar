@@ -5060,6 +5060,11 @@ label {
   overflow: hidden;
   border: 1px solid #e4e4e4;
 }
+.homeya-box .images-group-sp {
+  position: relative;
+  width: 30%;
+  display: block;
+}
 .homeya-box .images-group {
   position: relative;
   display: block;
@@ -7094,7 +7099,10 @@ label {
 .latest-property-item:hover .images-style::after {
   opacity: 1;
 }
-
+.images-style-sp img {
+  max-width: 100%;
+  height: 250px;
+}
 .fixed-sidebar {
   position: sticky;
   top: 100px;

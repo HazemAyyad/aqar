@@ -598,7 +598,7 @@
                                         $imagePath = asset($property->images[0]->img);
                                         $correctedImagePath = str_replace('/public/public/', '/public/', $imagePath);
                                     @endphp
-                                    <a href="{{ route('site.property.show', $property->slug) }}" class="images-group">
+                                    <a href="{{ route('site.property.show', $property->slug) }}" class="images-group images-group-sp">
                                         <div class="images-style">
                                             <img src="{{ $correctedImagePath }}" alt="img">
                                         </div>
